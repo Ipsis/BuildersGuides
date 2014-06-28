@@ -1,0 +1,18 @@
+[
+{
+  "modid": "buildersguides",
+  "name": "Builders Guides",
+  "description": "Flexible guides to help when building",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://www.github.com/ipsis/BuildersGuides/",
+  "updateUrl": "",
+  "authors": ["Ipsis"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": [
+    "MinecraftForge"
+    ]
+}
+]
