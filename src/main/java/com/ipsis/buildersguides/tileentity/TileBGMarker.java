@@ -1,4 +1,4 @@
-package com.ipsis.buildersguides.block;
+package com.ipsis.buildersguides.tileentity;
 
 import com.ipsis.buildersguides.helper.ColorHelper;
 import com.ipsis.buildersguides.util.LogHelper;
@@ -15,7 +15,8 @@ public class TileBGMarker extends TileEntity {
 
     public static enum Type {
         AXES,   /* Simple marker that shows the 3 axes */
-        PAIR    /* Part of a pair that shows the length and the middle if an odd length */
+        PAIR,   /* Part of a pair that shows the length and the middle if an odd length */
+        COORD   /* Display the x,y,z above the block */
     }
 
     public static enum Axis {
@@ -91,6 +92,11 @@ public class TileBGMarker extends TileEntity {
         setColor(this.color.getNext());
     }
 
+    public Type getType() {
+
+        return this.type;
+    }
+
     public boolean showX() {
 
         if (this.axis == Axis.X_Y_Z || this.axis == Axis.X_Y || this.axis == Axis.X_Z || this.axis == Axis.X)
@@ -124,6 +130,7 @@ public class TileBGMarker extends TileEntity {
         super.writeToNBT(nbttagcompound);
         nbttagcompound.setInteger("Mode", this.axis.ordinal());
         nbttagcompound.setInteger("Color", this.color.ordinal());
+        nbttagcompound.setInteger("Type", this.type.ordinal());
     }
 
     @Override
@@ -132,6 +139,14 @@ public class TileBGMarker extends TileEntity {
         super.readFromNBT(nbttagcompound);
         this.axis = Axis.VALID_AXIS_MODES[nbttagcompound.getInteger("Mode")];
         this.color = ColorHelper.Color.VALID_COLORS[nbttagcompound.getInteger("Color")];
+
+        int ordinal = nbttagcompound.getInteger("Type");
+        if (ordinal == 0)
+            this.type = Type.AXES;
+        else if (ordinal == 1)
+            this.type = Type.PAIR;
+        else
+            this.type = Type.COORD;
     }
 
     /************

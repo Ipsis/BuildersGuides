@@ -2,6 +2,7 @@ package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.creative.CreativeTab;
 import com.ipsis.buildersguides.reference.Reference;
+import com.ipsis.buildersguides.tileentity.TileBGMarker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

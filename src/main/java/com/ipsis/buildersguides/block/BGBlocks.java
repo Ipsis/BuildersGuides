@@ -9,9 +9,11 @@ public class BGBlocks {
 
         blockAxesMarker = new BlockAxesMarker();
         blockPairMarker = new BlockPairMarker();
+        blockCoordMarker = new BlockCoordMarker();
 
         GameRegistry.registerBlock(blockAxesMarker, "block.axesMarker");
         GameRegistry.registerBlock(blockPairMarker, "block.pairMarker");
+        GameRegistry.registerBlock(blockCoordMarker, "block.coordMarker");
     }
 
     public static void initialize() {
@@ -24,4 +26,5 @@ public class BGBlocks {
 
     public static Block blockAxesMarker;
     public static Block blockPairMarker;
+    public static Block blockCoordMarker;
 }

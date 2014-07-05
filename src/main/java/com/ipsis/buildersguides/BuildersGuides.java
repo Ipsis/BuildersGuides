@@ -1,6 +1,6 @@
 package ipsis.buildersguides;
 
-import com.ipsis.buildersguides.block.TileBGMarker;
+import com.ipsis.buildersguides.tileentity.TileBGMarker;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -34,7 +34,7 @@ public class BuildersGuides {
         BGBlocks.initialize();
 
         proxy.initRenderingAndTexture();
-        GameRegistry.registerTileEntity(TileBGMarker.class, "tile.bgMarker");
+        proxy.initTileEntities();
     }
 
     @Mod.EventHandler

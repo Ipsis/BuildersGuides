@@ -1,5 +1,6 @@
 package com.ipsis.buildersguides.block;
 
+import com.ipsis.buildersguides.tileentity.TileBGMarker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
