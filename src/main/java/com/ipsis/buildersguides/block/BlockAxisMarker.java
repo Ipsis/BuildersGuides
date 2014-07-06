@@ -1,20 +1,16 @@
 package com.ipsis.buildersguides.block;
 
-import com.ipsis.buildersguides.tileentity.TileBGMarker;
+import com.ipsis.buildersguides.tileentity.TileAxisMarker;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
-/**
- * Shows the 3 axes as lines.
- * Shift-click on the appropriate axis changed it from line to grid mode
- */
-public class BlockAxesMarker extends BlockMarker {
+public class BlockAxisMarker extends BlockBG implements ITileEntityProvider {
 
-    public BlockAxesMarker() {
+    public BlockAxisMarker() {
 
-        super(TileBGMarker.Type.AXES);
         setBlockName("axesMarker");
     }
 
@@ -31,13 +27,14 @@ public class BlockAxesMarker extends BlockMarker {
             return false;
 
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileBGMarker) {
-            TileBGMarker teMarker = (TileBGMarker)te;
+        if (te != null && te instanceof TileAxisMarker) {
+            TileAxisMarker teMarker = (TileAxisMarker)te;
             if (entityPlayer.isSneaking()) {
 
                 /* Change the mode */
                 teMarker.setNextAxis();
-                entityPlayer.addChatComponentMessage(new ChatComponentText(((TileBGMarker) te).getAxis().toString()));
+                entityPlayer.addChatComponentMessage(
+                        new ChatComponentText(((TileAxisMarker) te).getAxis().toString()));
             } else {
 
                 /* Change the color */
@@ -46,5 +43,11 @@ public class BlockAxesMarker extends BlockMarker {
         }
 
         return false;
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World world, int p_149915_2_) {
+
+        return new TileAxisMarker();
     }
 }

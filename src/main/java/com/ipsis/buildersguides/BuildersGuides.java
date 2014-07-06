@@ -1,6 +1,5 @@
-package ipsis.buildersguides;
+package com.ipsis.buildersguides;
 
-import com.ipsis.buildersguides.tileentity.TileBGMarker;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -16,7 +15,7 @@ public class BuildersGuides {
 
     public static final String VERSION = "0.1a";
 
-    @Mod.Instance("BuildersGuide")
+    @Mod.Instance("BuildersGuides")
     public static BuildersGuides instance;
 
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)

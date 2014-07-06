@@ -7,12 +7,12 @@ public class BGBlocks {
 
     public static void preInit() {
 
-        blockAxesMarker = new BlockAxesMarker();
-        blockPairMarker = new BlockPairMarker();
+        blockAxisMarker = new BlockAxisMarker();
+        blockTargetMarker = new BlockTargetMarker();
         blockCoordMarker = new BlockCoordMarker();
 
-        GameRegistry.registerBlock(blockAxesMarker, "block.axesMarker");
-        GameRegistry.registerBlock(blockPairMarker, "block.pairMarker");
+        GameRegistry.registerBlock(blockAxisMarker, "block.axesMarker");
+        GameRegistry.registerBlock(blockTargetMarker, "block.targetMarker");
         GameRegistry.registerBlock(blockCoordMarker, "block.coordMarker");
     }
 
@@ -24,7 +24,7 @@ public class BGBlocks {
 
     }
 
-    public static Block blockAxesMarker;
-    public static Block blockPairMarker;
-    public static Block blockCoordMarker;
+    public static BlockBG blockAxisMarker;
+    public static BlockBG blockTargetMarker;
+    public static BlockBG blockCoordMarker;
 }

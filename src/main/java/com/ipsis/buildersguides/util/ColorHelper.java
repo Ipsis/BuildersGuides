@@ -1,4 +1,4 @@
-package com.ipsis.buildersguides.helper;
+package com.ipsis.buildersguides.util;
 
 public class ColorHelper {
 

@@ -1,12 +1,15 @@
 package com.ipsis.buildersguides.block;
 
-import com.ipsis.buildersguides.tileentity.TileBGMarker;
+import com.ipsis.buildersguides.tileentity.TileCoordMarker;
+import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
-public class BlockCoordMarker extends BlockMarker {
+public class BlockCoordMarker extends BlockBG implements ITileEntityProvider {
 
     public BlockCoordMarker() {
 
-        super(TileBGMarker.Type.COORD);
+        super();
         setBlockName("coordMarker");
     }
 
@@ -16,5 +19,9 @@ public class BlockCoordMarker extends BlockMarker {
         return false;
     }
 
+    @Override
+    public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 
+        return new TileCoordMarker();
+    }
 }

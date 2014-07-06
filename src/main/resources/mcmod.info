@@ -2,7 +2,7 @@
 {
   "modid": "buildersguides",
   "name": "Builders Guides",
-  "description": "Flexible guides to help when building",
+  "description": "Make things line up!",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "http://www.github.com/ipsis/BuildersGuides/",
@@ -12,7 +12,6 @@
   "logoFile": "",
   "screenshots": [],
   "dependencies": [
-    "MinecraftForge"
     ]
 }
 ]
