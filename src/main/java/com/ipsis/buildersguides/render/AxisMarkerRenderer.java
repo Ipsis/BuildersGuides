@@ -1,8 +1,6 @@
 package com.ipsis.buildersguides.render;
 
 import com.ipsis.buildersguides.tileentity.TileAxisMarker;
-import com.ipsis.buildersguides.tileentity.TileBGMarker;
-import com.ipsis.buildersguides.tileentity.TileCoordMarker;
 import com.ipsis.buildersguides.util.AxisHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -48,20 +46,20 @@ public class AxisMarkerRenderer extends TileEntitySpecialRenderer {
 
         if (AxisHelper.Axis.hasX(te.getAxis())) {
 
-            GL11.glVertex3d(x1 - TileBGMarker.MAX_DISTANCE, y1, z1);
-            GL11.glVertex3d(x1 + TileBGMarker.MAX_DISTANCE, y1, z1);
+            GL11.glVertex3d(x1 - TileAxisMarker.MAX_DISTANCE, y1, z1);
+            GL11.glVertex3d(x1 + TileAxisMarker.MAX_DISTANCE, y1, z1);
         }
 
         if (AxisHelper.Axis.hasY(te.getAxis())) {
 
-            GL11.glVertex3d(x1, y1 - TileBGMarker.MAX_DISTANCE, z1);
-            GL11.glVertex3d(x1, y1 + TileBGMarker.MAX_DISTANCE, z1);
+            GL11.glVertex3d(x1, y1 - TileAxisMarker.MAX_DISTANCE, z1);
+            GL11.glVertex3d(x1, y1 + TileAxisMarker.MAX_DISTANCE, z1);
         }
 
         if (AxisHelper.Axis.hasZ(te.getAxis())) {
 
-            GL11.glVertex3d(x1, y1, z1 - TileBGMarker.MAX_DISTANCE);
-            GL11.glVertex3d(x1, y1, z1 + TileBGMarker.MAX_DISTANCE);
+            GL11.glVertex3d(x1, y1, z1 - TileAxisMarker.MAX_DISTANCE);
+            GL11.glVertex3d(x1, y1, z1 + TileAxisMarker.MAX_DISTANCE);
         }
 
         GL11.glEnd();

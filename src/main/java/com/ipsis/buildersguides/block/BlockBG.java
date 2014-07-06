@@ -2,7 +2,6 @@ package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.creative.CreativeTab;
 import com.ipsis.buildersguides.reference.Reference;
-import com.ipsis.buildersguides.tileentity.TileBGMarker;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,7 +14,7 @@ public class BlockBG extends Block {
         this.setCreativeTab(CreativeTab.BG_TAB);
     }
 
-    private String iconName;
+    protected String iconName;
 
     @Override
     public Block setBlockName(String name) {

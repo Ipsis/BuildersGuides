@@ -11,7 +11,7 @@ public class BlockAxisMarker extends BlockBG implements ITileEntityProvider {
 
     public BlockAxisMarker() {
 
-        setBlockName("axesMarker");
+        setBlockName("axisMarker");
     }
 
     @Override
