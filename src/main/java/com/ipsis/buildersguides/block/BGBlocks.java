@@ -11,11 +11,13 @@ public class BGBlocks {
         blockTargetMarker = new BlockTargetMarker();
         blockLaserMarker = new BlockLaserMarker();
         blockCoordMarker = new BlockCoordMarker();
+        blockRangeMarker = new BlockRangeMarker();
 
         GameRegistry.registerBlock(blockAxisMarker, "block.axesMarker");
         GameRegistry.registerBlock(blockTargetMarker, "block.targetMarker");
         GameRegistry.registerBlock(blockLaserMarker, "block.laserMarker");
         GameRegistry.registerBlock(blockCoordMarker, "block.coordMarker");
+        GameRegistry.registerBlock(blockRangeMarker, "block.rangeMarker");
     }
 
     public static void initialize() {
@@ -30,4 +32,5 @@ public class BGBlocks {
     public static BlockBG blockTargetMarker;
     public static BlockBG blockLaserMarker;
     public static BlockBG blockCoordMarker;
+    public static BlockBG blockRangeMarker;
 }

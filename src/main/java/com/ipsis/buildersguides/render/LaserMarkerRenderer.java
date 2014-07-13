@@ -1,8 +1,10 @@
 package com.ipsis.buildersguides.render;
 
 import com.ipsis.buildersguides.tileentity.TileLaserMarker;
+import com.ipsis.buildersguides.tileentity.TileRangeMarker;
 import com.ipsis.buildersguides.util.BlockPosition;
-import com.ipsis.buildersguides.util.LogHelper;
+import com.ipsis.buildersguides.util.BlockUtils;
+import com.ipsis.buildersguides.util.RenderUtils;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -29,6 +31,56 @@ public class LaserMarkerRenderer extends TileEntitySpecialRenderer {
         customRenderItem.setRenderManager(RenderManager.instance);
     }
 
+    /**
+     * Renders a line, center and text to each available target
+     * that the te provides
+     */
+    private void render(TileRangeMarker te, double x, double y, double z) {
+
+        FontRenderer fontRenderer = this.func_147498_b();
+        RenderManager renderManager = RenderManager.instance;
+
+        GL11.glPushMatrix();
+        GL11.glTranslated(x + 0.5F, y + 0.5F, z + 0.5F);
+        GL11.glDisable(GL11.GL_LIGHTING);
+
+        for (int i = 0 ; i < ForgeDirection.VALID_DIRECTIONS.length; i++) {
+
+            if (te.getTarget(i) == null)
+                continue;
+
+            /* Draw the connecting lines */
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+            GL11.glColor4f(1.0F, 0.0F, 0.0F, 1.0F);
+            GL11.glLineWidth(1.5F);
+            GL11.glBegin(GL11.GL_LINES);
+
+            double dx = te.xCoord - te.getTarget(i).x;
+            double dy = te.yCoord - te.getTarget(i).y;
+            double dz = te.zCoord - te.getTarget(i).z;
+
+            GL11.glVertex3d(0.0F, 0.0F, 0.0F);
+            GL11.glVertex3d(dx * -1.0F, dy * -1.0F, dz * -1.0F);
+
+            GL11.glEnd();
+
+            BlockPosition c = te.getCenter(i);
+            if (c != null) {
+
+                dx = (te.xCoord - c.x) * -1.0F;
+                dy = (te.yCoord - c.y) * -1.0F;
+                dz = (te.zCoord - c.z) * -1.0F;
+
+                RenderUtils.drawBlockOutline((float)dx, (float)dy, (float)dz);
+            }
+
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
+        }
+
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glPopMatrix();
+    }
+
     private void render(TileLaserMarker te, double x, double y, double z) {
 
         if (te.getTarget() == null)
@@ -41,7 +93,6 @@ public class LaserMarkerRenderer extends TileEntitySpecialRenderer {
         {
             GL11.glTranslated(x + 0.5F, y + 0.5F, z + 0.5F);
 
-            GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glDisable(GL11.GL_LIGHTING);
 
             GL11.glPushMatrix();
@@ -60,12 +111,18 @@ public class LaserMarkerRenderer extends TileEntitySpecialRenderer {
                 float f1 = 0.016666668F * f;
                 GL11.glScalef(-f1, -f1, f1);
 
-                String s = "12 blocks or more text";
-                fontRenderer.drawString(s, -fontRenderer.getStringWidth(s) / 2, 0, 0x20FFFFFF);
+                int d = BlockUtils.numBlocksBetween(te.xCoord, te.yCoord, te.zCoord,
+                        te.getTarget().x, te.getTarget().y, te.getTarget().z);
+
+                if (d != 0) {
+                    String s = d + " Blocks";
+                    fontRenderer.drawString(s, -fontRenderer.getStringWidth(s) / 2, 0, 0x20FFFFFF);
+                }
 
             }
             GL11.glPopMatrix();
 
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glColor4f(1.0F, 0.0F, 0.0F, 1.0F);
             GL11.glLineWidth(1.5F);
             GL11.glBegin(GL11.GL_LINES);
@@ -87,39 +144,11 @@ public class LaserMarkerRenderer extends TileEntitySpecialRenderer {
                 dy = (te.yCoord - c.y) * -1.0F;
                 dz = (te.zCoord - c.z) * -1.0F;
 
-                GL11.glTranslated(dx, dy, dz);
-                GL11.glBegin(GL11.GL_LINES);
-
-                /* I feel ashamed of this! */
-
-                for (float v = -0.5F; v <= 0.5F; v += 1.0F) {
-                    GL11.glVertex3d(-0.5F, 0.5F, v);
-                    GL11.glVertex3d(0.5F, 0.5F, v);
-                    GL11.glVertex3d(0.5F, 0.5F, v);
-                    GL11.glVertex3d(0.5F, -0.5F, v);
-                    GL11.glVertex3d(0.5F, -0.5F, v);
-                    GL11.glVertex3d(-0.5F, -0.5F, v);
-                    GL11.glVertex3d(-0.5F, -0.5F, v);
-                    GL11.glVertex3d(-0.5F, 0.5F, v);
-                }
-
-                for (float v = -0.5F; v <= 0.5F; v += 1.0F) {
-                    GL11.glVertex3d(-0.5F, v, 0.5F);
-                    GL11.glVertex3d(0.5F, v, 0.5F);
-                    GL11.glVertex3d(0.5F, v, 0.5F);
-                    GL11.glVertex3d(0.5F, v, -0.5F);
-                    GL11.glVertex3d(0.5F, v, -0.5F);
-                    GL11.glVertex3d(-0.5F, v, -0.5F);
-                    GL11.glVertex3d(-0.5F, v, -0.5F);
-                    GL11.glVertex3d(-0.5F, v, 0.5F);
-                }
-
-                GL11.glEnd();
+                RenderUtils.drawBlockOutline((float)dx, (float)dy, (float)dz);
             }
 
-            GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_TEXTURE_2D);
-
+            GL11.glEnable(GL11.GL_LIGHTING);
         }
         GL11.glPopMatrix();
     }
@@ -127,9 +156,9 @@ public class LaserMarkerRenderer extends TileEntitySpecialRenderer {
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float tick) {
 
-        if (!(te instanceof TileLaserMarker))
-            return;
-
-        render((TileLaserMarker)te, x, y, z);
+        if (te instanceof TileLaserMarker)
+            render((TileLaserMarker)te, x, y, z);
+        else if (te instanceof TileRangeMarker)
+            render((TileRangeMarker)te, x, y, z);
     }
 }

@@ -6,6 +6,7 @@ import com.ipsis.buildersguides.util.DirectionHelper;
 import com.ipsis.buildersguides.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -61,6 +62,25 @@ public class BlockLaserMarker extends BlockBG implements ITileEntityProvider {
         }
 
         return true;
+    }
+
+    private boolean wasPowered = false;
+
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block neighborBlock) {
+
+        if (world.isRemote)
+            return;
+
+        /* SearedBlock code from TinkersConstruct */
+        LogHelper.info(wasPowered + "->" + world.isBlockIndirectlyGettingPowered(x, y, z));
+        boolean isPowered = world.isBlockIndirectlyGettingPowered(x, y, z);
+        if (!wasPowered && isPowered) {
+            TileEntity te = world.getTileEntity(x, y, z);
+            if (te != null && te instanceof TileLaserMarker)
+                ((TileLaserMarker) te).onRedstonePulse();
+        }
+        wasPowered = isPowered;
     }
 
     /**

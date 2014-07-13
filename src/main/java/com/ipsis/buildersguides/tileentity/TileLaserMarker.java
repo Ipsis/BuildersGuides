@@ -2,10 +2,7 @@ package com.ipsis.buildersguides.tileentity;
 
 import com.ipsis.buildersguides.block.BGBlocks;
 import com.ipsis.buildersguides.block.BlockTargetMarker;
-import com.ipsis.buildersguides.util.AxisHelper;
-import com.ipsis.buildersguides.util.BlockPosition;
-import com.ipsis.buildersguides.util.ColorHelper;
-import com.ipsis.buildersguides.util.LogHelper;
+import com.ipsis.buildersguides.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -19,6 +16,7 @@ public class TileLaserMarker extends TileEntity {
 
     public static final int DISTANCE = 64;
     private static final int UPDATE_FREQ = 20;
+    private int currTicks;
     private ForgeDirection facing;
     private BlockPosition target;
     private BlockPosition center;
@@ -28,15 +26,16 @@ public class TileLaserMarker extends TileEntity {
         facing = ForgeDirection.NORTH;
         target = null;
         center = null;
+        currTicks = UPDATE_FREQ;
     }
 
     public void setFacing(ForgeDirection facing) {
 
-        /* We you change the facing, need to recalculate the target */
+        /* When you change the facing, need to recalculate the target */
         this.facing = facing;
         this.target = null;
         this.center = null;
-        worldObj.markBlockForUpdate(xCoord,yCoord,zCoord);
+        findTarget();
     }
 
     public ForgeDirection getFacing() {
@@ -54,9 +53,14 @@ public class TileLaserMarker extends TileEntity {
         return center;
     }
 
+    public boolean hasValidTarget() {
+
+        return target != null;
+    }
+
     public void setTarget(int x, int y, int z) {
 
-        if (target == null) {
+        if (!hasValidTarget()) {
             target = new BlockPosition(x, y, z);
         } else {
             target.x = x;
@@ -66,74 +70,52 @@ public class TileLaserMarker extends TileEntity {
         worldObj.markBlockForUpdate(xCoord,yCoord,zCoord);
     }
 
+    private void clearTarget() {
+
+        target = null;
+        center = null;
+        worldObj.markBlockForUpdate(xCoord,yCoord,zCoord);
+    }
+
     /**
      * Update
      */
     private void findTarget() {
 
-        if (target != null)
-            return;
+        clearTarget();
+        BlockPosition t = BlockUtils.getFirstBlock(worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing, DISTANCE, true);
+        if (t != null) {
 
-        /* Must be at least one block away */
-        BlockPosition curr = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, this.facing);
-        curr.moveForwards(1);
-
-        /* Must be at least one block away */
-        for (int i = 1; i <= DISTANCE; i++) {
-
-            curr.moveForwards(1);
-            Block b = worldObj.getBlock(curr.x, curr.y, curr.z);
-            if (b != null && b instanceof BlockTargetMarker) {
-
-                setTarget(curr.x, curr.y, curr.z);
-                findCenter();
-                break;
-            }
+            setTarget(t.x, t.y, t.z);
+            findCenter();
         }
     }
 
     private void findCenter() {
 
-        if (target == null)
+        if (!hasValidTarget())
             return;
 
-        /* We only have a center block when the space between the two is odd */
-        int dx = Math.abs(this.xCoord - target.x);
-        int dy = Math.abs(this.yCoord - target.y);
-        int dz = Math.abs(this.zCoord - target.z);
+        center = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, target.x, target.y, target.z, this.facing);
+    }
 
-        center = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, this.facing);
-        if (this.facing == ForgeDirection.UP || this.facing == ForgeDirection.DOWN) {
+    public void onRedstonePulse() {
 
-            if ((dy - 1) % 2 != 0)
-                center.moveForwards(((dy - 1) / 2) + 1);
-
-        } else if (this.facing == ForgeDirection.EAST || this.facing == ForgeDirection.WEST) {
-
-            if ((dx - 1) % 2 != 0)
-                center.moveForwards(((dx - 1) / 2) + 1);
-
-        } else if (this.facing == ForgeDirection.NORTH || this.facing == ForgeDirection.SOUTH) {
-
-            if ((dz - 1) % 2 != 0)
-                center.moveForwards(((dz - 1) / 2) + 1);
-        }
-
-        /* If there was no center then clear it so we dont try and render it */
-        if (center.equals(new BlockPosition(this.xCoord, this.yCoord, this.zCoord, this.facing)))
-            center = null;
-
+        findTarget();
     }
 
     @Override
     public void updateEntity() {
 
-        if (worldObj.isRemote)
-            return;
+        if (!worldObj.isRemote) {
 
-        /* TODO slow down the update */
-        if (target == null)
-            findTarget();
+            if (hasValidTarget()) {
+
+                Block b = worldObj.getBlock(target.x, target.y, target.z);
+                if (b == null || !(b instanceof BlockTargetMarker))
+                    clearTarget();
+            }
+        }
     }
 
     /*****
@@ -161,6 +143,8 @@ public class TileLaserMarker extends TileEntity {
         if (nbttagcompound.hasKey("target")) {
             target = new BlockPosition(nbttagcompound.getCompoundTag("target"));
             findCenter();
+        } else {
+            clearTarget();
         }
     }
 

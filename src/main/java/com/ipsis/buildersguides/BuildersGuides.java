@@ -1,5 +1,7 @@
 package com.ipsis.buildersguides;
 
+import com.ipsis.buildersguides.init.Recipe;
+import com.ipsis.buildersguides.item.BGItems;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -25,20 +27,25 @@ public class BuildersGuides {
     public void preInit(FMLPreInitializationEvent event) {
 
         BGBlocks.preInit();
+        BGItems.preInit();
     }
 
     @Mod.EventHandler
     public void initialize(FMLInitializationEvent event) {
 
         BGBlocks.initialize();
+        BGItems.initialize();
 
         proxy.initRenderingAndTexture();
         proxy.initTileEntities();
+
+        Recipe.init();
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
 
         BGBlocks.postInit();
+        BGItems.postInit();
     }
 }

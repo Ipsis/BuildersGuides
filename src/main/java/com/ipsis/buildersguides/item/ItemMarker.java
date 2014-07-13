@@ -1,0 +1,9 @@
+package com.ipsis.buildersguides.item;
+
+public class ItemMarker extends ItemBG {
+
+    public ItemMarker() {
+
+        super("Basic marker");
+    }
+}
