@@ -1,102 +1,49 @@
 package com.ipsis.buildersguides.tileentity;
 
-import com.ipsis.buildersguides.util.AxisHelper;
-import com.ipsis.buildersguides.util.ColorHelper;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import com.ipsis.buildersguides.util.BlockPosition;
+import com.ipsis.buildersguides.util.BlockUtils;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileAxisMarker extends TileEntity {
-
-    public static final int MAX_DISTANCE = 64;
-
-    private AxisHelper.Axis axis;
-    private ColorHelper.Color color;
+public class TileAxisMarker extends TileMultiMarker {
 
     public TileAxisMarker() {
 
-        this.axis = AxisHelper.Axis.X_Y_Z;
-        this.color = ColorHelper.Color.BLACK;
-    }
-
-    public AxisHelper.Axis getAxis() {
-
-        return this.axis;
-    }
-
-    public void setAxis(AxisHelper.Axis axis) {
-
-        this.axis = axis;
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-    }
-
-    public ColorHelper.Color getColor() {
-
-        return color;
-    }
-
-    public void setColor(ColorHelper.Color color) {
-
-        this.color=color;
-        worldObj.markBlockForUpdate(xCoord,yCoord,zCoord);
-    }
-
-    public void setNextAxis() {
-
-        setAxis(this.axis.getNext());
-    }
-
-    public void setNextColor() {
-
-        setColor(this.color.getNext());
-    }
-
-    /*****
-     * NBT
-     *****/
-    @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound) {
-
-        super.writeToNBT(nbttagcompound);
-        nbttagcompound.setInteger("Mode", this.axis.ordinal());
-        nbttagcompound.setInteger("Color", this.color.ordinal());
+        super(false);
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbttagcompound) {
+    public BlockPosition getCenter(ForgeDirection dir) {
 
-        super.readFromNBT(nbttagcompound);
-        this.axis = AxisHelper.Axis.VALID_AXIS_MODES[nbttagcompound.getInteger("Mode")];
-        this.color = ColorHelper.Color.VALID_COLORS[nbttagcompound.getInteger("Color")];
-    }
-
-    /************
-     * Packets
-     ************/
-    @Override
-    public Packet getDescriptionPacket() {
-
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        writeToNBT(nbttagcompound);
-        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, nbttagcompound);
+        return null;
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+    protected void setCenter(ForgeDirection dir, BlockPosition pos) {
 
-        readFromNBT(pkt.func_148857_g());
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        /* NOOP */
     }
 
-    /**
-     * Need to render the block when it is not in view.
-     */
     @Override
-    public AxisAlignedBB getRenderBoundingBox() {
+    public boolean hasCenter() {
 
-        return AxisAlignedBB.getBoundingBox(xCoord - MAX_DISTANCE, yCoord - MAX_DISTANCE, zCoord - MAX_DISTANCE, xCoord + MAX_DISTANCE, yCoord + MAX_DISTANCE, zCoord + MAX_DISTANCE);
+        return false;
+    }
+
+    @Override
+    public boolean hasCenter(ForgeDirection dir) {
+
+        return false;
+    }
+
+    public void findTargets() {
+
+        setTarget(ForgeDirection.DOWN, new BlockPosition(this.xCoord, this.yCoord - this.MAX_DISTANCE, this.zCoord));
+        setTarget(ForgeDirection.UP, new BlockPosition(this.xCoord, this.yCoord + this.MAX_DISTANCE, this.zCoord));
+        setTarget(ForgeDirection.EAST, new BlockPosition(this.xCoord + this.MAX_DISTANCE, this.yCoord, this.zCoord));
+        setTarget(ForgeDirection.WEST, new BlockPosition(this.xCoord - this.MAX_DISTANCE, this.yCoord, this.zCoord));
+        setTarget(ForgeDirection.SOUTH, new BlockPosition(this.xCoord, this.yCoord, this.zCoord + this.MAX_DISTANCE));
+        setTarget(ForgeDirection.NORTH, new BlockPosition(this.xCoord, this.yCoord, this.zCoord - this.MAX_DISTANCE));
+
+        worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
     }
 }

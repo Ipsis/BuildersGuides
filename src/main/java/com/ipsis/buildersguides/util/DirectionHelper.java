@@ -1,7 +1,9 @@
 package com.ipsis.buildersguides.util;
 
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class DirectionHelper {
@@ -21,5 +23,11 @@ public class DirectionHelper {
             return ForgeDirection.SOUTH;
         else
             return ForgeDirection.WEST;
+    }
+
+    public static ForgeDirection getFacing6(World world, int x, int y, int z, EntityLivingBase entityLiving) {
+
+        int d = BlockPistonBase.determineOrientation(world, x, y, z, entityLiving);
+        return ForgeDirection.getOrientation(d);
     }
 }

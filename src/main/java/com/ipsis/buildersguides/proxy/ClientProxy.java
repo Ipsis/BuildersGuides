@@ -1,21 +1,23 @@
 package com.ipsis.buildersguides.proxy;
 
-import com.ipsis.buildersguides.render.AxisMarkerRenderer;
 import com.ipsis.buildersguides.render.CoordMarkerRenderer;
-import com.ipsis.buildersguides.render.LaserMarkerRenderer;
-import com.ipsis.buildersguides.tileentity.TileAxisMarker;
-import com.ipsis.buildersguides.tileentity.TileCoordMarker;
-import com.ipsis.buildersguides.tileentity.TileLaserMarker;
-import com.ipsis.buildersguides.tileentity.TileRangeMarker;
+import com.ipsis.buildersguides.render.MarkerRenderer;
+import com.ipsis.buildersguides.tileentity.*;
 import cpw.mods.fml.client.registry.ClientRegistry;
 
 public class ClientProxy extends CommonProxy {
 
     public void initRenderingAndTexture() {
 
+        /* TODO Do I only need 1 renderer */
         ClientRegistry.bindTileEntitySpecialRenderer(TileCoordMarker.class, new CoordMarkerRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileAxisMarker.class, new AxisMarkerRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileLaserMarker.class, new LaserMarkerRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileRangeMarker.class, new LaserMarkerRenderer());
-    }
+        ClientRegistry.bindTileEntitySpecialRenderer(TileAxisMarker.class, new MarkerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileLaserMarker.class, new MarkerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSkyMarker.class, new MarkerRenderer());
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileRangeMarker.class, new MarkerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileMultiRangeMarker.class, new MarkerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileTargetMarker.class, new MarkerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileMultiTargetMarker.class, new MarkerRenderer());
+     }
 }

@@ -1,7 +1,7 @@
 package com.ipsis.buildersguides.render;
 
-import com.ipsis.buildersguides.tileentity.TileLaserMarker;
-import com.ipsis.buildersguides.tileentity.TileRangeMarker;
+import com.ipsis.buildersguides.tileentity.TileLaserMarker2;
+import com.ipsis.buildersguides.tileentity.TileRangeMarker2;
 import com.ipsis.buildersguides.util.BlockPosition;
 import com.ipsis.buildersguides.util.BlockUtils;
 import com.ipsis.buildersguides.util.RenderUtils;
@@ -35,7 +35,7 @@ public class LaserMarkerRenderer extends TileEntitySpecialRenderer {
      * Renders a line, center and text to each available target
      * that the te provides
      */
-    private void render(TileRangeMarker te, double x, double y, double z) {
+    private void render(TileRangeMarker2 te, double x, double y, double z) {
 
         FontRenderer fontRenderer = this.func_147498_b();
         RenderManager renderManager = RenderManager.instance;
@@ -81,7 +81,7 @@ public class LaserMarkerRenderer extends TileEntitySpecialRenderer {
         GL11.glPopMatrix();
     }
 
-    private void render(TileLaserMarker te, double x, double y, double z) {
+    private void render(TileLaserMarker2 te, double x, double y, double z) {
 
         if (te.getTarget() == null)
             return;
@@ -156,9 +156,9 @@ public class LaserMarkerRenderer extends TileEntitySpecialRenderer {
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float tick) {
 
-        if (te instanceof TileLaserMarker)
-            render((TileLaserMarker)te, x, y, z);
-        else if (te instanceof TileRangeMarker)
-            render((TileRangeMarker)te, x, y, z);
+        if (te instanceof TileLaserMarker2)
+            render((TileLaserMarker2)te, x, y, z);
+        else if (te instanceof TileRangeMarker2)
+            render((TileRangeMarker2)te, x, y, z);
     }
 }

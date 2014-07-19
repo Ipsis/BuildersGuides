@@ -16,44 +16,46 @@ public class Recipe {
 
     private static void initModRecipes() {
 
+        return;
+
         /* Base Marker */
-        GameRegistry.addShapedRecipe(new ItemStack(BGItems.itemMarker),
-                "srs", "rsr", "srs", 's', Blocks.stone, 'r', Items.redstone);
+       // GameRegistry.addShapedRecipe(new ItemStack(BGItems.itemMarker),
+        //        "srs", "rsr", "srs", 's', Blocks.stone, 'r', Items.redstone);
 
         /* Range Marker */
         //GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockRangeMarker),
         //        BGItems.itemMarker, Blocks.glass_pane);
 
         /* Multi Range Marker */
-        GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockRangeMarker),
-                BGItems.itemMarker, Blocks.glass);
+        //GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockRangeMarker),
+        //        BGItems.itemMarker, Blocks.glass);
 
         /* Target Marker */
-        GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockTargetMarker),
-                BGItems.itemMarker, Items.arrow);
+       // GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockTargetMarker),
+       //         BGItems.itemMarker, Items.arrow);
 
         /* Laser Marker */
-        GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockLaserMarker),
-                BGItems.itemMarker, Blocks.glass_pane, Blocks.torch);
+        //GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockLaserMarker),
+        //        BGItems.itemMarker, Blocks.glass_pane, Blocks.torch);
 
         /* Multi Laser Marker */
         //GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockLaserMarker),
         //        BGItems.itemMarker, Blocks.glass, Blocks.torch);
 
         /* Location Marker */
-        GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockCoordMarker),
-                BGItems.itemMarker, Items.dye);
+        //GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockCoordMarker),
+        //        BGItems.itemMarker, Items.dye);
 
         /* Axis Marker */
-        GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockAxisMarker),
-                BGItems.itemMarker, Items.stick, Items.stick, Items.stick);
+        //GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.blockAxisMarker),
+        //        BGItems.itemMarker, Items.stick, Items.stick, Items.stick);
 
         /* Advanced Marker */
         //GameRegistry.addShapelessRecipe(new ItemStack(BGBlocks.advancedMarker),
         //        BGItems.itemMarker, Blocks.glass, Blocks.redstone_torch);
 
         /* Back To Main Marker */
-        GameRegistry.addShapelessRecipe(new ItemStack(BGItems.itemMarker),
-                BGBlocks.blockAxisMarker);
+        //GameRegistry.addShapelessRecipe(new ItemStack(BGItems.itemMarker),
+        //        BGBlocks.blockAxisMarker);
     }
 }

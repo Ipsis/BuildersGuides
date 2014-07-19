@@ -5,50 +5,43 @@ import com.ipsis.buildersguides.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
-public class ItemBG extends Item {
-
-    public ItemBG() {
-
-        this(null);
-    }
-
-    private String iconName;
-    private String info;
-
-    public ItemBG(String info) {
-
+/**
+ * Based off Pahimar's ItemEE
+ */
+public class ItemBG extends Item
+{
+    public ItemBG()
+    {
         super();
+        this.maxStackSize = 1;
         this.setCreativeTab(CreativeTab.BG_TAB);
         this.setNoRepair();
-        this.info = info;
     }
 
     @Override
-    public Item setUnlocalizedName(String name) {
-
-        iconName = name;
-        name = Reference.MOD_ID + ":" + name;
-        return super.setUnlocalizedName(name);
+    public String getUnlocalizedName()
+    {
+        return String.format("item.%s%s", Reference.MOD_ID + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister) {
-
-        itemIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + iconName);
+    public String getUnlocalizedName(ItemStack itemStack)
+    {
+        return String.format("item.%s%s", Reference.MOD_ID + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack itemStack,	EntityPlayer entityPlayer, List info, boolean useExtraInformation) {
+    public void registerIcons(IIconRegister iconRegister)
+    {
+        itemIcon = iconRegister.registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(".") + 1));
+    }
 
-        if (this.info != null)
-            info.add(this.info);
+    protected String getUnwrappedUnlocalizedName(String unlocalizedName)
+    {
+        return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
     }
 }

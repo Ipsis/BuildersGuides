@@ -2,7 +2,7 @@ package com.ipsis.buildersguides.util;
 
 public class ColorHelper {
 
-    public static enum Color {
+    public enum Color {
 
         BLACK(0.0F, 0.0F, 0.0F),
         RED(1.0F, 0.0F, 0.0F),
@@ -22,6 +22,14 @@ public class ColorHelper {
         WHITE(1.0F, 1.0F, 1.0F);
 
         public static Color[] VALID_COLORS = { BLACK, RED, GREEN, BROWN, BLUE, PURPLE, CYAN, LIGHTGRAY, GRAY, PINK, LIME, YELLOW, LIGHTBLUE, MAGENTA, ORANGE, WHITE };
+
+        public static Color getColor(int id) {
+
+            if (id >= 0 && id < VALID_COLORS.length)
+                return VALID_COLORS[id];
+
+            return Color.BLACK;
+        }
 
         private float red;
         private float green;

@@ -1,7 +1,8 @@
 package com.ipsis.buildersguides.util;
 
-import com.ipsis.buildersguides.block.BlockTargetMarker;
+import com.ipsis.buildersguides.block.BlockTarget;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLever;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -68,10 +69,10 @@ public class BlockUtils {
             p.moveForwards(1);
             Block b = world.getBlock(p.x, p.y, p.z);
 
-            if (b == null || world.isAirBlock(p.x, p.y, p.z))
+            if (b == null || world.isAirBlock(p.x, p.y, p.z) || b instanceof BlockLever)
                 continue;
 
-            if ((isMarker && b instanceof BlockTargetMarker) || !isMarker) {
+            if ((isMarker && b instanceof BlockTarget) || !isMarker) {
                 r = p;
                 break;
             }

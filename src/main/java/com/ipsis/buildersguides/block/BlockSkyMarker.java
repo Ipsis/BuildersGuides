@@ -1,14 +1,15 @@
 package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.tileentity.TileAxisMarker;
+import com.ipsis.buildersguides.tileentity.TileSkyMarker;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockAxisMarker extends BlockBaseMarker {
+public class BlockSkyMarker extends BlockBaseMarker {
 
-    public BlockAxisMarker() {
+    public BlockSkyMarker() {
 
-        this.setBlockName("axisMarker");
+        this.setBlockName("skyMarker");
     }
 
     /**
@@ -17,6 +18,6 @@ public class BlockAxisMarker extends BlockBaseMarker {
     @Override
     public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 
-        return new TileAxisMarker();
+        return new TileSkyMarker();
     }
 }

@@ -2,31 +2,40 @@ package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.creative.CreativeTab;
 import com.ipsis.buildersguides.reference.Reference;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 
 public class BlockBG extends Block {
 
-    public BlockBG() {
+    public BlockBG()
+    {
+        this(Material.rock);
+    }
 
-        super(Material.iron);
+    public BlockBG(Material material)
+    {
+        super(material);
         this.setCreativeTab(CreativeTab.BG_TAB);
     }
 
-    protected String iconName;
-
     @Override
-    public Block setBlockName(String name) {
-
-        iconName = name;
-        name = Reference.MOD_ID + ":" + name;
-        return super.setBlockName(name);
+    public String getUnlocalizedName()
+    {
+        return String.format("tile.%s%s", Reference.MOD_ID + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override
-    public void registerBlockIcons(IIconRegister iconRegister) {
+    @SideOnly(Side.CLIENT)
+    public void registerBlockIcons(IIconRegister iconRegister)
+    {
+        blockIcon = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())));
+    }
 
-        blockIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + iconName);
+    protected String getUnwrappedUnlocalizedName(String unlocalizedName)
+    {
+        return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
     }
 }

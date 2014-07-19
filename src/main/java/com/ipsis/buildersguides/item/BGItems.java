@@ -7,9 +7,10 @@ public class BGItems {
     public static void preInit() {
 
         itemMarker = new ItemMarker();
-        itemMarker.setUnlocalizedName("marker");
+        allenKey = new ItemAllenKey();
 
         GameRegistry.registerItem(itemMarker, "item.marker");
+        GameRegistry.registerItem(allenKey, "item.allenKey");
     }
 
     public static void initialize() {
@@ -21,5 +22,6 @@ public class BGItems {
     }
 
     public static ItemBG itemMarker;
+    public static ItemBG allenKey;
 
 }

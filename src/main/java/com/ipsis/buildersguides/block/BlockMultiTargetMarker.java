@@ -1,15 +1,15 @@
 package com.ipsis.buildersguides.block;
 
-import com.ipsis.buildersguides.tileentity.TileRangeMarker;
+import com.ipsis.buildersguides.tileentity.TileMultiTargetMarker;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockRangeMarker extends BlockFacedMarker {
+public class BlockMultiTargetMarker extends  BlockBaseMarker {
 
-    public BlockRangeMarker() {
+    public BlockMultiTargetMarker() {
 
         super();
-        this.setBlockName("rangeMarker");
+        this.setBlockName("multiTargetMarker");
     }
 
     /**
@@ -18,6 +18,6 @@ public class BlockRangeMarker extends BlockFacedMarker {
     @Override
     public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 
-        return new TileRangeMarker();
+        return new TileMultiTargetMarker();
     }
 }

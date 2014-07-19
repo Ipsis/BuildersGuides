@@ -4,6 +4,7 @@ public class ItemMarker extends ItemBG {
 
     public ItemMarker() {
 
-        super("Basic marker");
+        super();
+        this.setUnlocalizedName("marker");
     }
 }
