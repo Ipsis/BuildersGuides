@@ -1,11 +1,17 @@
 package com.ipsis.buildersguides.item;
 
+import com.ipsis.buildersguides.tileentity.IWrenchable;
+import com.ipsis.buildersguides.util.LogHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+/**
+ * TODO implement IToolWrench
+ */
 public class ItemAllenKey extends ItemBG {
 
     public ItemAllenKey() {
@@ -22,13 +28,36 @@ public class ItemAllenKey extends ItemBG {
             return false;
 
         Block block = world.getBlock(x, y, z);
-        if (block == null || player.isSneaking())
+        if (block == null)
             return false;
 
-        if (block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side)))
-            player.swingItem();
+        if (player.isSneaking()) {
+
+                TileEntity te = world.getTileEntity(x, y, z);
+                if (te != null && te instanceof IWrenchable) {
+                    ((IWrenchable) te).shiftLeftWrench();
+                    return true;
+                }
+
+                return false;
+        } else {
+
+            if (block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
+                player.swingItem();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean canWrench(EntityPlayer player, int x, int y, int z) {
 
         return true;
+    }
+
+    public void wrenchUsed(EntityPlayer player, int x, int y, int z) {
+
     }
 
 }
