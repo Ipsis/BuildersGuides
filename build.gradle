@@ -22,7 +22,7 @@ group= "com.ipsis.builderguides" // http://maven.apache.org/guides/mini/guide-na
 archivesBaseName = "buildersguides"
 
 minecraft {
-    version = "1.7.10-10.13.0.1152"
+    version = "1.7.10-10.13.0.1180"
     assetDir = "eclipse/assets"
 }
 
