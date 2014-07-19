@@ -1,6 +1,11 @@
 package com.ipsis.buildersguides.block;
 
+import com.ipsis.buildersguides.item.BGItems;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class BGBlocks {
 
@@ -42,6 +47,36 @@ public class BGBlocks {
 
     public static void postInit() {
 
+        ItemStack marker = new ItemStack(BGItems.itemMarker);
+
+        GameRegistry.addShapelessRecipe(new ItemStack(blockAxisMarker), marker, new ItemStack(Items.stick), new ItemStack(Items.stick), new ItemStack(Items.stick));
+        GameRegistry.addShapelessRecipe(new ItemStack(blockCoordMarker), marker, new ItemStack(Items.flint));
+        GameRegistry.addShapelessRecipe(new ItemStack(blockLaserMarker), marker, new ItemStack(Items.redstone));
+        GameRegistry.addShapelessRecipe(new ItemStack(blockSkyMarker), marker, new ItemStack(Items.feather));
+
+
+        GameRegistry.addShapelessRecipe(new ItemStack(blockRangeMarker), marker, new ItemStack(Blocks.glass_pane));
+        GameRegistry.addShapelessRecipe(new ItemStack(blockMultiRangeMarker), marker, new ItemStack(Blocks.glass));
+        GameRegistry.addShapelessRecipe(new ItemStack(blockTargetMarker), marker, new ItemStack(Blocks.glass_pane), new ItemStack(Blocks.torch));
+        GameRegistry.addShapelessRecipe(new ItemStack(blockMultiTargetMarker), marker, new ItemStack(Blocks.glass), new ItemStack(Blocks.torch));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(blockAdvancedMarker), marker, new ItemStack(Blocks.glass), new ItemStack(Blocks.redstone_torch));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(blockTarget), marker, new ItemStack(Items.arrow));
+
+        /* Allow reversal */
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockTarget));
+
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockAxisMarker));
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockCoordMarker));
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockLaserMarker));
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockSkyMarker));
+
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockRangeMarker));
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockMultiRangeMarker));
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockTargetMarker));
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockMultiTargetMarker));
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockAdvancedMarker));
     }
 
     public static BlockBG blockTarget;
