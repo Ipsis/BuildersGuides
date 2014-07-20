@@ -56,39 +56,15 @@ public enum BGAxis {
         return false;
     }
 
-    private static boolean isY(ForgeDirection dir) {
-
-        if (dir == ForgeDirection.UP || dir == ForgeDirection.DOWN)
-            return true;
-
-        return false;
-    }
-
-    private static boolean isZ(ForgeDirection dir) {
-
-        if (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
-            return true;
-
-        return false;
-    }
-
-    private static boolean isX(ForgeDirection dir) {
-
-        if (dir == ForgeDirection.EAST || dir == ForgeDirection.WEST)
-            return true;
-
-        return false;
-    }
-
     public static boolean isValidDir(BGAxis axis, ForgeDirection dir) {
 
-        if (hasX(axis) && isX(dir))
+        if (hasX(axis) && DirectionHelper.isX(dir))
             return true;
 
-        if (hasY(axis) && isY(dir))
+        if (hasY(axis) && DirectionHelper.isY(dir))
             return true;
 
-        if (hasZ(axis) && isZ(dir))
+        if (hasZ(axis) && DirectionHelper.isZ(dir))
             return true;
 
         return false;
