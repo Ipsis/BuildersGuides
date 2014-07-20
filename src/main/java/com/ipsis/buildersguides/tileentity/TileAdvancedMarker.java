@@ -1,26 +1,21 @@
 package com.ipsis.buildersguides.tileentity;
 
 import com.ipsis.buildersguides.block.BlockTarget;
-import com.ipsis.buildersguides.util.BlockPosition;
-import com.ipsis.buildersguides.util.BlockUtils;
-import com.ipsis.buildersguides.util.LogHelper;
+import com.ipsis.buildersguides.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileAdvancedMarker extends TileEntity {
+public class TileAdvancedMarker extends TileEntity implements IWrenchable {
 
     private Mode mode;
     private static final int MAX_DISTANCE = 64;
-    private boolean locked[];
     private BlockPosition[] targets;
 
     public TileAdvancedMarker() {
 
         this.mode = Mode.HORIZ_PLANE;
-        this.locked = new boolean[ForgeDirection.VALID_DIRECTIONS.length];
         targets = new BlockPosition[ForgeDirection.VALID_DIRECTIONS.length];
-        clearLocked();
     }
 
     /**
@@ -43,71 +38,144 @@ public class TileAdvancedMarker extends TileEntity {
         }
     }
 
-    private void clearLocked() {
+    private void clearTarget(ForgeDirection dir) {
 
-        for (int i = 0; i < this.locked.length; i++)
-            this.locked[i] = false;
+        targets[dir.ordinal()] = null;
     }
 
-    private boolean isLocked(ForgeDirection dir) {
+    private void clearTargets() {
 
-        return this.locked[dir.ordinal()];
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
+            clearTarget(dir);
     }
 
-    private void setLocked(ForgeDirection dir) {
+    @Override
+    public void shiftLeftWrench() {
 
-        this.locked[dir.ordinal()] = true;
-    }
+        /* change the mode */
+        if (this.mode == Mode.HORIZ_PLANE)
+            this.mode = Mode.VERT_PLANE;
+        else if (this.mode == Mode.VERT_PLANE)
+            this.mode = Mode.CUBOID;
+        else
+            this.mode = Mode.HORIZ_PLANE;
 
-    private void setUnlocked(ForgeDirection dir) {
-
-        this.locked[dir.ordinal()] = false;
+        this.findTargets();
     }
 
     public enum Mode {
 
         HORIZ_PLANE,
         VERT_PLANE,
-        CUBOID;
+        CUBOID
     }
 
     private void findTargetsHPlane() {
 
-        /* Expand outwards in the x and z axes */
-        for (int i = 1; i < MAX_DISTANCE; i++) {
+        boolean valid = false;
+        TargetLocker locker = new TargetLocker();
+
+        for (int i = 1; i < MAX_DISTANCE && !valid; i++) {
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 
-                /* skip if this or the opposite direction has already been found */
-                if (isLocked(dir) || isLocked(dir.getOpposite()))
+                if (dir == ForgeDirection.DOWN || dir == ForgeDirection.UP)
+                    continue;
+
+                if (locker.isLocked(dir) || locker.isOppositeLocked(dir))
                     continue;
 
                 BlockPosition bp = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, dir);
                 bp.moveForwards(i);
                 Block b = worldObj.getBlock(bp.x, bp.y, bp.z);
                 if (b instanceof BlockTarget) {
+                    locker.lock(dir, bp.x, bp.y, bp.z);
 
-                    setLocked(dir);
-                    setTarget(dir, bp);
+                    if (locker.isValidXZPlane())
+                        valid = true;
                 }
             }
         }
+
+        if (valid) {
+
+            BlockPosition p;
+
+            p = locker.getX();
+            if (p != null)
+                this.setTarget(p.orientation, p);
+
+            p = locker.getY();
+            if (p != null)
+                this.setTarget(p.orientation, p);
+
+            p = locker.getZ();
+            if (p != null)
+                this.setTarget(p.orientation, p);
+        }
     }
 
-    private void findTargetsVPlane() {
+    private void findTargetsOther() {
 
-    }
+        boolean valid = false;
+        TargetLocker locker = new TargetLocker();
 
-    private void findTargetsCuboid() {
+        for (int i = 1; i < MAX_DISTANCE && !valid; i++) {
+            for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
 
+                if (locker.isLocked(dir) || locker.isOppositeLocked(dir))
+                    continue;
+
+                if (this.mode == Mode.VERT_PLANE && ((locker.isXLocked() && DirectionHelper.isZ(dir)) || (locker.isZLocked() && DirectionHelper.isX(dir))))
+                        continue;
+
+                BlockPosition bp = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, dir);
+                bp.moveForwards(i);
+                Block b = worldObj.getBlock(bp.x, bp.y, bp.z);
+                if (b instanceof BlockTarget) {
+                    locker.lock(dir, bp.x, bp.y, bp.z);
+
+                    if (this.mode == Mode.VERT_PLANE && (locker.isValidXYPlane() || locker.isValidYZPlane()))
+                        valid = true;
+                    else if (this.mode == Mode.CUBOID && locker.isValidCuboid())
+                        valid = true;
+                }
+            }
+        }
+
+        if (valid) {
+
+            BlockPosition p;
+
+            p = locker.getX();
+            if (p != null)
+                this.setTarget(p.orientation, p);
+
+            p = locker.getY();
+            if (p != null)
+                this.setTarget(p.orientation, p);
+
+            p = locker.getZ();
+            if (p != null)
+                this.setTarget(p.orientation, p);
+        }
     }
 
     public void findTargets() {
 
+        this.clearTargets();
+
         if (this.mode == Mode.HORIZ_PLANE)
             findTargetsHPlane();
         else if (this.mode == Mode.VERT_PLANE)
-            findTargetsVPlane();
+            findTargetsOther();
         else if (this.mode == Mode.CUBOID)
-            findTargetsCuboid();
+            findTargetsOther();
+
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            BlockPosition p = this.getTarget(dir);
+            if (p != null)
+                LogHelper.info("Found target " + p);
+        }
     }
+
 }

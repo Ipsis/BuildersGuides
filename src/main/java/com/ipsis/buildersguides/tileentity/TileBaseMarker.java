@@ -127,12 +127,24 @@ public class TileBaseMarker extends TileEntity {
         this.center = null;
     }
 
+    protected void clearCenters() {
+
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
+            clearCenter(dir);
+    }
+
     protected void clearTarget(ForgeDirection dir) {
 
         if (!isValidDirection(dir))
             return;
 
         this.target = null;
+    }
+
+    protected void clearTargets() {
+
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
+            clearTarget(dir);
     }
 
     /**
@@ -145,10 +157,10 @@ public class TileBaseMarker extends TileEntity {
 
     protected void findCenter(ForgeDirection dir) {
 
+        clearCenter(dir);
         if (!isValidDirection(dir))
             return;
 
-        clearCenter(dir);
         BlockPosition t = getTarget(dir);
         if (t == null)
             return;
@@ -163,13 +175,12 @@ public class TileBaseMarker extends TileEntity {
 
     public void findTargets() {
 
+        clearTargets();
+        clearCenters();
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
 
             if (!isValidDirection(d))
                 continue;
-
-            clearTarget(d);
-            clearCenter(d);
 
             BlockPosition b = BlockUtils.getFirstBlock(
                                 worldObj, this.xCoord, this.yCoord, this.zCoord,
@@ -182,28 +193,6 @@ public class TileBaseMarker extends TileEntity {
         }
 
         worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-    }
-
-    private void checkTargets() {
-
-        boolean needUpdate = false;
-        for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
-
-            if (!isValidDirection(d) || !hasTarget(d))
-                continue;
-
-            BlockPosition t = this.getTarget(d);
-            Block b = worldObj.getBlock(t.x, t.y, t.z);
-            if (b == null || (this.useTargetBlock && !(b instanceof BlockTarget))) {
-
-                clearTarget(d);
-                clearCenter(d);
-                needUpdate = true;
-            }
-        }
-
-        if (needUpdate)
-            worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
     }
 
     public void onRedstonePulse() {
