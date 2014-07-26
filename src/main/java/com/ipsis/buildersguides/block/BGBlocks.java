@@ -47,12 +47,15 @@ public class BGBlocks {
 
     public static void postInit() {
 
+        /* TODO Use the ore dictionary */
         ItemStack marker = new ItemStack(BGItems.itemMarker);
 
         GameRegistry.addShapelessRecipe(new ItemStack(blockAxisMarker), marker, new ItemStack(Items.stick), new ItemStack(Items.stick), new ItemStack(Items.stick));
         GameRegistry.addShapelessRecipe(new ItemStack(blockCoordMarker), marker, new ItemStack(Items.flint));
         GameRegistry.addShapelessRecipe(new ItemStack(blockLaserMarker), marker, new ItemStack(Items.redstone));
         GameRegistry.addShapelessRecipe(new ItemStack(blockSkyMarker), marker, new ItemStack(Items.feather));
+
+        //GameRegistry.addShapelessRecipe(new ItemsStack(blockChunkMarker), marker, new ItemStack(Items.something));
 
 
         GameRegistry.addShapelessRecipe(new ItemStack(blockRangeMarker), marker, new ItemStack(Blocks.glass_pane));

@@ -24,6 +24,12 @@ public class BlockAdvancedMarker extends BlockBG implements ITileEntityProvider 
     }
 
     @Override
+    public boolean isOpaqueCube() {
+
+        return false;
+    }
+
+    @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemStack) {
 
         if (!world.isRemote) {

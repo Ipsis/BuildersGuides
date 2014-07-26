@@ -1,5 +1,6 @@
 package com.ipsis.buildersguides.proxy;
 
+import com.ipsis.buildersguides.render.AdvancedMarkerRenderer;
 import com.ipsis.buildersguides.render.CoordMarkerRenderer;
 import com.ipsis.buildersguides.render.MarkerRenderer;
 import com.ipsis.buildersguides.tileentity.*;
@@ -9,8 +10,13 @@ public class ClientProxy extends CommonProxy {
 
     public void initRenderingAndTexture() {
 
-        /* TODO Do I only need 1 renderer */
+        ClientRegistry.bindTileEntitySpecialRenderer(TileBaseMarker.class, new MarkerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCoordMarker.class, new CoordMarkerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileAdvancedMarker.class, new AdvancedMarkerRenderer());
+
+        /* TODO Do I only need 1 renderer */
+        /*
+
         ClientRegistry.bindTileEntitySpecialRenderer(TileAxisMarker.class, new MarkerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileLaserMarker.class, new MarkerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileSkyMarker.class, new MarkerRenderer());
@@ -18,6 +24,8 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileRangeMarker.class, new MarkerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileMultiRangeMarker.class, new MarkerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileTargetMarker.class, new MarkerRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileMultiTargetMarker.class, new MarkerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileMultiTargetMarker.class, new MarkerRenderer()); */
+
+
      }
 }
