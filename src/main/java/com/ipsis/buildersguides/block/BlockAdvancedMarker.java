@@ -49,7 +49,7 @@ public class BlockAdvancedMarker extends BlockBG implements ITileEntityProvider 
 
         if (!world.isRemote) {
 
-            TileEntity te = te = world.getTileEntity(x, y, z);
+            TileEntity te = world.getTileEntity(x, y, z);
             if (te != null && te instanceof TileAdvancedMarker) {
                 TileAdvancedMarker teMarker = (TileAdvancedMarker) te;
                 if (!entityPlayer.isSneaking()) {
