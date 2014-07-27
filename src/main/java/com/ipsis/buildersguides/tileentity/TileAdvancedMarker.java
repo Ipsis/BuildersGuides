@@ -9,30 +9,123 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileAdvancedMarker extends TileEntity implements IWrenchable {
 
-    private Mode mode;
     private static final int MAX_DISTANCE = 64;
     private BlockPosition[] targets;
-    public boolean canRender;
-    public int dx;
-    public int dy;
-    public int dz;
+    private AdvancedMode advancedMode;
+    private BGColor color;
 
+    /* Client Render Data */
+    private int dx;
+    private int dy;
+    private int dz;
+    private StructureMode structureMode;
+    private boolean isRenderDataValid;
+
+
+    {
+        this.targets = new BlockPosition[ForgeDirection.VALID_DIRECTIONS.length];
+        this.advancedMode = AdvancedMode.HORIZ_PLANE;
+        this.dx = 0;
+        this.dy = 0;
+        this.dz = 0;
+        this.structureMode = StructureMode.NONE;
+        this.isRenderDataValid = false;
+        this.color = BGColor.BLACK;
+    }
 
     public TileAdvancedMarker() {
 
-        this.mode = Mode.HORIZ_PLANE;
-        targets = new BlockPosition[ForgeDirection.VALID_DIRECTIONS.length];
-        this.canRender = false;
+
+    }
+
+    public enum AdvancedMode {
+
+        HORIZ_PLANE,
+        VERT_PLANE,
+        CUBOID;
+
+        public static AdvancedMode[] VALID_MODES = { HORIZ_PLANE, VERT_PLANE, CUBOID };
+
+        public static AdvancedMode getMode(int id) {
+
+            if (id >= 0 && id < VALID_MODES.length)
+                return VALID_MODES[id];
+
+            return HORIZ_PLANE;
+        }
+
+        public static AdvancedMode getNext(AdvancedMode mode) {
+
+            int next = mode.ordinal() + 1;
+            if (next >= VALID_MODES.length)
+                next = 0;
+
+            return VALID_MODES[next];
+        }
+    }
+
+    public enum StructureMode {
+
+        HORIZ_X_Z,
+        VERT_X_Y,
+        VERT_Y_Z,
+        CUBOID,
+        NONE;
+
+        public static StructureMode[] VALID_MODES = { HORIZ_X_Z, VERT_X_Y, VERT_Y_Z, CUBOID, NONE };
+
+        public static StructureMode getMode(int id) {
+
+            if (id >= 0 && id < VALID_MODES.length)
+                return VALID_MODES[id];
+
+            return NONE;
+        }
     }
 
     /**
      * Accessors
      */
+    public AdvancedMode getAdvancedMode() {
+        return this.advancedMode;
+    }
+
+    public int getDx() {
+        return this.dx;
+    }
+
+    public int getDy() {
+        return this.dy;
+    }
+
+    public int getDz() {
+        return this.dz;
+    }
+
+    public StructureMode getStructureMode() {
+        return this.structureMode;
+    }
+
+    public boolean getIsRenderDataValid() {
+        return this.isRenderDataValid;
+    }
+
+    public BGColor getColor() {
+
+        return this.color;
+    }
+
+    public void setColor(BGColor color) {
+
+        this.color = color;
+    }
+
     public BlockPosition getTarget(ForgeDirection dir) {
 
         return targets[dir.ordinal()];
@@ -61,42 +154,41 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
             clearTarget(dir);
     }
 
+
+    /**
+     * IWrenchable
+     */
     @Override
     public void shiftLeftWrench() {
 
-        /* change the mode */
-        if (this.mode == Mode.HORIZ_PLANE)
-            this.mode = Mode.VERT_PLANE;
-        else if (this.mode == Mode.VERT_PLANE)
-            this.mode = Mode.CUBOID;
-        else
-            this.mode = Mode.HORIZ_PLANE;
-
+        this.advancedMode = AdvancedMode.getNext(this.advancedMode);
+        LogHelper.info("shiftLeftWrench: " + this.advancedMode);
         this.findTargets();
     }
 
-    public Mode getMode() {
+    private void scanTargets() {
 
-        return this.mode;
+        clearTargets();
+        this.structureMode = StructureMode.NONE;
+
+        if (this.advancedMode == AdvancedMode.HORIZ_PLANE)
+            findTargetsHPlane();
+        else if (this.advancedMode == AdvancedMode.VERT_PLANE || advancedMode == AdvancedMode.CUBOID)
+            findTargetsOther();
     }
 
-    public enum Mode {
+    public void findTargets() {
 
-        HORIZ_PLANE,
-        VERT_PLANE,
-        CUBOID;
+        if (worldObj.isRemote)
+            return;
 
-        public static Mode getMode(int id) {
-
-            if (id == HORIZ_PLANE.ordinal())
-                return HORIZ_PLANE;
-            else if (id == VERT_PLANE.ordinal())
-                return VERT_PLANE;
-            else
-                return CUBOID;
-        }
+        scanTargets();
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
+    /**
+     * Target Location
+     */
     private boolean findTargetsHPlane() {
 
         boolean valid = false;
@@ -126,18 +218,20 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
         if (valid) {
 
             BlockPosition p;
-
             p = locker.getX();
             if (p != null)
-                this.setTarget(p.orientation, p);
-
-            p = locker.getY();
-            if (p != null)
-                this.setTarget(p.orientation, p);
+                setTarget(p.orientation, p);
+            else
+                valid = false;
 
             p = locker.getZ();
             if (p != null)
-                this.setTarget(p.orientation, p);
+                setTarget(p.orientation, p);
+            else
+                valid = false;
+
+            if(valid)
+                this.structureMode = StructureMode.HORIZ_X_Z;
         }
 
         return valid;
@@ -154,8 +248,8 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
                 if (locker.isLocked(dir) || locker.isOppositeLocked(dir))
                     continue;
 
-                if (this.mode == Mode.VERT_PLANE && ((locker.isXLocked() && DirectionHelper.isZ(dir)) || (locker.isZLocked() && DirectionHelper.isX(dir))))
-                        continue;
+                if (this.advancedMode == AdvancedMode.VERT_PLANE && ((locker.isXLocked() && DirectionHelper.isZ(dir)) || (locker.isZLocked() && DirectionHelper.isX(dir))))
+                    continue;
 
                 BlockPosition bp = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, dir);
                 bp.moveForwards(i);
@@ -163,65 +257,52 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
                 if (b instanceof BlockTarget) {
                     locker.lock(dir, bp.x, bp.y, bp.z);
 
-                    if (this.mode == Mode.VERT_PLANE && (locker.isValidXYPlane() || locker.isValidYZPlane()))
+                    if (this.advancedMode == AdvancedMode.VERT_PLANE && (locker.isValidXYPlane() || locker.isValidYZPlane()))
                         valid = true;
-                    else if (this.mode == Mode.CUBOID && locker.isValidCuboid())
+                    else if (this.advancedMode == AdvancedMode.CUBOID && locker.isValidCuboid())
                         valid = true;
                 }
             }
-        }
 
-        if (valid) {
+            if (valid) {
 
-            BlockPosition p;
+                BlockPosition x, y, z;
+                x = locker.getX();
+                y = locker.getY();
+                z = locker.getZ();
 
-            p = locker.getX();
-            if (p != null)
-                this.setTarget(p.orientation, p);
-
-            p = locker.getY();
-            if (p != null)
-                this.setTarget(p.orientation, p);
-
-            p = locker.getZ();
-            if (p != null)
-                this.setTarget(p.orientation, p);
+                if (this.advancedMode == AdvancedMode.VERT_PLANE) {
+                    if (x != null && y != null && z == null) {
+                        setTarget(x.orientation, x);
+                        setTarget(y.orientation, y);
+                        this.structureMode = StructureMode.VERT_X_Y;
+                    } else if (x == null && y != null && z != null) {
+                        setTarget(y.orientation, y);
+                        setTarget(z.orientation, z);
+                        this.structureMode = StructureMode.VERT_Y_Z;
+                    } else {
+                        valid = false;
+                    }
+                } else if (this.advancedMode == AdvancedMode.CUBOID) {
+                    if (x != null && y != null && z != null) {
+                        setTarget(x.orientation, x);
+                        setTarget(y.orientation, y);
+                        setTarget(z.orientation, z);
+                        this.structureMode = StructureMode.CUBOID;
+                    } else {
+                        valid = false;
+                    }
+                }
+            }
         }
 
         return valid;
     }
 
-    public void findTargets() {
-
-        this.clearTargets();
-
-        boolean valid = false;
-        if (this.mode == Mode.HORIZ_PLANE)
-            valid = findTargetsHPlane();
-        else if (this.mode == Mode.VERT_PLANE)
-            valid = findTargetsOther();
-        else if (this.mode == Mode.CUBOID)
-            valid = findTargetsOther();
-
-        if (valid == true) {
-
-            for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                BlockPosition p = this.getTarget(dir);
-                if (p != null)
-                    LogHelper.info("Found target " + p);
-            }
-
-            createRenderData();
-
-        } else {
-            this.clearTargets();
-        }
-    }
 
     /**
-     * Targets to render positions
+     * Client Render
      */
-
     private BlockPosition getX() {
 
         if (this.getTarget(ForgeDirection.EAST) != null)
@@ -246,25 +327,40 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
             return this.getTarget(ForgeDirection.NORTH);
     }
 
-    private void createRenderData() {
+    private void updateRenderData() {
+
+        if (!worldObj.isRemote)
+            return;
 
         this.dx = 0;
         this.dy = 0;
         this.dz = 0;
+        this.isRenderDataValid = false;
 
-        this.canRender = false;
+        if (this.structureMode == StructureMode.NONE)
+            return;
+
 
         if (getX() != null)
             this.dx = getX().x - this.xCoord;
-
         if (getY() != null)
             this.dy = getY().y - this.yCoord;
-
         if (getZ() != null)
             this.dz = getZ().z - this.zCoord;
 
-        if (this.dx != 0 || this.dy != 0 || this.dz != 0)
-            this.canRender = true;
+        if (this.structureMode == StructureMode.HORIZ_X_Z && this.dx != 0 && this.dy == 0 && this.dz != 0)
+            this.isRenderDataValid = true;
+        else if (this.structureMode == StructureMode.VERT_Y_Z && this.dx == 0 && this.dy != 0 && this.dz != 0)
+            this.isRenderDataValid = true;
+        else if (this.structureMode == StructureMode.VERT_X_Y && this.dx != 0 && this.dy != 0 && this.dz == 0)
+            this.isRenderDataValid = true;
+        else if (this.structureMode == StructureMode.CUBOID && this.dx != 0 && this.dy != 0 && this.dz != 0)
+            this.isRenderDataValid = true;
+    }
+
+    public void onRedstonePulse() {
+
+        findTargets();
     }
 
     /**
@@ -275,14 +371,14 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
 
         super.writeToNBT(nbttagcompound);
 
-        //nbttagcompound.setInteger("Color", this.color.ordinal());
-        //nbttagcompound.setInteger("Facing", this.facing.ordinal());
-        nbttagcompound.setInteger("Mode", this.mode.ordinal());
+        nbttagcompound.setInteger("Color", this.color.ordinal());
+        nbttagcompound.setInteger("AdvancedMode", this.advancedMode.ordinal());
+        nbttagcompound.setInteger("StructureMode", this.structureMode.ordinal());
 
         NBTTagList nbttaglist = new NBTTagList();
         for (ForgeDirection d : ForgeDirection.VALID_DIRECTIONS) {
 
-             BlockPosition t = getTarget(d);
+            BlockPosition t = getTarget(d);
             if (t != null) {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                 nbttagcompound1.setByte("Direction", (byte)d.ordinal());
@@ -301,9 +397,10 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
 
         this.clearTargets();
 
-        //this.color = BGColor.getColor(nbttagcompound.getInteger("Color"));
+        this.color = BGColor.getColor(nbttagcompound.getInteger("Color"));
         //this.facing = ForgeDirection.getOrientation(nbttagcompound.getInteger("Facing"));
-        this.mode = Mode.getMode(nbttagcompound.getInteger("Mode"));
+        this.advancedMode = AdvancedMode.getMode(nbttagcompound.getInteger("AdvancedMode"));
+        this.structureMode = StructureMode.getMode(nbttagcompound.getInteger("StructureMode"));
 
         NBTTagList nbttaglist = nbttagcompound.getTagList("Targets", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < nbttaglist.tagCount(); i++) {
@@ -316,14 +413,11 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
                 setTarget(d, t);
             }
         }
-
-        createRenderData();
     }
 
     /**
-     * Packet Update
+     * Description Packet
      */
-    @Override
     public Packet getDescriptionPacket() {
 
         NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -335,7 +429,18 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 
         readFromNBT(pkt.func_148857_g());
+        updateRenderData();
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
+    /**
+     * Need to render the block when it is not in view.
+     */
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+
+        return AxisAlignedBB.getBoundingBox(
+                xCoord - MAX_DISTANCE, yCoord - MAX_DISTANCE, zCoord - MAX_DISTANCE,
+                xCoord + MAX_DISTANCE, yCoord + MAX_DISTANCE, zCoord + MAX_DISTANCE);
+    }
 }
