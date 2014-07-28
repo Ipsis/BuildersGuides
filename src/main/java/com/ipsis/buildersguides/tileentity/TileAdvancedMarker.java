@@ -372,103 +372,205 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
         return this.centers;
     }
 
+    private void addCenter(BlockPosition p) {
+
+        if (p != null)
+            centers.add(p);
+    }
+
+    private void findCentersHorizXZ() {
+
+        BlockPosition oc;
+        BlockPosition oxc0, oxc1, ozc0, ozc1;
+
+        oc = null;
+        oxc1 = null;
+        ozc1 = null;
+
+        oxc0 = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getX().x, this.getX().y, this.getX().z, this.getX().orientation);
+        ozc0 = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getZ().x, this.getZ().y, this.getZ().z, this.getZ().orientation);
+
+        LogHelper.info(oxc0 + " " + ozc0);
+
+        if (oxc0 != null) {
+            oxc1 = oxc0.copy();
+            oxc1.z = this.getZ().z;
+        }
+
+        if (ozc0 != null) {
+            ozc1 = ozc0.copy();
+            ozc1.x = this.getX().x;
+        }
+
+        if (oxc0 != null && ozc0 != null)
+            oc = new BlockPosition(oxc0.x, this.yCoord, ozc0.z);
+
+        addCenter(oc);
+        addCenter(oxc0);
+        addCenter(oxc1);
+        addCenter(ozc0);
+        addCenter(ozc1);
+    }
+
+    private void findCentersVertXY() {
+
+        BlockPosition oc;
+        BlockPosition oxc0, oxc1, oyc0, oyc1;
+
+        oc = null;
+        oxc1 = null;
+        oyc1 = null;
+
+        oxc0 = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getX().x, this.getX().y, this.getX().z, this.getX().orientation);
+        oyc0 = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getY().x, this.getY().y, this.getY().z, this.getY().orientation);
+
+        if (oxc0 != null) {
+            oxc1 = oxc0.copy();
+            oxc1.y = this.getY().y;
+        }
+
+        if (oyc0 != null) {
+            oyc1 = oyc0.copy();
+            oyc1.x = this.getX().x;
+        }
+
+        if (oxc0 != null && oyc0 != null)
+            oc = new BlockPosition(oxc0.x, oyc0.y, this.zCoord);
+
+        addCenter(oc);
+        addCenter(oxc0);
+        addCenter(oxc1);
+        addCenter(oyc0);
+        addCenter(oyc1);
+    }
+
+    private void findCentersVertYZ() {
+
+        BlockPosition oc;
+        BlockPosition oyc0, oyc1, ozc0, ozc1;
+
+        oc = null;
+        ozc1 = null;
+        oyc1 = null;
+
+        oyc0 = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getY().x, this.getY().y, this.getY().z, this.getY().orientation);
+        ozc0 = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getZ().x, this.getZ().y, this.getZ().z, this.getZ().orientation);
+
+        if (oyc0 != null) {
+            oyc1 = oyc0.copy();
+            oyc1.z = this.getZ().z;
+        }
+
+        if (ozc0 != null) {
+            ozc1 = ozc0.copy();
+            ozc1.y = this.getY().y;
+        }
+
+        if (oyc0 != null && ozc0 != null)
+            oc = new BlockPosition(this.xCoord, oyc0.y, ozc0.z);
+
+        addCenter(oc);
+        addCenter(oyc0);
+        addCenter(oyc1);
+        addCenter(ozc0);
+        addCenter(ozc1);
+    }
+
+    private void findCentersCuboid() {
+
+        BlockPosition[] oxc = new BlockPosition[4];
+        BlockPosition[] oyc = new BlockPosition[4];
+        BlockPosition[] ozc = new BlockPosition[4];
+        BlockPosition[] oxzc = new BlockPosition[2];
+        BlockPosition[] oxyc = new BlockPosition[2];
+        BlockPosition[] oyzc = new BlockPosition[2];
+        BlockPosition oc = null;
+
+        oxc[0] = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getX().x, this.getX().y, this.getX().z, this.getX().orientation);
+        oyc[0] = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getY().x, this.getY().y, this.getY().z, this.getY().orientation);
+        ozc[0] = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getZ().x, this.getZ().y, this.getZ().z, this.getZ().orientation);
+
+        if (oxc[0] != null) {
+            oxc[1] = oxc[0].copy();
+            oxc[1].z = this.getZ().z;
+            oxc[2] = oxc[0].copy();
+            oxc[2].y = this.getY().y;
+            oxc[3] = oxc[0].copy();
+            oxc[3].z = this.getZ().z;
+            oxc[3].y = this.getY().y;
+        }
+
+        if (ozc[0] != null) {
+            ozc[1] = ozc[0].copy();
+            ozc[1].x = this.getX().x;
+            ozc[2] = ozc[0].copy();
+            ozc[2].y = this.getY().y;
+            ozc[3] = ozc[0].copy();
+            ozc[3].x = this.getX().x;
+            ozc[3].y = this.getY().y;
+        }
+
+        if (oyc[0] != null) {
+            oyc[1] = oyc[0].copy();
+            oyc[1].x = this.getX().x;
+            oyc[2] = oyc[0].copy();
+            oyc[2].z = this.getZ().z;
+            oyc[3] = oyc[0].copy();
+            oyc[3].x = this.getX().x;
+            oyc[3].z = this.getZ().z;
+        }
+
+        if (oxc[0] != null && ozc[0] != null) {
+            oxzc[0] = new BlockPosition(oxc[0].x, this.yCoord, ozc[0].z);
+            oxzc[1] = new BlockPosition(oxc[0].x, this.getY().y, ozc[0].z);
+        }
+
+        if (oxc[0] != null && oyc[0] != null) {
+            oxyc[0] = new BlockPosition(oxc[0].x, oyc[0].y, this.zCoord);
+            oxyc[1] = new BlockPosition(oxc[0].x, oyc[0].y, this.getZ().z);
+        }
+
+        if (oyc[0] != null && ozc[0] != null) {
+            oyzc[0] = new BlockPosition(this.xCoord, oyc[0].y, ozc[0].z);
+            oyzc[1] = new BlockPosition(this.getX().x, oyc[0].y, ozc[0].z);
+        }
+
+        if (oxc[0] != null && oyc[0] != null && ozc[0] != null)
+            oc = new BlockPosition(oxc[0].x, oyc[0].y, ozc[0].z);
+
+        for (BlockPosition p : oxc)
+            addCenter(p);
+
+        for (BlockPosition p : oyc)
+            addCenter(p);
+
+        for (BlockPosition p : ozc)
+            addCenter(p);
+
+        for (BlockPosition p : oxzc)
+            addCenter(p);
+
+        for (BlockPosition p : oxyc)
+            addCenter(p);
+
+        for (BlockPosition p : oyzc)
+            addCenter(p);
+
+        addCenter(oc);
+    }
+
     private void findCenters() {
 
         centers = new ArrayList<BlockPosition>();
 
-        if (this.structureMode == StructureMode.HORIZ_X_Z) {
-
-            BlockPosition p;
-            BlockPosition c = new BlockPosition(this);
-
-            /* X axis */
-            p = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord,
-                this.getX().x, this.getX().y, this.getX().z, this.getX().orientation);
-            if (p != null) {
-                centers.add(p);
-                BlockPosition ap = p.copy();
-                ap.z = this.getZ().z;
-                centers.add(ap);
-                c.x = p.x;
-            }
-
-            /* Z axis */
-            p = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord,
-                    this.getZ().x, this.getZ().y, this.getZ().z, this.getZ().orientation);
-            if (p != null) {
-                centers.add(p);
-                BlockPosition ap = p.copy();
-                ap.x = this.getX().x;
-                centers.add(ap);
-                c.z = p.z;
-            }
-
-            if(!c.equals(new BlockPosition(this)))
-                centers.add(c);
-
-        } else if (this.structureMode == StructureMode.VERT_X_Y) {
-
-            BlockPosition p;
-            BlockPosition c = new BlockPosition(this);
-
-            /* X axis */
-            p = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord,
-                    this.getX().x, this.getX().y, this.getX().z, this.getX().orientation);
-            if (p != null) {
-                centers.add(p);
-                BlockPosition ap = p.copy();
-                ap.y = this.getY().y;
-                centers.add(ap);
-                c.x = p.x;
-            }
-
-            /* Y axis */
-            p = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord,
-                    this.getY().x, this.getY().y, this.getY().z, this.getY().orientation);
-            if (p != null) {
-                centers.add(p);
-                BlockPosition ap = p.copy();
-                ap.x = this.getX().x;
-                centers.add(ap);
-                c.y = p.y;
-            }
-
-            if(!c.equals(new BlockPosition(this)))
-                centers.add(c);
-
-        } else if (this.structureMode == StructureMode.VERT_Y_Z) {
-
-            BlockPosition p;
-            BlockPosition c = new BlockPosition(this);
-
-            /* Y Axis */
-            p = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord,
-                    this.getY().x, this.getY().y, this.getY().z, this.getY().orientation);
-            if (p != null) {
-                centers.add(p);
-                BlockPosition ap = p.copy();
-                ap.z = this.getZ().z;
-                centers.add(ap);
-                c.y = p.y;
-            }
-
-            /* Z Axis */
-            p = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord,
-                    this.getZ().x, this.getZ().y, this.getZ().z, this.getZ().orientation);
-            if (p != null) {
-                centers.add(p);
-                BlockPosition ap = p.copy();
-                ap.y = this.getY().y;
-                centers.add(ap);
-                c.z = p.z;
-            }
-
-            if(!c.equals(new BlockPosition(this)))
-                centers.add(c);
-
-        } else if (this.structureMode == StructureMode.CUBOID) {
-
-        }
+        if (this.structureMode == StructureMode.HORIZ_X_Z)
+            findCentersHorizXZ();
+        else if (this.structureMode == StructureMode.VERT_X_Y)
+            findCentersVertXY();
+        else if (this.structureMode == StructureMode.VERT_Y_Z)
+            findCentersVertYZ();
+        else if (this.structureMode == StructureMode.CUBOID)
+            findCentersCuboid();
     }
 
     public void onRedstonePulse() {
