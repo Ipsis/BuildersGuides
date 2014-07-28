@@ -21,16 +21,17 @@ public class BGItems {
 
     public static void initialize() {
 
-    }
-
-    public static void postInit() {
-
         GameRegistry.addRecipe(new ItemStack(itemMarker, 5), "srs", "rsr", "srs", 's', Blocks.stone, 'r', Items.redstone);
         GameRegistry.addShapelessRecipe(new ItemStack(itemAllenKey), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.flint));
 
         /*
         GameRegistry.addShapelessRecipe(new ItemStack(itemManual), new ItemStack(itemMarker), new ItemStack(Items.paper));
-        GameRegistry.addRecipe(new ItemStack(itemBag), "lll", "lml", "lll", 'l', new ItemStack(Items.leather), 'm', itemMarker); */
+        GameRegistry.addRecipe(new ItemStack(itemBag), "lll", "lml", "lll", 'l', new ItemStack(Items.leather), 'm', itemMarker);
+         */
+    }
+
+    public static void postInit() {
+
     }
 
     public static ItemBG itemMarker;

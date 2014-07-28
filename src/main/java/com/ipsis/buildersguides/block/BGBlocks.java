@@ -6,6 +6,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class BGBlocks {
 
@@ -17,6 +19,7 @@ public class BGBlocks {
         blockCoordMarker = new BlockCoordMarker();
         blockLaserMarker = new BlockLaserMarker();
         blockSkyMarker = new BlockSkyMarker();
+        blockChunkMarker = new BlockChunkMarker();
 
         blockRangeMarker = new BlockRangeMarker();
         blockMultiRangeMarker = new BlockMultiRangeMarker();
@@ -31,6 +34,7 @@ public class BGBlocks {
         GameRegistry.registerBlock(blockAxisMarker, "block.axisMarker");
         GameRegistry.registerBlock(blockCoordMarker, "block.coordMarker");
         GameRegistry.registerBlock(blockSkyMarker, "block.skyMarker");
+        GameRegistry.registerBlock(blockChunkMarker, "block.chunkMarker");
 
         GameRegistry.registerBlock(blockRangeMarker, "block.rangeMarker");
         GameRegistry.registerBlock(blockMultiRangeMarker, "block.multiRangeMarker");
@@ -43,29 +47,22 @@ public class BGBlocks {
 
     public static void initialize() {
 
-    }
-
-    public static void postInit() {
-
-        /* TODO Use the ore dictionary */
         ItemStack marker = new ItemStack(BGItems.itemMarker);
 
-        GameRegistry.addShapelessRecipe(new ItemStack(blockAxisMarker), marker, new ItemStack(Items.stick), new ItemStack(Items.stick), new ItemStack(Items.stick));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(blockAxisMarker), marker, "stickWood", "stickWood", "stickWood"));
         GameRegistry.addShapelessRecipe(new ItemStack(blockCoordMarker), marker, new ItemStack(Items.flint));
         GameRegistry.addShapelessRecipe(new ItemStack(blockLaserMarker), marker, new ItemStack(Items.redstone));
         GameRegistry.addShapelessRecipe(new ItemStack(blockSkyMarker), marker, new ItemStack(Items.feather));
+        GameRegistry.addShapelessRecipe(new ItemStack(blockChunkMarker), marker, new ItemStack(Blocks.fence));
 
-        //GameRegistry.addShapelessRecipe(new ItemsStack(blockChunkMarker), marker, new ItemStack(Items.something));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(blockRangeMarker), marker, "paneGlass"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(blockMultiRangeMarker), marker, "blockGlass"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(blockTargetMarker), marker, "paneGlass", new ItemStack(Blocks.torch)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(blockMultiTargetMarker), marker, "blockGlass", new ItemStack(Blocks.torch)));
 
-
-        GameRegistry.addShapelessRecipe(new ItemStack(blockRangeMarker), marker, new ItemStack(Blocks.glass_pane));
-        GameRegistry.addShapelessRecipe(new ItemStack(blockMultiRangeMarker), marker, new ItemStack(Blocks.glass));
-        GameRegistry.addShapelessRecipe(new ItemStack(blockTargetMarker), marker, new ItemStack(Blocks.glass_pane), new ItemStack(Blocks.torch));
-        GameRegistry.addShapelessRecipe(new ItemStack(blockMultiTargetMarker), marker, new ItemStack(Blocks.glass), new ItemStack(Blocks.torch));
-
-        GameRegistry.addShapelessRecipe(new ItemStack(blockAdvancedMarker), marker, new ItemStack(Blocks.glass), new ItemStack(Blocks.redstone_torch));
-
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(blockAdvancedMarker), marker, "blockGlass", new ItemStack(Blocks.redstone_torch)));
         GameRegistry.addShapelessRecipe(new ItemStack(blockTarget), marker, new ItemStack(Items.arrow));
+
 
         /* Allow reversal */
         GameRegistry.addShapelessRecipe(marker, new ItemStack(blockTarget));
@@ -82,12 +79,17 @@ public class BGBlocks {
         GameRegistry.addShapelessRecipe(marker, new ItemStack(blockAdvancedMarker));
     }
 
+    public static void postInit() {
+
+    }
+
     public static BlockBG blockTarget;
 
     public static BlockBG blockAxisMarker;
     public static BlockBG blockCoordMarker;
     public static BlockBG blockLaserMarker;
     public static BlockBG blockSkyMarker;
+    public static BlockBG blockChunkMarker;
 
     public static BlockBG blockRangeMarker;
     public static BlockBG blockMultiRangeMarker;
