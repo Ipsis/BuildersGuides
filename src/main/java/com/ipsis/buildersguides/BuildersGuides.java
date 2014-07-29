@@ -1,6 +1,5 @@
 package com.ipsis.buildersguides;
 
-import com.ipsis.buildersguides.init.Recipe;
 import com.ipsis.buildersguides.item.BGItems;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -10,12 +9,11 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import com.ipsis.buildersguides.block.BGBlocks;
 import com.ipsis.buildersguides.proxy.IProxy;
 import com.ipsis.buildersguides.reference.Reference;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = BuildersGuides.VERSION)
 public class BuildersGuides {
 
-    public static final String VERSION = "0.1a";
+    public static final String VERSION = "1.7.10-0.1a";
 
     @Mod.Instance("BuildersGuides")
     public static BuildersGuides instance;
@@ -38,8 +36,6 @@ public class BuildersGuides {
 
         proxy.initRenderingAndTexture();
         proxy.initTileEntities();
-
-        Recipe.init();
     }
 
     @Mod.EventHandler
