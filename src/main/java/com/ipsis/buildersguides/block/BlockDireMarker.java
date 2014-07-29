@@ -1,7 +1,8 @@
 package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
-import com.ipsis.buildersguides.tileentity.TileCoordMarker;
+import com.ipsis.buildersguides.tileentity.TileDireMarker;
+import com.ipsis.buildersguides.tileentity.TileSkyMarker;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
@@ -11,24 +12,20 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockCoordMarker extends BlockBG implements ITileEntityProvider {
+public class BlockDireMarker extends BlockBG implements ITileEntityProvider {
 
-    public BlockCoordMarker() {
+    public BlockDireMarker() {
 
-        super();
-        setBlockName("coordMarker");
+        this.setBlockName("direMarker");
     }
 
-    @Override
-    public boolean isOpaqueCube() {
-
-        return false;
-    }
-
+    /**
+     * ITileEntityProvider
+     */
     @Override
     public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 
-        return new TileCoordMarker();
+        return new TileDireMarker();
     }
 
     @SideOnly(Side.CLIENT)
@@ -51,4 +48,6 @@ public class BlockCoordMarker extends BlockBG implements ITileEntityProvider {
 
         return sideIcon;
     }
+
+
 }

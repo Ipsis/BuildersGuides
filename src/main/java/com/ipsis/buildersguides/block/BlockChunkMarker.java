@@ -1,14 +1,12 @@
 package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
+import com.ipsis.buildersguides.tileentity.TileAxisMarker;
 import com.ipsis.buildersguides.tileentity.TileBaseMarker;
-import com.ipsis.buildersguides.tileentity.TileLaserMarker2;
+import com.ipsis.buildersguides.tileentity.TileChunkMarker;
 import com.ipsis.buildersguides.util.DirectionHelper;
-import com.ipsis.buildersguides.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,11 +17,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public abstract class BlockBaseMarker extends BlockBG implements ITileEntityProvider {
+public class BlockChunkMarker extends BlockBG implements ITileEntityProvider {
 
-    public BlockBaseMarker() {
+    public BlockChunkMarker() {
 
         super();
+        setBlockName("chunkMarker");
     }
 
     @SideOnly(Side.CLIENT)
@@ -47,10 +46,25 @@ public abstract class BlockBaseMarker extends BlockBG implements ITileEntityProv
         return sideIcon;
     }
 
+    /**
+     * ITileEntityProvider
+     */
     @Override
-    public boolean isOpaqueCube() {
+    public TileEntity createNewTileEntity(World world, int p_149915_2_) {
 
-        return false;
+        return new TileChunkMarker();
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack) {
+
+        if (!world.isRemote) {
+            if (world.getTileEntity(x, y, z) instanceof TileChunkMarker) {
+
+                TileChunkMarker te = (TileChunkMarker) world.getTileEntity(x, y, z);
+                te.setWhereAmI(entityLiving);
+            }
+        }
     }
 
     @Override
@@ -59,8 +73,8 @@ public abstract class BlockBaseMarker extends BlockBG implements ITileEntityProv
         if (!world.isRemote) {
 
             TileEntity te = te = world.getTileEntity(x, y, z);
-            if (te != null && te instanceof TileBaseMarker) {
-                TileBaseMarker teMarker = (TileBaseMarker) te;
+            if (te != null && te instanceof TileChunkMarker) {
+                TileChunkMarker teMarker = (TileChunkMarker) te;
                 if (!entityPlayer.isSneaking()) {
                     teMarker.setColor(teMarker.getColor().getNext());
                     world.markBlockForUpdate(x, y, z);
@@ -69,18 +83,5 @@ public abstract class BlockBaseMarker extends BlockBG implements ITileEntityProv
         }
 
         return true;
-    }
-
-    @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemStack) {
-
-        if (!world.isRemote) {
-            if (world.getTileEntity(x, y, z) instanceof TileBaseMarker) {
-
-                TileBaseMarker te = (TileBaseMarker) world.getTileEntity(x, y, z);
-                te.setFacing(DirectionHelper.getFacing6(world, x, y, z, entity));
-                te.findTargets();
-            }
-        }
     }
 }
