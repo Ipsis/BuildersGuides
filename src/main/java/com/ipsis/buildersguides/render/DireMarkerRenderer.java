@@ -52,7 +52,7 @@ public class DireMarkerRenderer extends TileEntitySpecialRenderer {
 
             GL11.glTranslated(x + 0.5F, y + 0.5F, z + 0.5F);
 
-            //GL11.glColor4f(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 1.0F);
+            GL11.glColor4f(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 1.0F);
             GL11.glColor4f(0.0F, 0.0F, 0.0F, 1.0F);
             GL11.glLineWidth(1.5F);
 
