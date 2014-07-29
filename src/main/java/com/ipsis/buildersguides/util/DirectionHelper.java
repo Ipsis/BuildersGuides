@@ -30,4 +30,28 @@ public class DirectionHelper {
         int d = BlockPistonBase.determineOrientation(world, x, y, z, entityLiving);
         return ForgeDirection.getOrientation(d);
     }
+
+    public static boolean isY(ForgeDirection dir) {
+
+        if (dir == ForgeDirection.UP || dir == ForgeDirection.DOWN)
+            return true;
+
+        return false;
+    }
+
+    public static boolean isZ(ForgeDirection dir) {
+
+        if (dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
+            return true;
+
+        return false;
+    }
+
+    public static boolean isX(ForgeDirection dir) {
+
+        if (dir == ForgeDirection.EAST || dir == ForgeDirection.WEST)
+            return true;
+
+        return false;
+    }
 }

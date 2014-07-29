@@ -3,9 +3,6 @@ package com.ipsis.buildersguides.tileentity;
 import com.ipsis.buildersguides.util.BlockPosition;
 import net.minecraftforge.common.util.ForgeDirection;
 
-/**
- * Created by Ipsis on 16/07/2014.
- */
 public class TileSkyMarker extends TileMultiMarker {
 
     public TileSkyMarker() {

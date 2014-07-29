@@ -6,5 +6,6 @@ public class ItemMarker extends ItemBG {
 
         super();
         this.setUnlocalizedName("marker");
+        this.setMaxStackSize(64);
     }
 }

@@ -1,5 +1,6 @@
 package com.ipsis.buildersguides.creative;
 
+import com.ipsis.buildersguides.item.BGItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import com.ipsis.buildersguides.reference.Reference;
@@ -15,7 +16,7 @@ public class CreativeTab {
         @Override
         public Item getTabIconItem() {
 
-            return Items.compass;
+            return BGItems.itemMarker;
         }
 
         @Override

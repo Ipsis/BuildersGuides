@@ -36,7 +36,7 @@ public class BlockTargetMarker extends BlockBaseMarker {
     @Override
     public void registerBlockIcons(IIconRegister iconRegister) {
 
-        this.blockIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + "targetMarker");
+        this.blockIcon = iconRegister.registerIcon(Reference.MOD_ID + ":base");
         this.frontIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + "targetMarker_front");
     }
 

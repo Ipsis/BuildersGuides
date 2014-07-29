@@ -44,7 +44,7 @@ public abstract class BlockFacedMarker extends BlockBaseMarker {
 
         String name = this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(":") + 1 );
 
-        this.blockIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + name);
+        this.blockIcon = iconRegister.registerIcon(Reference.MOD_ID + ":base");
         this.frontIcon = iconRegister.registerIcon(Reference.MOD_ID + ":" + name + "_front");
     }
 
