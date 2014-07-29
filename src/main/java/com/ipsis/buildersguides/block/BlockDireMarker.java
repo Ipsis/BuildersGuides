@@ -1,12 +1,15 @@
 package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
+import com.ipsis.buildersguides.tileentity.TileChunkMarker;
 import com.ipsis.buildersguides.tileentity.TileDireMarker;
 import com.ipsis.buildersguides.tileentity.TileSkyMarker;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -28,6 +31,12 @@ public class BlockDireMarker extends BlockBG implements ITileEntityProvider {
         return new TileDireMarker();
     }
 
+    @Override
+    public boolean isOpaqueCube() {
+
+        return false;
+    }
+
     @SideOnly(Side.CLIENT)
     private IIcon sideIcon;
 
@@ -47,6 +56,18 @@ public class BlockDireMarker extends BlockBG implements ITileEntityProvider {
             return this.blockIcon;
 
         return sideIcon;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack) {
+
+        if (world.isRemote) {
+            if (world.getTileEntity(x, y, z) instanceof TileDireMarker) {
+
+                TileDireMarker te = (TileDireMarker) world.getTileEntity(x, y, z);
+                te.calcBlocks();
+            }
+        }
     }
 
 
