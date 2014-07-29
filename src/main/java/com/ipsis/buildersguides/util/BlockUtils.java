@@ -77,6 +77,13 @@ public class BlockUtils {
                 break;
             }
         }
+
+        /* Must be at least 1 block between */
+        p = new BlockPosition(x, y, z, facing);
+        p.moveForwards(1);
+        if (r != null && r.equals(p))
+            r = null;
+
         return r;
     }
 
@@ -86,7 +93,7 @@ public class BlockUtils {
             return null;
 
         int count = numBlocksBetween(x, y, z, x1, y1, z1);
-        if (count == 0 || count % 2 == 0)
+        if (count == 0 || count == 1 || count % 2 == 0)
             return null;
 
         BlockPosition center = new BlockPosition(x, y, z, facing);

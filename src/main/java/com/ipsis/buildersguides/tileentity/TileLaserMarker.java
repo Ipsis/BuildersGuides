@@ -1,6 +1,7 @@
 package com.ipsis.buildersguides.tileentity;
 
 import com.ipsis.buildersguides.util.BlockPosition;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileLaserMarker extends TileBaseMarker {
@@ -11,7 +12,7 @@ public class TileLaserMarker extends TileBaseMarker {
     }
 
     @Override
-    public void findTargets() {
+    public void findTargets(EntityPlayer player) {
 
         BlockPosition b = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, this.getFacing());
         b.moveForwards(this.MAX_DISTANCE);
@@ -26,9 +27,9 @@ public class TileLaserMarker extends TileBaseMarker {
     }
 
     @Override
-    public void rotateAround(ForgeDirection axis) {
+    public void rotateAround(ForgeDirection axis, EntityPlayer player) {
 
         setFacing(getFacing().getRotation(axis));
-        findTargets();
+        findTargets(player);
     }
 }

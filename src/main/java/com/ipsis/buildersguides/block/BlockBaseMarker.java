@@ -2,13 +2,9 @@ package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
 import com.ipsis.buildersguides.tileentity.TileBaseMarker;
-import com.ipsis.buildersguides.tileentity.TileLaserMarker2;
 import com.ipsis.buildersguides.util.DirectionHelper;
-import com.ipsis.buildersguides.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -79,7 +75,7 @@ public abstract class BlockBaseMarker extends BlockBG implements ITileEntityProv
 
                 TileBaseMarker te = (TileBaseMarker) world.getTileEntity(x, y, z);
                 te.setFacing(DirectionHelper.getFacing6(world, x, y, z, entity));
-                te.findTargets();
+                te.findTargets((EntityPlayer)entity);
             }
         }
     }

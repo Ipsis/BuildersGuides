@@ -1,6 +1,7 @@
 package com.ipsis.buildersguides.tileentity;
 
 import com.ipsis.buildersguides.util.BlockPosition;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileSkyMarker extends TileMultiMarker {
@@ -11,7 +12,7 @@ public class TileSkyMarker extends TileMultiMarker {
     }
 
     @Override
-    public void findTargets() {
+    public void findTargets(EntityPlayer player) {
 
         /* TODO this should be to world height and world depth */
         BlockPosition b = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, ForgeDirection.UP);

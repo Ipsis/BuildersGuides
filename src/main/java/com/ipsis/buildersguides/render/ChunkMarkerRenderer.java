@@ -100,10 +100,10 @@ public class ChunkMarkerRenderer extends TileEntitySpecialRenderer {
                 GL11.glEnd();
             }
 
-            RenderUtils.drawBlockOutline(8.0F, 0.0F, 8.0F);
-            RenderUtils.drawBlockOutline(8.0F, 0.0F, 9.0F);
-            RenderUtils.drawBlockOutline(9.0F, 0.0F, 9.0F);
-            RenderUtils.drawBlockOutline(9.0F, 0.0F, 8.0F);
+            RenderUtils.drawBlockOutline(7.5F, 0.5F, 7.5F);
+            RenderUtils.drawBlockOutline(7.5F, 0.5F, 8.5F);
+            RenderUtils.drawBlockOutline(8.5F, 0.5F, 7.5F);
+            RenderUtils.drawBlockOutline(8.5F, 0.5F, 8.5F);
 
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glEnable(GL11.GL_LIGHTING);

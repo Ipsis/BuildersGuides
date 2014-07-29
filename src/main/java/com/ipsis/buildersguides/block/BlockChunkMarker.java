@@ -25,6 +25,12 @@ public class BlockChunkMarker extends BlockBG implements ITileEntityProvider {
         setBlockName("chunkMarker");
     }
 
+    @Override
+    public boolean isOpaqueCube() {
+
+        return false;
+    }
+
     @SideOnly(Side.CLIENT)
     private IIcon sideIcon;
 

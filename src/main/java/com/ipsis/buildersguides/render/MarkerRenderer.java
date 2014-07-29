@@ -1,8 +1,6 @@
 package com.ipsis.buildersguides.render;
 
-import com.ipsis.buildersguides.tileentity.TileBaseMarker;
-import com.ipsis.buildersguides.tileentity.TileLaserMarker2;
-import com.ipsis.buildersguides.tileentity.TileRangeMarker2;
+import com.ipsis.buildersguides.tileentity.*;
 import com.ipsis.buildersguides.util.BlockPosition;
 import com.ipsis.buildersguides.util.BlockUtils;
 import com.ipsis.buildersguides.util.RenderUtils;
@@ -39,7 +37,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             doRender((TileBaseMarker)te, x, y, z);
     }
 
-    private void doRender(TileBaseMarker te, double x, double y, double z) {
+    private void renderSingleBlockDistance(TileBaseMarker te, ForgeDirection d) {
 
         FontRenderer fontRenderer = this.func_147498_b();
         RenderManager renderManager = RenderManager.instance;
@@ -47,6 +45,89 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
         /* Text */
         float f = 1.6F;
         float f1 = 0.016666668F * f;
+
+        GL11.glPushMatrix();
+        {
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
+
+            int num = BlockUtils.numBlocksBetween(te.xCoord, te.yCoord, te.zCoord,
+                    te.getTarget(d).x, te.getTarget(d).y, te.getTarget(d).z);
+
+            if (num > 0) {
+                GL11.glTranslatef(0.0F, 1.0F, 0.0F);
+                GL11.glNormal3f(0.0F, 1.0F, 0.0F);
+
+                /* Rotate to face the player  */
+                GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+                GL11.glRotatef(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+
+                GL11.glScalef(-f1, -f1, f1);
+
+                String s = Integer.toString(num);
+
+                fontRenderer.drawString(s, -fontRenderer.getStringWidth(s) / 2, 0, 0x20FFFFFF);
+            }
+
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+        }
+        GL11.glPopMatrix();
+    }
+
+    private void renderMultiBlockDistance(TileBaseMarker te, ForgeDirection d) {
+
+        FontRenderer fontRenderer = this.func_147498_b();
+        RenderManager renderManager = RenderManager.instance;
+
+        /* Text */
+        float f = 1.6F;
+        float f1 = 0.016666668F * f;
+
+        GL11.glPushMatrix();
+        {
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
+
+            int num = BlockUtils.numBlocksBetween(te.xCoord, te.yCoord, te.zCoord,
+                    te.getTarget(d).x, te.getTarget(d).y, te.getTarget(d).z);
+
+            if (num > 0) {
+
+                /* Position of text depends on the line direction */
+                switch (d) {
+                    case UP:
+                        GL11.glTranslatef(0.0F, 1.0F, 0.0F);
+                        break;
+                    case DOWN:
+                        GL11.glTranslatef(0.0F, -1.0F, 0.0F);
+                        break;
+                    case EAST:
+                    case WEST:
+                        GL11.glTranslatef(d.offsetX, 0.5F, 0.0F);
+                        break;
+                    case NORTH:
+                    case SOUTH:
+                        GL11.glTranslatef(0.0F, 0.5F, d.offsetZ);
+                        break;
+                }
+
+                GL11.glNormal3f(0.0F, 1.0F, 0.0F);
+
+                /* Rotate to face the player  */
+                GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+                GL11.glRotatef(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+
+                GL11.glScalef(-f1, -f1, f1);
+
+                String s = Integer.toString(num);
+
+                fontRenderer.drawString(s, -fontRenderer.getStringWidth(s) / 2, 0, 0x20FFFFFF);
+            }
+
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+        }
+        GL11.glPopMatrix();
+    }
+
+    private void doRender(TileBaseMarker te, double x, double y, double z) {
 
         GL11.glPushMatrix();
         GL11.glTranslated(x + 0.5F, y + 0.5F, z + 0.5F);
@@ -60,7 +141,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             /* Draw the connecting lines */
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glColor4f(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 1.0F);
-            GL11.glLineWidth(2.5F);
+            GL11.glLineWidth(1.5F);
             GL11.glBegin(GL11.GL_LINES);
 
             double dx = te.xCoord - te.getTarget(d).x;
@@ -82,26 +163,10 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                 RenderUtils.drawBlockOutline((float) dx, (float) dy, (float) dz);
             }
 
-            /* Render the text above the line */
-            GL11.glPushMatrix();
-            {
-                /* Rotate to face the player  */
-                GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-                GL11.glRotatef(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-
-                GL11.glScalef(-f1, -f1, f1);
-                GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-                int num = BlockUtils.numBlocksBetween(te.xCoord, te.yCoord, te.zCoord,
-                        te.getTarget(d).x, te.getTarget(d).y, te.getTarget(d).z);
-
-                if (num > 0) {
-                    GL11.glTranslatef(3 * d.offsetX, 3 * d.offsetY, 3 * d.offsetZ);
-                    String s = d.toString();
-                    fontRenderer.drawString(s, -fontRenderer.getStringWidth(s) / 2, 0, 0x20FFFFFF);
-                    GL11.glTranslatef(-(3 * d.offsetX), -(3 * d.offsetY), -(3 * d.offsetZ));
-                }
-            }
-            GL11.glPopMatrix();
+            if (te instanceof TileRangeMarker || te instanceof TileTargetMarker)
+                renderSingleBlockDistance(te, d);
+            else if (te instanceof TileMultiMarker)
+                renderMultiBlockDistance(te, d);
 
             GL11.glEnable(GL11.GL_TEXTURE_2D);
         }

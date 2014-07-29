@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -30,7 +31,7 @@ public abstract class BlockFacedMarker extends BlockBaseMarker {
 
                 TileBaseMarker te = (TileBaseMarker) world.getTileEntity(x, y, z);
                 te.setFacing(DirectionHelper.getFacing(entityLiving));
-                te.findTargets();
+                te.findTargets((EntityPlayer)entityLiving);
             }
         }
     }
@@ -89,7 +90,7 @@ public abstract class BlockFacedMarker extends BlockBaseMarker {
             TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
             if (tileEntity instanceof TileBaseMarker) {
                 TileBaseMarker te = (TileBaseMarker) tileEntity;
-                te.rotateAround(axis);
+                te.rotateAround(axis, null);
             }
             return true;
         }

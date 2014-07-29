@@ -573,11 +573,6 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
             findCentersCuboid();
     }
 
-    public void onRedstonePulse() {
-
-        findTargets();
-    }
-
     /**
      * NBT
      */

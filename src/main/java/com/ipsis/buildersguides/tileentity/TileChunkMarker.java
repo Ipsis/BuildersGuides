@@ -85,7 +85,6 @@ public class TileChunkMarker extends TileEntity {
         this.chunk = new BlockPosition((NBTTagCompound)nbttagcompound.getTag("Chunk"));
     }
 
-
     /**
      * Packet Update
      */

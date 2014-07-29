@@ -3,6 +3,7 @@ package com.ipsis.buildersguides.tileentity;
 import com.ipsis.buildersguides.block.BlockTarget;
 import com.ipsis.buildersguides.util.*;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -83,7 +84,7 @@ public class TileBaseMarker extends TileEntity {
 
     protected void setCenter(ForgeDirection dir, BlockPosition pos) {
 
-        if (isValidDirection(dir))
+        if (!isValidDirection(dir))
             return;
 
         if (this.center == null) {
@@ -173,7 +174,7 @@ public class TileBaseMarker extends TileEntity {
             setCenter(dir, c);
     }
 
-    public void findTargets() {
+    public void findTargets(EntityPlayer player) {
 
         clearTargets();
         clearCenters();
@@ -189,15 +190,12 @@ public class TileBaseMarker extends TileEntity {
             if (b != null) {
                 setTarget(d, b);
                 findCenter(d);
+
+                ChatHelper.displayTargetMessage(player, b, d, this.useTargetBlock);
             }
         }
 
         worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-    }
-
-    public void onRedstonePulse() {
-
-        findTargets();
     }
 
     /**
@@ -278,7 +276,7 @@ public class TileBaseMarker extends TileEntity {
                 xCoord + MAX_DISTANCE, yCoord + MAX_DISTANCE, zCoord + MAX_DISTANCE);
     }
 
-    public void rotateAround(ForgeDirection axis) {
+    public void rotateAround(ForgeDirection axis, EntityPlayer player) {
 
         /* NOOP */
     }
