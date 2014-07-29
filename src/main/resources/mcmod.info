@@ -2,7 +2,7 @@
 {
   "modid": "buildersguides",
   "name": "Builders Guides",
-  "description": "Make things line up!",
+  "description": "Align All The Things!",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "http://www.github.com/ipsis/BuildersGuides/",
