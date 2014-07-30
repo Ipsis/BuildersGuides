@@ -1,7 +1,6 @@
 package com.ipsis.buildersguides.item;
 
-import com.ipsis.buildersguides.tileentity.IWrenchable;
-import com.ipsis.buildersguides.util.LogHelper;
+import com.ipsis.buildersguides.tileentity.ITileInteract;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,28 +23,23 @@ public class ItemAllenKey extends ItemBG {
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 
-        if (world.isRemote)
-            return false;
-
         Block block = world.getBlock(x, y, z);
         if (block == null)
             return false;
 
-        if (player.isSneaking()) {
+        if (!world.isRemote && player.isSneaking()) {
 
-                TileEntity te = world.getTileEntity(x, y, z);
-                if (te != null && te instanceof IWrenchable) {
-                    ((IWrenchable) te).shiftLeftWrench();
-                    return true;
-                }
-
-                return false;
-        } else {
-
-            if (block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
-                player.swingItem();
+            TileEntity te = world.getTileEntity(x, y, z);
+            if (te != null && te instanceof ITileInteract && ((ITileInteract) te).canSneakWrench()) {
+                ((ITileInteract) te).doSneakWrench(player);
                 return true;
             }
+        }
+
+        /* Rotate the block in the standard way */
+        if (block.rotateBlock(world, x, y, z, ForgeDirection.getOrientation(side))) {
+            player.swingItem();
+            return !world.isRemote;
         }
 
         return false;

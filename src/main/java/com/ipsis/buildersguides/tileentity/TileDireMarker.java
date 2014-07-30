@@ -2,8 +2,10 @@ package com.ipsis.buildersguides.tileentity;
 
 import com.ipsis.buildersguides.util.BGColor;
 import com.ipsis.buildersguides.util.BlockPosition;
+import com.ipsis.buildersguides.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -19,7 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class TileDireMarker extends TileEntity {
+public class TileDireMarker extends TileEntity implements ITileInteract {
 
     @SideOnly(Side.CLIENT)
     Set<BlockPosition> blockList;
@@ -154,7 +156,8 @@ public class TileDireMarker extends TileEntity {
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 
         /* This is a bit of a waste as it means recalculating the blocks
-         * but this should only be called infrequently
+         * but this should only be called infrequently.
+         * I really dont want to pass all the target blocks over the network each time.
          */
         readFromNBT(pkt.func_148857_g());
         this.calcBlocks();
@@ -170,5 +173,45 @@ public class TileDireMarker extends TileEntity {
         return AxisAlignedBB.getBoundingBox(
                 xCoord - 16, yCoord - 16, zCoord - 16,
                 xCoord + 16, yCoord + 16, zCoord + 16);
+    }
+
+    public void rotateAround(ForgeDirection axis, EntityPlayer player) {
+
+        setFacing(getFacing().getRotation(axis));
+        this.calcBlocks();
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    /**
+     * ITileInteract
+     */
+    @Override
+    public boolean canUse() {
+        return true;
+    }
+
+    @Override
+    public boolean canSneakUse() {
+        return false;
+    }
+
+    @Override
+    public boolean canSneakWrench() {
+        return false;
+    }
+
+    @Override
+    public void doUse(EntityPlayer player) {
+        this.setColor(this.getColor().getNext());
+    }
+
+    @Override
+    public void doSneakUse(EntityPlayer player) {
+
+    }
+
+    @Override
+    public void doSneakWrench(EntityPlayer player) {
+
     }
 }

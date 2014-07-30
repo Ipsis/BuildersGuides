@@ -14,15 +14,10 @@ public class TileSkyMarker extends TileMultiMarker {
     @Override
     public void findTargets(EntityPlayer player) {
 
-        /* TODO this should be to world height and world depth */
         BlockPosition b = new BlockPosition(this.xCoord, this.yCoord, this.zCoord, ForgeDirection.UP);
-        b.moveForwards(this.MAX_DISTANCE);
+        int diff = player.worldObj.getHeight() - this.yCoord;
+        b.moveForwards(diff);
         setTarget(ForgeDirection.UP, b);
-
-        b.moveBackwards(this.MAX_DISTANCE);
-        b.orientation = ForgeDirection.DOWN;
-        b.moveForwards(this.MAX_DISTANCE);
-        setTarget(ForgeDirection.DOWN, b);
     }
 
     @Override

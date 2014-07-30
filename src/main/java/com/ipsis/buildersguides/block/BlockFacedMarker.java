@@ -23,19 +23,6 @@ public abstract class BlockFacedMarker extends BlockBaseMarker {
         super();
     }
 
-    @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack) {
-
-        if (!world.isRemote) {
-            if (world.getTileEntity(x, y, z) instanceof TileBaseMarker) {
-
-                TileBaseMarker te = (TileBaseMarker) world.getTileEntity(x, y, z);
-                te.setFacing(DirectionHelper.getFacing(entityLiving));
-                te.findTargets((EntityPlayer)entityLiving);
-            }
-        }
-    }
-
     @SideOnly(Side.CLIENT)
     private IIcon frontIcon;
 

@@ -12,10 +12,12 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileChunkMarker extends TileEntity {
+public class TileChunkMarker extends TileEntity implements ITileInteract {
 
     private BlockPosition chunk;
     private boolean isSlimeChunk;
@@ -31,6 +33,11 @@ public class TileChunkMarker extends TileEntity {
 
         /* Chunks are 16 x 16 */
         this.chunk = new BlockPosition(entity.chunkCoordX << 4, this.yCoord, entity.chunkCoordZ << 4);
+
+        /* Straight from the EntitySlime.java logic */
+        Chunk currChunk = this.worldObj.getChunkFromBlockCoords(MathHelper.floor_double(this.xCoord), MathHelper.floor_double(this.zCoord));
+        if (currChunk.getRandomWithSeed(987234911L).nextInt(10) == 0)
+            this.isSlimeChunk = true;
     }
 
     public int getChunkX() {
@@ -112,5 +119,38 @@ public class TileChunkMarker extends TileEntity {
         return AxisAlignedBB.getBoundingBox(
                 xCoord - 16, yCoord - 16, zCoord - 16,
                 xCoord + 16, yCoord + 16, zCoord + 16);
+    }
+
+    /**
+     * ITileInteract
+     */
+    @Override
+    public boolean canUse() {
+        return true;
+    }
+
+    @Override
+    public boolean canSneakUse() {
+        return false;
+    }
+
+    @Override
+    public boolean canSneakWrench() {
+        return false;
+    }
+
+    @Override
+    public void doUse(EntityPlayer player) {
+        this.setColor(this.getColor().getNext());
+    }
+
+    @Override
+    public void doSneakUse(EntityPlayer player) {
+
+    }
+
+    @Override
+    public void doSneakWrench(EntityPlayer player) {
+
     }
 }

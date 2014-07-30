@@ -1,10 +1,11 @@
 package com.ipsis.buildersguides.tileentity;
 
 import com.ipsis.buildersguides.util.*;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileAxisMarker extends TileMultiMarker implements IWrenchable {
+public class TileAxisMarker extends TileMultiMarker {
 
     public TileAxisMarker() {
 
@@ -37,12 +38,13 @@ public class TileAxisMarker extends TileMultiMarker implements IWrenchable {
         return false;
     }
 
-    public void findTargets() {
+    @Override
+    public void findTargets(EntityPlayer player) {
 
-        setTarget(ForgeDirection.DOWN, new BlockPosition(this.xCoord, this.yCoord - this.MAX_DISTANCE, this.zCoord));
-        setTarget(ForgeDirection.UP, new BlockPosition(this.xCoord, this.yCoord + this.MAX_DISTANCE, this.zCoord));
-        setTarget(ForgeDirection.EAST, new BlockPosition(this.xCoord + this.MAX_DISTANCE, this.yCoord, this.zCoord));
-        setTarget(ForgeDirection.WEST, new BlockPosition(this.xCoord - this.MAX_DISTANCE, this.yCoord, this.zCoord));
+        setTarget(ForgeDirection.DOWN, new BlockPosition(this.xCoord, this.yCoord - MAX_DISTANCE, this.zCoord));
+        setTarget(ForgeDirection.UP, new BlockPosition(this.xCoord, this.yCoord + MAX_DISTANCE, this.zCoord));
+        setTarget(ForgeDirection.EAST, new BlockPosition(this.xCoord + MAX_DISTANCE, this.yCoord, this.zCoord));
+        setTarget(ForgeDirection.WEST, new BlockPosition(this.xCoord - MAX_DISTANCE, this.yCoord, this.zCoord));
         setTarget(ForgeDirection.SOUTH, new BlockPosition(this.xCoord, this.yCoord, this.zCoord + this.MAX_DISTANCE));
         setTarget(ForgeDirection.NORTH, new BlockPosition(this.xCoord, this.yCoord, this.zCoord - this.MAX_DISTANCE));
 
@@ -59,14 +61,6 @@ public class TileAxisMarker extends TileMultiMarker implements IWrenchable {
     }
 
     @Override
-    public void shiftLeftWrench() {
-
-        /* Change the axis */
-        this.mode = this.mode.getNext();
-        worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-    }
-
-    @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
 
         super.readFromNBT(nbttagcompound);
@@ -80,5 +74,19 @@ public class TileAxisMarker extends TileMultiMarker implements IWrenchable {
         super.writeToNBT(nbttagcompound);
 
         nbttagcompound.setInteger("Mode", this.mode.ordinal());
+    }
+
+    @Override
+    public boolean canSneakUse() {
+        return true;
+    }
+
+    @Override
+    public void doSneakUse(EntityPlayer player) {
+
+        /* Change the axis */
+        this.mode = this.mode.getNext();
+        ChatHelper.displaySimpleMessage(player, this.mode.toString());
+        worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
     }
 }

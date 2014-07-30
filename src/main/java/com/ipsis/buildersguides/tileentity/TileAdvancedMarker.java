@@ -3,6 +3,7 @@ package com.ipsis.buildersguides.tileentity;
 import com.ipsis.buildersguides.block.BlockTarget;
 import com.ipsis.buildersguides.util.*;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -14,10 +15,9 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class TileAdvancedMarker extends TileEntity implements IWrenchable {
+public class TileAdvancedMarker extends TileEntity implements ITileInteract {
 
     private static final int MAX_DISTANCE = 64;
     private BlockPosition[] targets;
@@ -48,6 +48,7 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
 
 
     }
+
 
     public enum AdvancedMode {
 
@@ -159,18 +160,6 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
             clearTarget(dir);
     }
 
-
-    /**
-     * IWrenchable
-     */
-    @Override
-    public void shiftLeftWrench() {
-
-        this.advancedMode = AdvancedMode.getNext(this.advancedMode);
-        LogHelper.info("shiftLeftWrench: " + this.advancedMode);
-        this.findTargets();
-    }
-
     private void scanTargets() {
 
         clearTargets();
@@ -182,12 +171,19 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
             findTargetsOther();
     }
 
-    public void findTargets() {
+    public void findTargets(EntityPlayer player) {
 
         if (worldObj.isRemote)
             return;
 
         scanTargets();
+
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            BlockPosition p = this.getTarget(dir);
+            if (p != null)
+                ChatHelper.displayTargetMessage(player, p, dir, true);
+        }
+
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
@@ -389,8 +385,6 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
 
         oxc0 = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getX().x, this.getX().y, this.getX().z, this.getX().orientation);
         ozc0 = BlockUtils.getCenterBlock(this.xCoord, this.yCoord, this.zCoord, this.getZ().x, this.getZ().y, this.getZ().z, this.getZ().orientation);
-
-        LogHelper.info(oxc0 + " " + ozc0);
 
         if (oxc0 != null) {
             oxc1 = oxc0.copy();
@@ -608,7 +602,6 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
         this.clearTargets();
 
         this.color = BGColor.getColor(nbttagcompound.getInteger("Color"));
-        //this.facing = ForgeDirection.getOrientation(nbttagcompound.getInteger("Facing"));
         this.advancedMode = AdvancedMode.getMode(nbttagcompound.getInteger("AdvancedMode"));
         this.structureMode = StructureMode.getMode(nbttagcompound.getInteger("StructureMode"));
 
@@ -653,4 +646,43 @@ public class TileAdvancedMarker extends TileEntity implements IWrenchable {
                 xCoord - MAX_DISTANCE, yCoord - MAX_DISTANCE, zCoord - MAX_DISTANCE,
                 xCoord + MAX_DISTANCE, yCoord + MAX_DISTANCE, zCoord + MAX_DISTANCE);
     }
+
+    /**
+     * ITileInteract
+     */
+    @Override
+    public boolean canUse() {
+        return true;
+    }
+
+    @Override
+    public boolean canSneakUse() {
+        return true;
+    }
+
+    @Override
+    public boolean canSneakWrench() {
+        return true;
+    }
+
+    @Override
+    public void doUse(EntityPlayer player) {
+        this.setColor(this.getColor().getNext());
+    }
+
+    @Override
+    public void doSneakUse(EntityPlayer player) {
+
+        this.advancedMode = AdvancedMode.getNext(this.advancedMode);
+        ChatHelper.displaySimpleMessage(player, this.advancedMode.toString());
+        this.findTargets(player);
+    }
+
+    @Override
+    public void doSneakWrench(EntityPlayer player) {
+
+        this.findTargets(player);
+    }
+
+
 }

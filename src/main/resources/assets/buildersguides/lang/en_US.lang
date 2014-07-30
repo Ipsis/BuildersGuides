@@ -9,7 +9,7 @@ tile.BuildersGuides:laserMarker.name=Laser Marker
 tile.BuildersGuides:multiRangeMarker=Multi-Range Marker
 tile.BuildersGuides:multiTargetMarker.name=Multi-Target Marker
 tile.BuildersGuides:rangeMarker.name=Range Marker
-tile.BuildersGuides:skyMarker=Sky Marker
+tile.BuildersGuides:skyMarker.name=Sky Marker
 tile.BuildersGuides:target.name=Target
 tile.BuildersGuides:targetMarker.name=Target Marker
 

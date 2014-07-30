@@ -1,6 +1,7 @@
 package com.ipsis.buildersguides.tileentity;
 
 import com.ipsis.buildersguides.util.BlockPosition;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileMultiMarker extends TileBaseMarker {
@@ -115,5 +116,15 @@ public class TileMultiMarker extends TileBaseMarker {
     public boolean isValidDirection(ForgeDirection dir) {
 
         return true;
+    }
+
+    @Override
+    public boolean canSneakWrench() {
+        return true;
+    }
+
+    @Override
+    public void doSneakWrench(EntityPlayer player) {
+        super.findTargets(player);
     }
 }

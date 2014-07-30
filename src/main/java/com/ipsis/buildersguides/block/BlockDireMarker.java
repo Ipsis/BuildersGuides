@@ -6,6 +6,7 @@ import com.ipsis.buildersguides.tileentity.TileChunkMarker;
 import com.ipsis.buildersguides.tileentity.TileDireMarker;
 import com.ipsis.buildersguides.tileentity.TileSkyMarker;
 import com.ipsis.buildersguides.util.DirectionHelper;
+import com.ipsis.buildersguides.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
@@ -18,6 +19,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import sun.rmi.runtime.Log;
 
 public class BlockDireMarker extends BlockBG implements ITileEntityProvider {
 
@@ -59,13 +61,12 @@ public class BlockDireMarker extends BlockBG implements ITileEntityProvider {
 
         if (!world.isRemote) {
 
-            TileEntity te = te = world.getTileEntity(x, y, z);
+            TileEntity te = world.getTileEntity(x, y, z);
             if (te != null && te instanceof TileDireMarker) {
                 TileDireMarker teMarker = (TileDireMarker) te;
-                if (!entityPlayer.isSneaking()) {
-                    teMarker.setColor(teMarker.getColor().getNext());
-                    world.markBlockForUpdate(x, y, z);
-                }
+                teMarker.doUse(entityPlayer);
+                world.markBlockForUpdate(x, y, z);
+                return true;
             }
         }
 
@@ -111,6 +112,35 @@ public class BlockDireMarker extends BlockBG implements ITileEntityProvider {
 
 		/* Assume everything else is the same icon */
         return blockIcon;
+    }
+
+    @Override
+    public boolean rotateBlock(World worldObj, int x, int y, int z, ForgeDirection axis) {
+
+        if (worldObj.isRemote)
+            return false;
+
+        if (axis == ForgeDirection.UP || axis == ForgeDirection.DOWN) {
+
+            TileEntity tileEntity = worldObj.getTileEntity(x, y, z);
+            if (tileEntity instanceof TileDireMarker) {
+                TileDireMarker te = (TileDireMarker) tileEntity;
+                te.rotateAround(axis, null);
+            }
+            return true;
+        }
+        return false;
+
+    }
+
+    private static final ForgeDirection[] validRotationAxes = new ForgeDirection[]{
+            ForgeDirection.UP, ForgeDirection.DOWN
+    };
+
+    @Override
+    public ForgeDirection[] getValidRotations(World worldObj, int x, int y, int z) {
+
+        return validRotationAxes;
     }
 
 

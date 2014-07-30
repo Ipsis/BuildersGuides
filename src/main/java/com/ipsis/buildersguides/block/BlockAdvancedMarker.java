@@ -45,7 +45,7 @@ public class BlockAdvancedMarker extends BlockBG implements ITileEntityProvider 
             if (world.getTileEntity(x, y, z) instanceof TileAdvancedMarker) {
 
                 TileAdvancedMarker te = (TileAdvancedMarker) world.getTileEntity(x, y, z);
-                te.findTargets();
+                te.findTargets((EntityPlayer)entity);
             }
         }
     }
@@ -58,8 +58,11 @@ public class BlockAdvancedMarker extends BlockBG implements ITileEntityProvider 
             TileEntity te = world.getTileEntity(x, y, z);
             if (te != null && te instanceof TileAdvancedMarker) {
                 TileAdvancedMarker teMarker = (TileAdvancedMarker) te;
-                if (!entityPlayer.isSneaking()) {
-                    teMarker.setColor(teMarker.getColor().getNext());
+                if (entityPlayer.isSneaking()) {
+                    ((TileAdvancedMarker) te).doSneakUse(entityPlayer);
+                    world.markBlockForUpdate(x, y, z);
+                } else {
+                    ((TileAdvancedMarker)te).doUse(entityPlayer);
                     world.markBlockForUpdate(x, y, z);
                 }
             }

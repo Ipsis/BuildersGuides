@@ -75,6 +75,9 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
 
     private void renderMultiBlockDistance(TileBaseMarker te, ForgeDirection d) {
 
+        if (te instanceof TileAxisMarker || te instanceof TileSkyMarker)
+            return;
+
         FontRenderer fontRenderer = this.func_147498_b();
         RenderManager renderManager = RenderManager.instance;
 

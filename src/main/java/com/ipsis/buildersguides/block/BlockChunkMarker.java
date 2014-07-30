@@ -82,7 +82,7 @@ public class BlockChunkMarker extends BlockBG implements ITileEntityProvider {
             if (te != null && te instanceof TileChunkMarker) {
                 TileChunkMarker teMarker = (TileChunkMarker) te;
                 if (!entityPlayer.isSneaking()) {
-                    teMarker.setColor(teMarker.getColor().getNext());
+                    teMarker.doUse(entityPlayer);
                     world.markBlockForUpdate(x, y, z);
                 }
             }

@@ -1,8 +1,9 @@
 package com.ipsis.buildersguides.tileentity;
 
-import com.ipsis.buildersguides.block.BlockTarget;
-import com.ipsis.buildersguides.util.*;
-import net.minecraft.block.Block;
+import com.ipsis.buildersguides.util.BGColor;
+import com.ipsis.buildersguides.util.BlockPosition;
+import com.ipsis.buildersguides.util.BlockUtils;
+import com.ipsis.buildersguides.util.ChatHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -14,7 +15,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileBaseMarker extends TileEntity {
+public class TileBaseMarker extends TileEntity implements ITileInteract {
 
     protected static final int MAX_DISTANCE = 64;
 
@@ -167,8 +168,8 @@ public class TileBaseMarker extends TileEntity {
             return;
 
         BlockPosition c = BlockUtils.getCenterBlock(
-                            this.xCoord, this.yCoord, this.zCoord,
-                            t.x, t.y, t.z, dir);
+                this.xCoord, this.yCoord, this.zCoord,
+                t.x, t.y, t.z, dir);
 
         if (c != null)
             setCenter(dir, c);
@@ -261,6 +262,8 @@ public class TileBaseMarker extends TileEntity {
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 
+        clearTargets();
+        clearCenters();
         readFromNBT(pkt.func_148857_g());
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
@@ -281,5 +284,37 @@ public class TileBaseMarker extends TileEntity {
         /* NOOP */
     }
 
+    /**
+     * ITileInteract
+     */
 
+    @Override
+    public boolean canUse() {
+        return true;
+    }
+
+    @Override
+    public boolean canSneakUse() {
+        return false;
+    }
+
+    @Override
+    public boolean canSneakWrench() {
+        return false;
+    }
+
+    @Override
+    public void doUse(EntityPlayer player) {
+        this.setColor(this.getColor().getNext());
+    }
+
+    @Override
+    public void doSneakUse(EntityPlayer player) {
+
+    }
+
+    @Override
+    public void doSneakWrench(EntityPlayer player) {
+
+    }
 }

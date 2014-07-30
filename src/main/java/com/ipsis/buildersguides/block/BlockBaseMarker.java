@@ -1,6 +1,7 @@
 package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
+import com.ipsis.buildersguides.tileentity.TileAdvancedMarker;
 import com.ipsis.buildersguides.tileentity.TileBaseMarker;
 import com.ipsis.buildersguides.util.DirectionHelper;
 import cpw.mods.fml.relauncher.Side;
@@ -54,11 +55,14 @@ public abstract class BlockBaseMarker extends BlockBG implements ITileEntityProv
 
         if (!world.isRemote) {
 
-            TileEntity te = te = world.getTileEntity(x, y, z);
+            TileEntity te = world.getTileEntity(x, y, z);
             if (te != null && te instanceof TileBaseMarker) {
                 TileBaseMarker teMarker = (TileBaseMarker) te;
-                if (!entityPlayer.isSneaking()) {
-                    teMarker.setColor(teMarker.getColor().getNext());
+                if (entityPlayer.isSneaking() && teMarker.canSneakUse()) {
+                    teMarker.doSneakUse(entityPlayer);
+                    world.markBlockForUpdate(x, y, z);
+                } else if (!entityPlayer.isSneaking() && teMarker.canUse()){
+                    teMarker.doUse(entityPlayer);
                     world.markBlockForUpdate(x, y, z);
                 }
             }
