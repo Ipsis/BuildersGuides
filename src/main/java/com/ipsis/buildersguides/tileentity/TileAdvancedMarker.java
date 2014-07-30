@@ -52,9 +52,18 @@ public class TileAdvancedMarker extends TileEntity implements ITileInteract {
 
     public enum AdvancedMode {
 
-        HORIZ_PLANE,
-        VERT_PLANE,
-        CUBOID;
+        HORIZ_PLANE("Horizontal"),
+        VERT_PLANE("Vertical"),
+        CUBOID("Cubiod");
+
+        private final String value;
+        AdvancedMode(String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
 
         public static AdvancedMode[] VALID_MODES = { HORIZ_PLANE, VERT_PLANE, CUBOID };
 

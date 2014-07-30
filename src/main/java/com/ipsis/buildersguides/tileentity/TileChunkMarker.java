@@ -58,6 +58,10 @@ public class TileChunkMarker extends TileEntity implements ITileInteract {
         return this.chunk != null;
     }
 
+    public boolean isSlimeChunk() {
+        return this.isSlimeChunk;
+    }
+
     public BGColor getColor() {
 
         return this.color;

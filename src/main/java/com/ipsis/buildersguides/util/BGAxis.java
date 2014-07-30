@@ -4,13 +4,22 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public enum BGAxis {
 
-    X_Y_Z,
-    X_Y,
-    X_Z,
-    Y_Z,
-    X,
-    Y,
-    Z;
+    X_Y_Z("X,Y,Z"),
+    X_Y("X,Y"),
+    X_Z("X,Z"),
+    Y_Z("Y,Z"),
+    X("X"),
+    Y("Y"),
+    Z("Z");
+
+    private final String value;
+    BGAxis(String value) {
+        this.value = value;
+    }
+
+    public String toString() {
+        return value;
+    }
 
     public static BGAxis[] VALID_AXIS_MODES = { X_Y_Z, X_Y, X_Z, Y_Z, X, Y, Z };
 

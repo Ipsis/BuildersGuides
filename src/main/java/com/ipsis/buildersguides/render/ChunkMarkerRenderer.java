@@ -105,6 +105,10 @@ public class ChunkMarkerRenderer extends TileEntitySpecialRenderer {
             RenderUtils.drawBlockOutline(8.5F, 0.5F, 7.5F);
             RenderUtils.drawBlockOutline(8.5F, 0.5F, 8.5F);
 
+            if (te.isSlimeChunk()) {
+                /* TODO indicate that this is a slime chunk */
+            }
+
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glEnable(GL11.GL_LIGHTING);
         }
