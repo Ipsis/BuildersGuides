@@ -1,7 +1,7 @@
 [
 {
   "modid": "buildersguides",
-  "name": "Builders Guides",
+  "name": "Builder's Guides",
   "description": "Align All The Things!",
   "version": "${version}",
   "mcversion": "${mcversion}",
