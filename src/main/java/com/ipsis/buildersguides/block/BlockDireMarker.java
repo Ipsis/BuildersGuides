@@ -1,12 +1,8 @@
 package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
-import com.ipsis.buildersguides.tileentity.TileBaseMarker;
-import com.ipsis.buildersguides.tileentity.TileChunkMarker;
 import com.ipsis.buildersguides.tileentity.TileDireMarker;
-import com.ipsis.buildersguides.tileentity.TileSkyMarker;
 import com.ipsis.buildersguides.util.DirectionHelper;
-import com.ipsis.buildersguides.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
@@ -19,7 +15,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import sun.rmi.runtime.Log;
 
 public class BlockDireMarker extends BlockBG implements ITileEntityProvider {
 

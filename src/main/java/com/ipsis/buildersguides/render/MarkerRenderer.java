@@ -1,5 +1,6 @@
 package com.ipsis.buildersguides.render;
 
+import com.ipsis.buildersguides.handler.ConfigurationHandler;
 import com.ipsis.buildersguides.tileentity.*;
 import com.ipsis.buildersguides.util.BlockPosition;
 import com.ipsis.buildersguides.util.BlockUtils;
@@ -32,6 +33,9 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float tick) {
+
+        if (!ConfigurationHandler.enableClientRenderer)
+            return;
 
         if (te instanceof TileBaseMarker)
             doRender((TileBaseMarker)te, x, y, z);

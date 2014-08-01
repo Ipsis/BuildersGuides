@@ -1,5 +1,6 @@
 package com.ipsis.buildersguides.render;
 
+import com.ipsis.buildersguides.handler.ConfigurationHandler;
 import com.ipsis.buildersguides.tileentity.TileCoordMarker;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -61,6 +62,9 @@ public class CoordMarkerRenderer extends TileEntitySpecialRenderer {
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float tick) {
+
+        if (!ConfigurationHandler.enableClientRenderer)
+            return;
 
         if (!(te instanceof TileCoordMarker))
             return;

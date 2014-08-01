@@ -1,8 +1,7 @@
 package com.ipsis.buildersguides.render;
 
+import com.ipsis.buildersguides.handler.ConfigurationHandler;
 import com.ipsis.buildersguides.tileentity.TileChunkMarker;
-import com.ipsis.buildersguides.tileentity.TileCoordMarker;
-import com.ipsis.buildersguides.util.LogHelper;
 import com.ipsis.buildersguides.util.RenderUtils;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -30,6 +29,9 @@ public class ChunkMarkerRenderer extends TileEntitySpecialRenderer {
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float tick) {
+
+        if (!ConfigurationHandler.enableClientRenderer)
+            return;
 
         if (!(te instanceof TileChunkMarker))
             return;

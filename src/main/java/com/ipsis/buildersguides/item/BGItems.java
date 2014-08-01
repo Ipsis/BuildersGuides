@@ -1,12 +1,9 @@
 package com.ipsis.buildersguides.item;
 
-import com.ipsis.buildersguides.block.BGBlocks;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class BGItems {
 

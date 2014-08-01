@@ -1,7 +1,6 @@
 package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
-import com.ipsis.buildersguides.tileentity.TileAdvancedMarker;
 import com.ipsis.buildersguides.tileentity.TileBaseMarker;
 import com.ipsis.buildersguides.util.DirectionHelper;
 import cpw.mods.fml.relauncher.Side;

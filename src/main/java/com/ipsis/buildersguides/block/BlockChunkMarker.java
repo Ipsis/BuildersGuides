@@ -1,10 +1,7 @@
 package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
-import com.ipsis.buildersguides.tileentity.TileAxisMarker;
-import com.ipsis.buildersguides.tileentity.TileBaseMarker;
 import com.ipsis.buildersguides.tileentity.TileChunkMarker;
-import com.ipsis.buildersguides.util.DirectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
@@ -78,7 +75,7 @@ public class BlockChunkMarker extends BlockBG implements ITileEntityProvider {
 
         if (!world.isRemote) {
 
-            TileEntity te = te = world.getTileEntity(x, y, z);
+            TileEntity te = world.getTileEntity(x, y, z);
             if (te != null && te instanceof TileChunkMarker) {
                 TileChunkMarker teMarker = (TileChunkMarker) te;
                 if (!entityPlayer.isSneaking()) {

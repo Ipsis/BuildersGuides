@@ -1,6 +1,5 @@
 package com.ipsis.buildersguides.tileentity;
 
-import com.ipsis.buildersguides.util.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.ForgeDirection;
 

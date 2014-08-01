@@ -1,17 +1,17 @@
-key.categories.BuildersGuides=Builders Guides
+key.categories.buildersguides=Builders Guides
 
-tile.BuildersGuides:advancedMarker.name=Advanced Marker
-tile.BuildersGuides:axisMarker.name=Axis Marker
-tile.BuildersGuides:chunkMarker.name=Chunk Marker
-tile.BuildersGuides:coordMarker.name=Coordinate Marker
-tile.BuildersGuides:direMarker.name=Dire Marker
-tile.BuildersGuides:laserMarker.name=Laser Marker
-tile.BuildersGuides:multiRangeMarker=Multi-Range Marker
-tile.BuildersGuides:multiTargetMarker.name=Multi-Target Marker
-tile.BuildersGuides:rangeMarker.name=Range Marker
-tile.BuildersGuides:skyMarker.name=Sky Marker
-tile.BuildersGuides:target.name=Target
-tile.BuildersGuides:targetMarker.name=Target Marker
+tile.buildersguides:advancedMarker.name=Advanced Marker
+tile.buildersguides:axisMarker.name=Axis Marker
+tile.buildersguides:chunkMarker.name=Chunk Marker
+tile.buildersguides:coordMarker.name=Coordinate Marker
+tile.buildersguides:direMarker.name=Dire Marker
+tile.buildersguides:laserMarker.name=Laser Marker
+tile.buildersguides:multiRangeMarker=Multi-Range Marker
+tile.buildersguides:multiTargetMarker.name=Multi-Target Marker
+tile.buildersguides:rangeMarker.name=Range Marker
+tile.buildersguides:skyMarker.name=Sky Marker
+tile.buildersguides:target.name=Target
+tile.buildersguides:targetMarker.name=Target Marker
 
-item.BuildersGuides:marker.name=Marker
-item.BuildersGuides:allenKey.name=Allen Key
+item.buildersguides:marker.name=Marker
+item.buildersguides:allenKey.name=Allen Key

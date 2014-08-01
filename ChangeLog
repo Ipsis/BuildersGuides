@@ -1,6 +1,12 @@
 Builder's Guides ChangeLog
 ==========================
 
+1.7.10-1.0.0B2
+
+* Fix the modid and associated package, mod name.
+* Update to latest forge 10.13.0.1189
+* Add configuration file - only has one setting just now and that is to disable the guide lines rendering.
+
 1.7.10-1.0.0B1
 
 * Initial release

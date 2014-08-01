@@ -2,12 +2,8 @@ package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
 import com.ipsis.buildersguides.tileentity.TileAdvancedMarker;
-import com.ipsis.buildersguides.tileentity.TileBaseMarker;
-import com.ipsis.buildersguides.util.DirectionHelper;
-import com.ipsis.buildersguides.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -57,7 +53,6 @@ public class BlockAdvancedMarker extends BlockBG implements ITileEntityProvider 
 
             TileEntity te = world.getTileEntity(x, y, z);
             if (te != null && te instanceof TileAdvancedMarker) {
-                TileAdvancedMarker teMarker = (TileAdvancedMarker) te;
                 if (entityPlayer.isSneaking()) {
                     ((TileAdvancedMarker) te).doSneakUse(entityPlayer);
                     world.markBlockForUpdate(x, y, z);

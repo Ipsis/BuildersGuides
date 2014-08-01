@@ -7,7 +7,7 @@
   "mcversion": "${mcversion}",
   "url": "http://www.github.com/ipsis/BuildersGuides/",
   "updateUrl": "",
-  "authors": ["Ipsis"],
+  "authorList": ["Ipsis"],
   "credits": "",
   "logoFile": "",
   "screenshots": [],

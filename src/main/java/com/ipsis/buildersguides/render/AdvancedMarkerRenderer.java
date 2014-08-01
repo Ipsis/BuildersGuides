@@ -1,16 +1,13 @@
 package com.ipsis.buildersguides.render;
 
+import com.ipsis.buildersguides.handler.ConfigurationHandler;
 import com.ipsis.buildersguides.tileentity.TileAdvancedMarker;
-import com.ipsis.buildersguides.tileentity.TileCoordMarker;
 import com.ipsis.buildersguides.util.BlockPosition;
-import com.ipsis.buildersguides.util.LogHelper;
 import com.ipsis.buildersguides.util.RenderUtils;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Vec3;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -123,6 +120,9 @@ public class AdvancedMarkerRenderer extends TileEntitySpecialRenderer {
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float tick) {
+
+        if (!ConfigurationHandler.enableClientRenderer)
+            return;
 
         if (!(te instanceof TileAdvancedMarker))
             return;
