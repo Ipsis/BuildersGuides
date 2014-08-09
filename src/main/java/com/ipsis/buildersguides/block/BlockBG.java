@@ -12,7 +12,9 @@ public class BlockBG extends Block {
 
     public BlockBG()
     {
-        this(Material.rock);
+        /* Don't want to require a tool to break the blocks, nor do we want a long break time */
+        this(Material.ground);
+        this.setHardness(1.0F);
     }
 
     public BlockBG(Material material)
