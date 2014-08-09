@@ -10,7 +10,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import com.ipsis.buildersguides.block.BGBlocks;
 import com.ipsis.buildersguides.proxy.IProxy;
 import com.ipsis.buildersguides.reference.Reference;
-import sun.security.krb5.Config;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
 public class BuildersGuides {
