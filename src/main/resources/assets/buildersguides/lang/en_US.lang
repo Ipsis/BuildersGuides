@@ -1,10 +1,11 @@
-key.categories.buildersguides=Builders Guides
+key.categories.buildersguides=Builder's Guides
 
 tile.buildersguides:advancedMarker.name=Advanced Marker
 tile.buildersguides:axisMarker.name=Axis Marker
 tile.buildersguides:chunkMarker.name=Chunk Marker
 tile.buildersguides:coordMarker.name=Coordinate Marker
 tile.buildersguides:direMarker.name=Dire Marker
+tile.buildersguides:centerMarker.name=Center Marker
 tile.buildersguides:laserMarker.name=Laser Marker
 tile.buildersguides:multiRangeMarker.name=Multi-Range Marker
 tile.buildersguides:multiTargetMarker.name=Multi-Target Marker
@@ -15,3 +16,4 @@ tile.buildersguides:targetMarker.name=Target Marker
 
 item.buildersguides:marker.name=Marker
 item.buildersguides:allenKey.name=Allen Key
+item.buildersguides:toolBox.name=Builder's Toolbox
