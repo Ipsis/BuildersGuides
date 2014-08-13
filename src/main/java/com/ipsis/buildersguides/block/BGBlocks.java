@@ -19,6 +19,7 @@ public class BGBlocks {
         blockSkyMarker = new BlockSkyMarker();
         blockChunkMarker = new BlockChunkMarker();
         blockDireMarker = new BlockDireMarker();
+        blockCenterMarker = new BlockCenterMarker();
 
         blockRangeMarker = new BlockRangeMarker();
         blockMultiRangeMarker = new BlockMultiRangeMarker();
@@ -35,6 +36,7 @@ public class BGBlocks {
         GameRegistry.registerBlock(blockSkyMarker, "block.skyMarker");
         GameRegistry.registerBlock(blockChunkMarker, "block.chunkMarker");
         GameRegistry.registerBlock(blockDireMarker, "block.direMarker");
+        GameRegistry.registerBlock(blockCenterMarker, "block.centerMarker");
 
         GameRegistry.registerBlock(blockRangeMarker, "block.rangeMarker");
         GameRegistry.registerBlock(blockMultiRangeMarker, "block.multiRangeMarker");
@@ -55,6 +57,7 @@ public class BGBlocks {
         GameRegistry.addShapelessRecipe(new ItemStack(blockSkyMarker), marker, new ItemStack(Items.feather));
         GameRegistry.addShapelessRecipe(new ItemStack(blockChunkMarker), marker, new ItemStack(Blocks.fence));
         GameRegistry.addShapelessRecipe(new ItemStack(blockDireMarker), marker, new ItemStack(Blocks.cobblestone));
+        GameRegistry.addShapelessRecipe(new ItemStack(blockCenterMarker), marker, new ItemStack(Blocks.stone));
 
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(blockRangeMarker), marker, "paneGlass"));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(blockMultiRangeMarker), marker, "blockGlass"));
@@ -74,6 +77,7 @@ public class BGBlocks {
         GameRegistry.addShapelessRecipe(marker, new ItemStack(blockSkyMarker));
         GameRegistry.addShapelessRecipe(marker, new ItemStack(blockChunkMarker));
         GameRegistry.addShapelessRecipe(marker, new ItemStack(blockDireMarker));
+        GameRegistry.addShapelessRecipe(marker, new ItemStack(blockCenterMarker));
 
         GameRegistry.addShapelessRecipe(marker, new ItemStack(blockRangeMarker));
         GameRegistry.addShapelessRecipe(marker, new ItemStack(blockMultiRangeMarker));
@@ -94,6 +98,7 @@ public class BGBlocks {
     public static BlockBG blockSkyMarker;
     public static BlockBG blockChunkMarker;
     public static BlockBG blockDireMarker;
+    public static BlockBG blockCenterMarker;
 
     public static BlockBG blockRangeMarker;
     public static BlockBG blockMultiRangeMarker;

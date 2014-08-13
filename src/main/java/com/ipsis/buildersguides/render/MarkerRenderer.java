@@ -172,7 +172,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
 
             if (te instanceof TileRangeMarker || te instanceof TileTargetMarker)
                 renderSingleBlockDistance(te, d);
-            else if (te instanceof TileMultiMarker)
+            else if (te instanceof TileMultiMarker && !(te instanceof  TileCenterMarker))
                 renderMultiBlockDistance(te, d);
 
             GL11.glEnable(GL11.GL_TEXTURE_2D);

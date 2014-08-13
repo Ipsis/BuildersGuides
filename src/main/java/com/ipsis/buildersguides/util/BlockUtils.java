@@ -59,6 +59,12 @@ public class BlockUtils {
 
     public static BlockPosition getFirstBlock(World world, int x, int y, int z, ForgeDirection facing, int maxDistance, boolean isMarker) {
 
+        /* get the first block that is at least 1 away */
+        return getFirstBlock(1, world, x, y, z, facing, maxDistance, isMarker);
+    }
+
+    public static BlockPosition getFirstBlock(int min, World world, int x, int y, int z, ForgeDirection facing, int maxDistance, boolean isMarker) {
+
         if (facing == ForgeDirection.UNKNOWN)
             return null;
 
@@ -78,9 +84,9 @@ public class BlockUtils {
             }
         }
 
-        /* Must be at least 1 block between */
         p = new BlockPosition(x, y, z, facing);
-        p.moveForwards(1);
+        /* minimum distance to the first block */
+        p.moveForwards(min);
         if (r != null && r.equals(p))
             r = null;
 

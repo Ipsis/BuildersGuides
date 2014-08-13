@@ -22,7 +22,7 @@ public class TileBaseMarker extends TileEntity implements ITileInteract {
     private BGColor color;
     private BlockPosition target;
     private BlockPosition center;
-    private boolean useTargetBlock;
+    protected boolean useTargetBlock;
     private ForgeDirection facing;
 
     public TileBaseMarker(boolean useTargetBlock) {
@@ -245,8 +245,11 @@ public class TileBaseMarker extends TileEntity implements ITileInteract {
                 findCenter(d);
             }
         }
+
+        findCenters();
     }
 
+    public void findCenters() { }
 
     /**
      * Packet Update
