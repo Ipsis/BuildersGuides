@@ -1,5 +1,6 @@
 package com.ipsis.buildersguides;
 
+import com.ipsis.buildersguides.gui.GuiHandler;
 import com.ipsis.buildersguides.handler.ConfigurationHandler;
 import com.ipsis.buildersguides.item.BGItems;
 import cpw.mods.fml.common.Mod;
@@ -10,6 +11,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import com.ipsis.buildersguides.block.BGBlocks;
 import com.ipsis.buildersguides.proxy.IProxy;
 import com.ipsis.buildersguides.reference.Reference;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
 public class BuildersGuides {
@@ -24,6 +26,8 @@ public class BuildersGuides {
     public void preInit(FMLPreInitializationEvent event) {
 
         ConfigurationHandler.init(event.getSuggestedConfigurationFile());
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
 
         BGBlocks.preInit();
         BGItems.preInit();

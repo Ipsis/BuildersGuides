@@ -11,19 +11,22 @@ public class BGItems {
 
         itemMarker = new ItemMarker();
         itemAllenKey = new ItemAllenKey();
+        itemToolBox = new ItemToolbox();
 
         GameRegistry.registerItem(itemMarker, "item.marker");
         GameRegistry.registerItem(itemAllenKey, "item.allenKey");
+        GameRegistry.registerItem(itemToolBox, "item.toolBox");
     }
 
     public static void initialize() {
 
         GameRegistry.addRecipe(new ItemStack(itemMarker, 5), "srs", "rsr", "srs", 's', Blocks.stone, 'r', Items.redstone);
         GameRegistry.addShapelessRecipe(new ItemStack(itemAllenKey), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.flint));
+        GameRegistry.addRecipe(new ItemStack(itemToolBox), "lll", "lml", "lll", 'l', new ItemStack(Items.leather), 'm', itemMarker);
 
         /*
         GameRegistry.addShapelessRecipe(new ItemStack(itemManual), new ItemStack(itemMarker), new ItemStack(Items.paper));
-        GameRegistry.addRecipe(new ItemStack(itemBag), "lll", "lml", "lll", 'l', new ItemStack(Items.leather), 'm', itemMarker);
+
          */
     }
 
@@ -33,5 +36,6 @@ public class BGItems {
 
     public static ItemBG itemMarker;
     public static ItemBG itemAllenKey;
+    public static ItemBG itemToolBox;
 
 }
