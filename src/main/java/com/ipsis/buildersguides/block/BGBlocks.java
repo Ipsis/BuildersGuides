@@ -4,10 +4,22 @@ import com.ipsis.buildersguides.item.BGItems;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BGBlocks {
+
+    private static List<Item> validMarkers = new ArrayList<Item>();
+
+    public static boolean isValidMarker(ItemStack itemStack) {
+        if (itemStack == null) return false;
+
+        return validMarkers.contains(itemStack.getItem());
+    }
 
     public static void preInit() {
 
@@ -45,6 +57,18 @@ public class BGBlocks {
 
         GameRegistry.registerBlock(blockAdvancedMarker, "block.advancedMarker");
 
+        validMarkers.add(Item.getItemFromBlock(blockLaserMarker));
+        validMarkers.add(Item.getItemFromBlock(blockAxisMarker));
+        validMarkers.add(Item.getItemFromBlock(blockCoordMarker));
+        validMarkers.add(Item.getItemFromBlock(blockSkyMarker));
+        validMarkers.add(Item.getItemFromBlock(blockChunkMarker));
+        validMarkers.add(Item.getItemFromBlock(blockDireMarker));
+        validMarkers.add(Item.getItemFromBlock(blockCenterMarker));
+        validMarkers.add(Item.getItemFromBlock(blockRangeMarker));
+        validMarkers.add(Item.getItemFromBlock(blockMultiRangeMarker));
+        validMarkers.add(Item.getItemFromBlock(blockTargetMarker));
+        validMarkers.add(Item.getItemFromBlock(blockMultiTargetMarker));
+        validMarkers.add(Item.getItemFromBlock(blockAdvancedMarker));
     }
 
     public static void initialize() {

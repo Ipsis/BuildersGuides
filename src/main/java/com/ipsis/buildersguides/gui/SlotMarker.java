@@ -3,6 +3,7 @@ package com.ipsis.buildersguides.gui;
 import com.ipsis.buildersguides.block.BGBlocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class SlotMarker extends Slot {
@@ -15,6 +16,6 @@ public class SlotMarker extends Slot {
     @Override
     public boolean isItemValid(ItemStack itemStack) {
 
-        return true;
+        return BGBlocks.isValidMarker(itemStack);
     }
 }
