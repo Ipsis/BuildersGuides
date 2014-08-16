@@ -1,6 +1,15 @@
 Builder's Guides ChangeLog
 ==========================
 
+1.7.10-1.0.0B3
+
+* Added the center marker than finds the centers between walls, rather than the marker and the target block.
+* Added a toolbox to carry the markers. Doesn't hold general items.
+
+Fixes
+* BGZ001 - Fix the Multi-Range Marker display name
+* BGZ002 - Breaking blocks by hand now drop the block
+
 1.7.10-1.0.0B2
 
 * Fix the modid and associated package, mod name.
