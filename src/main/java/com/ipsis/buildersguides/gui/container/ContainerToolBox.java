@@ -1,12 +1,16 @@
 package com.ipsis.buildersguides.gui.container;
 
+import com.ipsis.buildersguides.block.BGBlocks;
 import com.ipsis.buildersguides.gui.SlotAllenKey;
 import com.ipsis.buildersguides.gui.SlotMarker;
 import com.ipsis.buildersguides.gui.SlotMarkerItem;
 import com.ipsis.buildersguides.gui.SlotTarget;
+import com.ipsis.buildersguides.item.BGItems;
+import com.ipsis.buildersguides.util.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -53,9 +57,60 @@ public class ContainerToolBox extends Container {
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slot) {
+    public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int i) {
+
+        Slot slot = getSlot(i);
+
+        if (slot != null && slot.getHasStack()) {
+            ItemStack stack = slot.getStack();
+            ItemStack result = stack.copy();
+
+            if (i < this.inventoryToolBox.getSizeInventory()) {
+
+                /* toolbox to player */
+                int toolBoxSlots = this.inventoryToolBox.getSizeInventory();
+                if (!mergeItemStack(stack, toolBoxSlots, this.inventorySlots.size(), false))
+                    return null;
+
+            }else {
+
+                /* player to toolbox */
+                if (stack.getItem() == BGItems.itemAllenKey) {
+                    /* must go in slot 0 */
+                    if (!mergeItemStack(stack, 0, 1, false))
+                        return null;
+
+                } else if (stack.getItem() == BGItems.itemMarker) {
+                    /* must go in slot 1 */
+                    if (!mergeItemStack(stack, 1, 2, false))
+                        return null;
+
+                } else if (stack.getItem() == Item.getItemFromBlock(BGBlocks.blockTarget)) {
+                    /* must go in slot 2 */
+                    if (!mergeItemStack(stack, 2, 3, false))
+                        return null;
+
+                } else if (BGBlocks.isValidMarker(stack)) {
+                    /* must go in slots 3 -> 12 */
+                    if (!mergeItemStack(stack, 3, 13, false))
+                        return null;
+
+                } else {
+                    return null;
+                }
+            }
+
+            if (stack.stackSize == 0)
+                slot.putStack(null);
+            else
+                slot.onSlotChanged();
+
+            slot.onPickupFromSlot(entityPlayer, stack);
+            return result;
+        }
 
         return null;
+
     }
 
     public void saveInventory(EntityPlayer entityPlayer) {
