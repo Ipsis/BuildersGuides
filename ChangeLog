@@ -1,6 +1,11 @@
 Builder's Guides ChangeLog
 ==========================
 
+1.7.10-1.0.0B4
+
+Fixes
+* BGZ003 - Chunk marker was based off the players position not the marker block.
+
 1.7.10-1.0.0B3
 
 * Added the center marker than finds the centers between walls, rather than the marker and the target block.

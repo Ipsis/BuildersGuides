@@ -2,6 +2,7 @@ package com.ipsis.buildersguides.tileentity;
 
 import com.ipsis.buildersguides.util.BGColor;
 import com.ipsis.buildersguides.util.BlockPosition;
+import com.ipsis.buildersguides.util.LogHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,13 +26,13 @@ public class TileChunkMarker extends TileEntity implements ITileInteract {
         this.color = BGColor.BLACK;
     }
 
-    public void setWhereAmI(EntityLivingBase entity) {
+    public void setWhereAmI() {
 
-        /* Chunks are 16 x 16 */
-        this.chunk = new BlockPosition(entity.chunkCoordX << 4, this.yCoord, entity.chunkCoordZ << 4);
-
+        /* Block location to chunk */
         /* Straight from the EntitySlime.java logic */
         Chunk currChunk = this.worldObj.getChunkFromBlockCoords(MathHelper.floor_double(this.xCoord), MathHelper.floor_double(this.zCoord));
+        this.chunk = new BlockPosition(currChunk.xPosition << 4, this.yCoord, currChunk.zPosition << 4);
+
         if (currChunk.getRandomWithSeed(987234911L).nextInt(10) == 0)
             this.isSlimeChunk = true;
     }

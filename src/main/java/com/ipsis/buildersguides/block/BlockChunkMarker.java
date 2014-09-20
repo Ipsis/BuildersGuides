@@ -2,6 +2,7 @@ package com.ipsis.buildersguides.block;
 
 import com.ipsis.buildersguides.reference.Reference;
 import com.ipsis.buildersguides.tileentity.TileChunkMarker;
+import com.ipsis.buildersguides.util.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.ITileEntityProvider;
@@ -65,7 +66,7 @@ public class BlockChunkMarker extends BlockBG implements ITileEntityProvider {
             if (world.getTileEntity(x, y, z) instanceof TileChunkMarker) {
 
                 TileChunkMarker te = (TileChunkMarker) world.getTileEntity(x, y, z);
-                te.setWhereAmI(entityLiving);
+                te.setWhereAmI();
             }
         }
     }
