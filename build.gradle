@@ -28,7 +28,7 @@ configFile.withReader {
 }
 
 version = "${config.minecraft_version}-${config.mod_version}"
-group= "com.ipsis.buildersguides" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "ipsis.buildersguides" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "buildersguides"
 
 minecraft {
