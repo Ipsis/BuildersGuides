@@ -1,6 +1,14 @@
 Builder's Guides ChangeLog
 ==========================
 
+1.7.10-1.0.0
+
+* Actual release of V1.0.0
+** This means that, as per tradition, V1.0.1 will follow quickly
+* Update to latest recommended Forge 10.13.2.1230
+* com.ipsis.buildersguides -> ipsis.buildersguides
+* Toned down the textures a bit
+
 1.7.10-1.0.0B4
 
 Fixes
