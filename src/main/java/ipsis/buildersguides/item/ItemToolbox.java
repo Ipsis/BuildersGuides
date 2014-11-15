@@ -1,6 +1,7 @@
 package ipsis.buildersguides.item;
 
 import ipsis.buildersguides.BuildersGuides;
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.reference.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,7 +15,7 @@ public class ItemToolbox extends ItemBG {
     public ItemToolbox() {
 
         super();
-        this.setUnlocalizedName("toolBox");
+        this.setUnlocalizedName(Names.Items.ITEM_TOOLBOX);
         this.setMaxStackSize(1);
     }
 

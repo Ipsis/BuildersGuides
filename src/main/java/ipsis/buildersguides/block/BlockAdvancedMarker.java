@@ -1,5 +1,6 @@
 package ipsis.buildersguides.block;
 
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileAdvancedMarker;
 import cpw.mods.fml.relauncher.Side;
@@ -19,7 +20,7 @@ public class BlockAdvancedMarker extends BlockBG implements ITileEntityProvider 
     public BlockAdvancedMarker() {
 
         super();
-        setBlockName("advancedMarker");
+        setBlockName(Names.Blocks.BLOCK_ADVANCED_MARKER);
     }
 
     @Override

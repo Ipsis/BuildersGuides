@@ -1,5 +1,6 @@
 package ipsis.buildersguides.block;
 
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileChunkMarker;
 import cpw.mods.fml.relauncher.Side;
@@ -19,7 +20,7 @@ public class BlockChunkMarker extends BlockBG implements ITileEntityProvider {
     public BlockChunkMarker() {
 
         super();
-        setBlockName("chunkMarker");
+        setBlockName(Names.Blocks.BLOCK_CHUNK_MARKER);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package ipsis.buildersguides.block;
 
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileCoordMarker;
 import cpw.mods.fml.relauncher.Side;
@@ -16,7 +17,7 @@ public class BlockCoordMarker extends BlockBG implements ITileEntityProvider {
     public BlockCoordMarker() {
 
         super();
-        setBlockName("coordMarker");
+        setBlockName(Names.Blocks.BLOCK_COORD_MARKER);
     }
 
     @Override

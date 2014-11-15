@@ -1,5 +1,6 @@
 package ipsis.buildersguides.block;
 
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.tileentity.TileCenterMarker;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -8,7 +9,7 @@ public class BlockCenterMarker extends BlockBaseMarker {
 
     public BlockCenterMarker() {
 
-        this.setBlockName("centerMarker");
+        this.setBlockName(Names.Blocks.BLOCK_CENTER_MARKER);
     }
 
     /**

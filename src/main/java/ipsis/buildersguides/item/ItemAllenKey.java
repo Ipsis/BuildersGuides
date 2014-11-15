@@ -1,5 +1,6 @@
 package ipsis.buildersguides.item;
 
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.tileentity.ITileInteract;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +17,7 @@ public class ItemAllenKey extends ItemBG {
     public ItemAllenKey() {
 
         super();
-        this.setUnlocalizedName("allenKey");
+        this.setUnlocalizedName(Names.Items.ITEM_ALLEN_KEY);
         this.setMaxStackSize(1);
     }
 

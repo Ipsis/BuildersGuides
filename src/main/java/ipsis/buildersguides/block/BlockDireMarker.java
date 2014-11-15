@@ -1,5 +1,6 @@
 package ipsis.buildersguides.block;
 
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileDireMarker;
 import ipsis.buildersguides.util.DirectionHelper;
@@ -20,7 +21,7 @@ public class BlockDireMarker extends BlockBG implements ITileEntityProvider {
 
     public BlockDireMarker() {
 
-        this.setBlockName("direMarker");
+        this.setBlockName(Names.Blocks.BLOCK_DIRE_MARKER);
     }
 
     /**

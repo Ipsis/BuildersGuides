@@ -1,5 +1,6 @@
 package ipsis.buildersguides.block;
 
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.tileentity.TileAxisMarker;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -8,7 +9,7 @@ public class BlockAxisMarker extends BlockBaseMarker {
 
     public BlockAxisMarker() {
 
-        this.setBlockName("axisMarker");
+        this.setBlockName(Names.Blocks.BLOCK_AXIS_MARKER);
     }
 
     /**
