@@ -15,7 +15,7 @@ The textures are my own creation. I'm not proud of them :P
 This mod uses a small number of classes from other mods.
 ## CoFH
 
-[CoFHLib Repository]((https://github.com/CoFH/CoFHLib)
+[CoFHLib Repository](https://github.com/CoFH/CoFHLib)
 
 The following classes:
 
