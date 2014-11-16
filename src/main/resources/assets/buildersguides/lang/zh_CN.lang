@@ -1,19 +1,19 @@
-key.categories.buildersguides=建筑者的标示仪
+key.categories.buildersguides=建筑者的标记器
 
-tile.buildersguides:advancedMarker.name=高级标示仪
-tile.buildersguides:axisMarker.name=轴线标示仪
-tile.buildersguides:chunkMarker.name=区块标示仪
-tile.buildersguides:coordMarker.name=坐标标示仪
-tile.buildersguides:direMarker.name=Dire标示仪
-tile.buildersguides:centerMarker.name=中心标示仪
-tile.buildersguides:laserMarker.name=射线标示仪
-tile.buildersguides:multiRangeMarker.name=多距点标示仪
-tile.buildersguides:multiTargetMarker.name=多目标标示仪
-tile.buildersguides:rangeMarker.name=距点标示仪
-tile.buildersguides:skyMarker.name=天空指引仪
-tile.buildersguides:target.name=目标定位仪
-tile.buildersguides:targetMarker.name=目标标示仪
+tile.buildersguides:advancedMarker.name=高级标记器
+tile.buildersguides:axisMarker.name=轴线标记器
+tile.buildersguides:chunkMarker.name=区块标记器
+tile.buildersguides:coordMarker.name=坐标标记器
+tile.buildersguides:direMarker.name=Dire标记器
+tile.buildersguides:centerMarker.name=中点标记器
+tile.buildersguides:laserMarker.name=射线标记器
+tile.buildersguides:multiRangeMarker.name=多距点标记器
+tile.buildersguides:multiTargetMarker.name=多目标标记器
+tile.buildersguides:rangeMarker.name=距点标记器
+tile.buildersguides:skyMarker.name=天际标记器
+tile.buildersguides:target.name=目标定位器
+tile.buildersguides:targetMarker.name=目标标记器
 
-item.buildersguides:marker.name=标示核心
+item.buildersguides:marker.name=标记核心
 item.buildersguides:allenKey.name=内六角扳手
 item.buildersguides:toolBox.name=建筑者的工具箱
