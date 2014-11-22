@@ -1,6 +1,9 @@
 Builder's Guides ChangeLog
 ==========================
 
+17.10-1.0.1
+* BGZ004 - Openeye: Chunkmarker causing NPE
+
 1.7.10-1.0.0
 
 * Actual release of V1.0.0

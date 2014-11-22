@@ -78,8 +78,11 @@ public class TileChunkMarker extends TileEntity implements ITileInteract {
         nbttagcompound.setInteger("Color", this.color.ordinal());
 
         NBTTagCompound tc1 = new NBTTagCompound();
-        this.chunk.writeToNBT(tc1);
-        nbttagcompound.setTag("Chunk", tc1);
+
+        if (this.hasChunkInfo()) {
+            this.chunk.writeToNBT(tc1);
+            nbttagcompound.setTag("Chunk", tc1);
+        }
     }
 
     @Override
@@ -88,7 +91,11 @@ public class TileChunkMarker extends TileEntity implements ITileInteract {
         super.readFromNBT(nbttagcompound);
 
         this.color = BGColor.getColor(nbttagcompound.getInteger("Color"));
-        this.chunk = new BlockPosition((NBTTagCompound)nbttagcompound.getTag("Chunk"));
+
+        if (nbttagcompound.hasKey("Chunk"))
+            this.chunk = new BlockPosition((NBTTagCompound)nbttagcompound.getTag("Chunk"));
+        else
+            this.chunk = null;
     }
 
     /**
