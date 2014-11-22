@@ -2,6 +2,10 @@ Builder's Guides ChangeLog
 ==========================
 
 17.10-1.0.1
+
+* zh_CN.lang by ViKaleidoscope
+
+Fixes
 * BGZ004 - Openeye: Chunkmarker causing NPE
 
 1.7.10-1.0.0
