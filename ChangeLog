@@ -1,9 +1,10 @@
 Builder's Guides ChangeLog
 ==========================
 
-17.10-1.1.0
+1.7.10-1.0.1
 
 * zh_CN.lang by ViKaleidoscope
+* Update to latest recommended Forge 10.13.2.1291
 
 Fixes
 * BGZ004 - Openeye: Chunkmarker causing NPE
