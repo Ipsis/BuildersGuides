@@ -1,6 +1,10 @@
 Builder's Guides ChangeLog
 ==========================
 
+1.7.10-1.0.2
+
+* Remove the ghost block marker. Forgot to put all that work on its own Git branch!
+
 1.7.10-1.0.1
 
 * zh_CN.lang by ViKaleidoscope
