@@ -40,6 +40,8 @@ public class BGBlocks {
 
         blockAdvancedMarker = new BlockAdvancedMarker();
 
+        blockGhostMarker = new BlockGhostMarker();
+
         GameRegistry.registerBlock(blockTarget, "block.target");
 
         GameRegistry.registerBlock(blockLaserMarker, "block.laserMarker");
@@ -56,6 +58,8 @@ public class BGBlocks {
         GameRegistry.registerBlock(blockMultiTargetMarker, "block.multiTargetMarker");
 
         GameRegistry.registerBlock(blockAdvancedMarker, "block.advancedMarker");
+
+        GameRegistry.registerBlock(blockGhostMarker, "block.ghostMarker");
 
         validMarkers.add(Item.getItemFromBlock(blockLaserMarker));
         validMarkers.add(Item.getItemFromBlock(blockAxisMarker));
@@ -130,5 +134,7 @@ public class BGBlocks {
     public static BlockBG blockMultiTargetMarker;
 
     public static BlockBG blockAdvancedMarker;
+
+    public static BlockBG blockGhostMarker;
 
 }
