@@ -21,7 +21,5 @@ public abstract class CommonProxy implements IProxy {
         GameRegistry.registerTileEntity(TileMultiTargetMarker.class, "tile.multiTargetMarker");
 
         GameRegistry.registerTileEntity(TileAdvancedMarker.class, "tile.advancedMarker");
-
-        GameRegistry.registerTileEntity(TileGhostMarker.class, "tile.ghostMarker");
     }
 }

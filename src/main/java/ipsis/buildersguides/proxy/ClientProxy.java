@@ -13,7 +13,5 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileChunkMarker.class, new ChunkMarkerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileDireMarker.class, new DireMarkerRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileAdvancedMarker.class, new AdvancedMarkerRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileGhostMarker.class, new GhostMarkerRenderer());
-
      }
 }

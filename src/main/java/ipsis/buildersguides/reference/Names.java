@@ -17,8 +17,6 @@ public class Names {
         public static final String BLOCK_RANGE_MARKER = "rangeMarker";
         public static final String BLOCK_SKY_MARKER = "skyMarker";
 
-        public static final String BLOCK_GHOST_MARKER = "ghostMarker";
-
         public static final String BLOCK_TARGET = "target";
         public static final String BLOCK_TARGET_MARKER = "targetMarker";
     }
