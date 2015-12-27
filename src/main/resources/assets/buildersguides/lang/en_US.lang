@@ -1,11 +1,11 @@
 tile.BuildersGuides:marker.name=Marker
 
 item.BuildersGuides:mallet.name=Mallet
-item.BuildersGuides:markerCard.AXIS.name=Axis Marker
-item.BuildersGuides:markerCard.BLANK.name=Blank Marker
-item.BuildersGuides:markerCard.LASER.name=Laser Marker
-item.BuildersGuides:markerCard.RANGE.name=Range Marker
-item.BuildersGuides:markerCard.SPACING.name=Spacing Marker
-item.BuildersGuides:markerCard.WORLD.name=World Marker
+item.BuildersGuides:markerCard.AXIS.name=Axis Marker Card
+item.BuildersGuides:markerCard.BLANK.name=Blank Marker Card
+item.BuildersGuides:markerCard.LASER.name=Laser Marker Card
+item.BuildersGuides:markerCard.RANGE.name=Range Marker Card
+item.BuildersGuides:markerCard.SPACING.name=Spacing Marker Card
+item.BuildersGuides:markerCard.WORLD.name=World Marker Card
 
 itemGroup.BuildersGuides=Builder's Guides
