@@ -1,0 +1,9 @@
+tile.BuildersGuides:marker.name=Marker
+
+item.BuildersGuides:mallet.name=Mallet
+item.BuildersGuides:markerCard.AXIS.name=Axis Marker
+item.BuildersGuides:markerCard.BLANK.name=Blank Marker
+item.BuildersGuides:markerCard.LASER.name=Laser Marker
+item.BuildersGuides:markerCard.RANGE.name=Range Marker
+item.BuildersGuides:markerCard.SPACING.name=Spacing Marker
+item.BuildersGuides:markerCard.WORLD.name=World Marker
