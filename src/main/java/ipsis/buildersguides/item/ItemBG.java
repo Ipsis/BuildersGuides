@@ -1,7 +1,7 @@
 package ipsis.buildersguides.item;
 
 import ipsis.buildersguides.BuildersGuides;
-import ipsis.buildersguides.reference.Reference;
+import ipsis.buildersguides.util.UnlocalizedName;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -14,15 +14,11 @@ public class ItemBG extends Item {
 
     @Override
     public String getUnlocalizedName() {
-        return String.format("item.%s%s", Reference.MOD_ID + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return UnlocalizedName.getUnlocalizedNameItem(super.getUnlocalizedName());
     }
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack) {
-        return String.format("item.%s%s", Reference.MOD_ID + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
-    }
-
-    protected String getUnwrappedUnlocalizedName(String unlocalizedName) {
-        return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
+        return this.getUnlocalizedName();
     }
 }

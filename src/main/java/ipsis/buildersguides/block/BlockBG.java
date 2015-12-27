@@ -1,7 +1,7 @@
 package ipsis.buildersguides.block;
 
 import ipsis.buildersguides.BuildersGuides;
-import ipsis.buildersguides.reference.Reference;
+import ipsis.buildersguides.util.UnlocalizedName;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -17,10 +17,6 @@ public class BlockBG extends Block {
 
     @Override
     public String getUnlocalizedName() {
-        return String.format("tile.%s%s", Reference.MOD_ID + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
-    }
-
-    protected String getUnwrappedUnlocalizedName(String unlocalizedName) {
-        return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
+        return UnlocalizedName.getUnlocalizedNameBlock(super.getUnlocalizedName());
     }
 }
