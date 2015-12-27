@@ -1,6 +1,6 @@
 package ipsis.buildersguides.item;
 
-import ipsis.buildersguides.creativetab.Tabs;
+import ipsis.buildersguides.BuildersGuides;
 import ipsis.buildersguides.reference.Reference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,7 +9,7 @@ public class ItemBG extends Item {
 
     public ItemBG() {
         super();
-        this.setCreativeTab(Tabs.BG_TAB);
+        setCreativeTab(BuildersGuides.tabBG);
     }
 
     @Override

@@ -7,3 +7,5 @@ item.BuildersGuides:markerCard.LASER.name=Laser Marker
 item.BuildersGuides:markerCard.RANGE.name=Range Marker
 item.BuildersGuides:markerCard.SPACING.name=Spacing Marker
 item.BuildersGuides:markerCard.WORLD.name=World Marker
+
+itemGroup.BuildersGuides=Builder's Guides
