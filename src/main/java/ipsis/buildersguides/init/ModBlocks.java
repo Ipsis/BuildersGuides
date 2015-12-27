@@ -2,7 +2,6 @@ package ipsis.buildersguides.init;
 
 import ipsis.buildersguides.block.BlockBG;
 import ipsis.buildersguides.block.BlockMarker;
-import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

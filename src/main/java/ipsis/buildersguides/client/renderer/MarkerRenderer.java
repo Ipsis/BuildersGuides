@@ -1,7 +1,6 @@
 package ipsis.buildersguides.client.renderer;
 
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 

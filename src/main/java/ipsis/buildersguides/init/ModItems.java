@@ -2,7 +2,6 @@ package ipsis.buildersguides.init;
 
 import ipsis.buildersguides.item.ItemMallet;
 import ipsis.buildersguides.item.ItemMarkerCard;
-import ipsis.buildersguides.reference.Names;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

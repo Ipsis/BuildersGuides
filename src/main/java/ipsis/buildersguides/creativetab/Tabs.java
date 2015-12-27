@@ -1,6 +1,5 @@
 package ipsis.buildersguides.creativetab;
 
-import ipsis.buildersguides.reference.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
