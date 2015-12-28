@@ -2,14 +2,31 @@ package ipsis.buildersguides;
 
 import net.minecraft.util.MathHelper;
 
+/**
+ * Types
+ *
+ * AXIS - display three axes - can disable per side
+ * CENTER - display odd/even centers
+ * GHOST - display of configurable single, plane and cuboids
+ * GHOSTSTAIRS - as above but stairs
+ * LASER - display in facing direction
+ * RANGE - displays range information
+ * SPACING - display blocks spaced at intervals
+ * WORLD - display full world height
+ *
+ */
+
 public enum MarkerType {
 
     BLANK,
     AXIS,
+    CENTER,
+    GHOST,
+    GHOSTSTAIRS,
     LASER,
-    WORLD,
+    RANGE,
     SPACING,
-    RANGE;
+    WORLD;
 
     public static final int count = MarkerType.values().length;
 

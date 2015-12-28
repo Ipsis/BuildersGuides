@@ -1,6 +1,7 @@
 package ipsis.buildersguides.init;
 
 import ipsis.buildersguides.block.BlockBG;
+import ipsis.buildersguides.block.BlockContainerBG;
 import ipsis.buildersguides.block.BlockMarker;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -15,5 +16,5 @@ public class ModBlocks {
         /* setup recipes */
     }
 
-    public static BlockBG blockMarker;
+    public static BlockContainerBG blockMarker;
 }
