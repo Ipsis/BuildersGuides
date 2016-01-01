@@ -1,5 +1,6 @@
-package ipsis.buildersguides;
+package ipsis.buildersguides.manager;
 
+import ipsis.buildersguides.item.ItemMallet;
 import net.minecraft.util.MathHelper;
 
 /**

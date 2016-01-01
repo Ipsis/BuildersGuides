@@ -1,6 +1,6 @@
 package ipsis.buildersguides.item;
 
-import ipsis.buildersguides.MarkerType;
+import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.init.ModItems;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.WorldHelper;

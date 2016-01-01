@@ -1,40 +1,146 @@
 package ipsis.buildersguides.client.renderer;
 
+import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
+import ipsis.buildersguides.util.RenderUtils;
+import ipsis.oss.LogHelper;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.resources.data.PackMetadataSection;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
+import sun.rmi.runtime.Log;
+
+import java.util.List;
+import java.util.Set;
 
 public class MarkerRenderer extends TileEntitySpecialRenderer {
 
     @Override
-    public void renderTileEntityAt(TileEntity te, double posX, double posY, double posZ, float tick, int p_180535_9_) {
+    public void renderTileEntityAt(TileEntity te, double relativeX, double relativeY, double relativeZ, float partialTicks, int blockDamageProgress) {
 
-        if (te instanceof TileEntityMarker)
-            doRender(te, posX, posY, posZ, tick, p_180535_9_);
+        if (te instanceof TileEntityMarker) {
+            if (((TileEntityMarker) te).getType() == MarkerType.SPACING)
+                doRenderSpacing((TileEntityMarker) te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
+            else if (((TileEntityMarker) te).getType() == MarkerType.AXIS)
+                doRenderAxis((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
+            else if (((TileEntityMarker) te).getType() == MarkerType.LASER)
+                doRenderLaser((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
+            else
+                doRender((TileEntityMarker) te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
+        }
     }
 
-    public void doRender(TileEntity te, double posX, double posY, double posZ, float tick, int p_180535_9_) {
+    private void doRenderLaser(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks, int blockDamageProgress) {
 
-        GL11.glPushMatrix();
+        GlStateManager.pushAttrib();
+        GlStateManager.pushMatrix();
         {
-            GL11.glTranslated(posX + 0.5F, posY + 0.5F, posZ + 0.5F);
-            GL11.glDisable(GL11.GL_LIGHTING);
+            Tessellator tessellator = Tessellator.getInstance();
+            WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 
-            GL11.glDisable(GL11.GL_TEXTURE_2D);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GL11.glLineWidth(1.5F);
-            GL11.glBegin(GL11.GL_LINES);
+            // translate to center or te
+            GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
+            GlStateManager.disableLighting();
+            GlStateManager.disableTexture2D();
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
 
-            GL11.glVertex3d(0.0F, 0.0F, 0.0F);
-            GL11.glVertex3d(100.0F, 100.0F, 100.0F);
-            GL11.glEnd();
-
-
-            GL11.glEnable(GL11.GL_TEXTURE_2D);
-            GL11.glEnable(GL11.GL_LIGHTING);
+            worldRenderer.startDrawing(GL11.GL_LINES);
+            for (EnumFacing f : EnumFacing.values()) {
+                if (te.getV(f) != 0) {
+                    worldRenderer.addVertex(0.0F, 0.0F, 0.0F);
+                    worldRenderer.addVertex(
+                            0.0F + (f.getFrontOffsetX() * 64.0F),
+                            0.0F + (f.getFrontOffsetY() * 64.0F),
+                            0.0F + (f.getFrontOffsetZ() * 64.0F));
+                }
+            }
+            tessellator.draw();
         }
-        GL11.glPopMatrix();
+        GlStateManager.popMatrix();
+        GlStateManager.popAttrib();
+    }
+
+    private void doRenderAxis(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks, int blockDamageProgress) {
+
+        GlStateManager.pushAttrib();
+        GlStateManager.pushMatrix();
+        {
+            Tessellator tessellator = Tessellator.getInstance();
+            WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+
+            // translate to center or te
+            GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
+            GlStateManager.disableLighting();
+            GlStateManager.disableTexture2D();
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
+
+            worldRenderer.startDrawing(GL11.GL_LINES);
+            for (EnumFacing f : EnumFacing.values()) {
+                worldRenderer.addVertex(0.0F, 0.0F, 0.0F);
+                worldRenderer.addVertex(
+                        0.0F + (f.getFrontOffsetX() * 64.0F),
+                        0.0F + (f.getFrontOffsetY() * 64.0F),
+                        0.0F + (f.getFrontOffsetZ() * 64.0F));
+            }
+            tessellator.draw();
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.popAttrib();
+    }
+
+    private void doRenderSpacing(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks, int blockDamageProgress) {
+
+        if (te.getBlockList() == null || te.getBlockList().isEmpty())
+            return;
+
+        GlStateManager.pushAttrib();
+        GlStateManager.pushMatrix();
+        {
+            // translate to center or te
+            GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
+            GlStateManager.disableLighting();
+            GlStateManager.disableTexture2D();
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 1.0F);
+
+            for (BlockPos p : te.getBlockList()) {
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(
+                        (te.getPos().getX() - p.getX()) * -1.0F,
+                        (te.getPos().getY() - p.getY()) * -1.0F,
+                        (te.getPos().getZ() - p.getZ()) * -1.0F);
+                RenderUtils.drawBlockShaded(0.4F);
+                GlStateManager.popMatrix();
+            }
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.popAttrib();
+    }
+
+    private void doRender(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks, int blockDamageProgress) {
+
+        GlStateManager.pushAttrib();
+        GlStateManager.pushMatrix();
+        {
+            Tessellator tessellator = Tessellator.getInstance();
+            WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+
+            // translate to center of te
+            GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
+            GlStateManager.disableLighting();
+            GlStateManager.disableTexture2D();
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            worldRenderer.startDrawing(GL11.GL_LINES);
+            worldRenderer.addVertex(0.0F, 0.0F, 0.0F);
+            worldRenderer.addVertex(100.0F, 100.0F, 100.0F);
+            tessellator.draw();
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.popAttrib();
     }
 }

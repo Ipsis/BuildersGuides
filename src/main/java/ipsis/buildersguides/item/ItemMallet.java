@@ -1,43 +1,89 @@
 package ipsis.buildersguides.item;
 
-import ipsis.buildersguides.init.ModItems;
+import ipsis.buildersguides.client.keys.KeyBindingsBG;
+import ipsis.buildersguides.reference.Reference;
+import ipsis.buildersguides.util.IKeyBound;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 
-public class ItemMallet extends ItemBG {
+import java.util.List;
+
+public class ItemMallet extends ItemBG implements IKeyBound {
 
     public static final String BASENAME = "mallet";
+
+    private static final String NBT_MODE = "mode";
 
     public ItemMallet() {
 
         super();
         setUnlocalizedName(BASENAME);
-        setNoRepair();
+        setHasSubtypes(true);
+        setMaxStackSize(1);
     }
 
-    public static MALLET_MODE getMode(ItemStack itemStack) {
+    public static MalletMode getMode(ItemStack itemStack) {
 
-        return MALLET_MODE.getMode(itemStack == null || itemStack.getItem() != ModItems.itemMallet ? 0 : itemStack.getItemDamage() % (MALLET_MODE.values().length - 1));
+        if (!itemStack.hasTagCompound())
+            itemStack.setTagCompound(new NBTTagCompound());
+
+        NBTTagCompound tag = itemStack.getTagCompound();
+        return MalletMode.getMode(tag.getInteger(NBT_MODE));
     }
 
-    public static void setNextMode(ItemStack itemStack) {
+    public static void cycleMode(ItemStack itemStack) {
 
-        if (itemStack != null && itemStack.getItem() == ModItems.itemMallet) {
-            itemStack.setItemDamage(getMode(itemStack).getNext().ordinal());
-        }
+        if (!itemStack.hasTagCompound())
+            itemStack.setTagCompound(new NBTTagCompound());
+
+        NBTTagCompound tag = itemStack.getTagCompound();
+        MalletMode m = MalletMode.getMode(tag.getInteger(NBT_MODE));
+        tag.setInteger(NBT_MODE, m.getNext().ordinal());
     }
 
-    public enum MALLET_MODE {
+    @Override
+    public boolean doesSneakBypassUse(World world, BlockPos pos, EntityPlayer player) {
+
+        return true;
+    }
+
+    public static String getModeTranslation(ItemStack itemStack) {
+
+        return StatCollector.translateToLocal("tooltip." + Reference.MOD_ID + ":" + BASENAME + "." + getMode(itemStack));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+
+        tooltip.add(getModeTranslation(stack));
+    }
+
+    /* IKeyBound */
+    @Override
+    public void doKeyBindingAction(EntityPlayer entityPlayer, ItemStack itemStack, KeyBindingsBG keyBinding) {
+
+        cycleMode(itemStack);
+        entityPlayer.addChatComponentMessage(new ChatComponentText(getModeTranslation(itemStack)));
+    }
+
+    public enum MalletMode {
         BCWRENCH,
         HAMMER,
         CONFIG,
         DECORATE;
 
-        public static MALLET_MODE getMode(int id) {
+        public static MalletMode getMode(int id) {
             return values()[MathHelper.clamp_int(id, 0, values().length - 1)];
         }
 
-        public MALLET_MODE getNext() {
+        public MalletMode getNext() {
             int next = (this.ordinal() + 1) % values().length;
             return values()[next];
         }

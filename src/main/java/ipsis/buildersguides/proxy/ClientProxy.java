@@ -1,6 +1,8 @@
 package ipsis.buildersguides.proxy;
 
-import ipsis.buildersguides.MarkerType;
+import ipsis.buildersguides.client.KeyInputEventHandler;
+import ipsis.buildersguides.client.keys.KeyBindingsBG;
+import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.block.BlockMarker;
 import ipsis.buildersguides.client.renderer.MarkerRenderer;
 import ipsis.buildersguides.init.ModBlocks;
@@ -14,6 +16,8 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class ClientProxy extends CommonProxy {
 
@@ -21,8 +25,7 @@ public class ClientProxy extends CommonProxy {
     public void registerRenderInformation() {
 
         ModelHelper.registerBlock(ModBlocks.blockMarker, 0, BlockMarker.BASENAME);
-
-        ModelHelper.registerItem(ModItems.itemMallet, ItemMallet.BASENAME);
+        ModelHelper.registerItem(ModItems.itemMallet, 0, ItemMallet.BASENAME);
 
         for (MarkerType t : MarkerType.values()) {
             ModelHelper.registerItem(ModItems.itemMarkerCard, t.ordinal(), ItemMarkerCard.BASENAME + "." + t);
@@ -34,6 +37,15 @@ public class ClientProxy extends CommonProxy {
     public void registerTileEntitySpecialRenderer() {
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMarker.class, new MarkerRenderer());
+    }
+
+    @Override
+    public void registerKeyBindings() {
+
+        FMLCommonHandler.instance().bus().register(new KeyInputEventHandler());
+        for (KeyBindingsBG k : KeyBindingsBG.values()) {
+            ClientRegistry.registerKeyBinding(k.getKeyBinding());
+        }
     }
 
     @Override

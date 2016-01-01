@@ -11,4 +11,12 @@ item.BuildersGuides:markerCard.RANGE.name=Range Marker Card
 item.BuildersGuides:markerCard.SPACING.name=Spacing Marker Card
 item.BuildersGuides:markerCard.WORLD.name=World Marker Card
 
+tooltip.BuildersGuides:mallet.BCWRENCH=Wrench
+tooltip.BuildersGuides:mallet.HAMMER=Hammer
+tooltip.BuildersGuides:mallet.CONFIG=Configuration
+tooltip.BuildersGuides:mallet.DECORATE=Decorate
+
 itemGroup.BuildersGuides=Builder's Guides
+
+keys.BuildersGuides.category=Builder's Guides
+keys.BuildersGuides.mode=Mallet Mode
