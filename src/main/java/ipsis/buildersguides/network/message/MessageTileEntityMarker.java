@@ -128,7 +128,7 @@ public class MessageTileEntityMarker implements IMessage {
                 }
 
                 MarkerManager.handleServerUpdate((TileEntityMarker)te);
-                worldClient.markBlockForUpdate(new BlockPos(message.x, message.y, message.z));
+                worldClient.markBlockForUpdate(te.getPos());
             }
         }
     }

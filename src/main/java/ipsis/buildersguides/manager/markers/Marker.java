@@ -14,6 +14,7 @@ public abstract class Marker {
     public abstract void handleHammer(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking);
     public abstract void handleConfig(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking);
     public void handleServerUpdate(TileEntityMarker te) { }
+    public void findTargets(World worldIn, TileEntityMarker te) { }
 
     public void handleDecorate(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking) {
 
@@ -40,6 +41,7 @@ public abstract class Marker {
         } else {
             // rotate around side == axis
             te.rotateTile(side);
+            findTargets(worldIn, te);
             worldIn.markBlockForUpdate(te.getPos());
         }
     }

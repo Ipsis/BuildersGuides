@@ -29,13 +29,24 @@ public class CenterMarker extends Marker {
             te.setV(side, te.getV(side) + 1);
         }
 
+        findTarget(worldIn, te, side);
+        worldIn.markBlockForUpdate(te.getPos());
+    }
+
+    @Override
+    public void findTargets(World worldIn, TileEntityMarker te) {
+
+        for (EnumFacing f : EnumFacing.VALUES)
+            findTarget(worldIn, te, f);
+    }
+
+    private void findTarget(World worldIn, TileEntityMarker te, EnumFacing side) {
+
         /* Set target to be the v'th block in the direction */
         if (te.getV(side) == 0)
-           te.setTarget(side, new BlockPos(te.getPos()));
+            te.setTarget(side, new BlockPos(te.getPos()));
         else
             te.setTarget(side, BlockUtils.getNthBlock(worldIn, te.getPos(), side, te.getV(side)));
-
-        worldIn.markBlockForUpdate(te.getPos());
     }
 
     @Override
