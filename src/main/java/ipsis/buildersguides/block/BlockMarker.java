@@ -78,9 +78,11 @@ public class BlockMarker extends BlockContainerBG {
             return false;
 
         if (WorldHelper.isServer(worldIn)) {
+            // side is the side of the block hit, but we want to act on the opposite side
+            // ie. hitting the front face, pushes blocks out the back
             ItemMallet.MalletMode currMode = ItemMallet.getMode(heldItem);
             MarkerType t = ((TileEntityMarker) te).getType();
-            MarkerManager.handleMalletMode(worldIn, (TileEntityMarker) te, side, currMode, playerIn.isSneaking());
+            MarkerManager.handleMalletMode(worldIn, (TileEntityMarker) te, side.getOpposite(), currMode, playerIn.isSneaking());
         }
 
         return true;

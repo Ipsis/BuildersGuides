@@ -2,50 +2,58 @@ package ipsis.buildersguides.manager.markers;
 
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
+import ipsis.buildersguides.util.BlockUtils;
 import ipsis.oss.LogHelper;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class SpacingMarker extends Marker {
+import java.util.List;
+
+public class CenterMarker extends Marker {
     @Override
     public boolean isMatch(MarkerType t) {
-
-        return t == MarkerType.SPACING;
+        return t == MarkerType.CENTER;
     }
 
     @Override
     public void handleHammer(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking) {
 
-        LogHelper.info("handleHammer: SPACING");
+        LogHelper.info("handleHammer: CENTER");
 
         if (isSneaking) {
             te.setV(side, te.getV(side) - 1);
             if (te.getV(side) < 0)
-               te.setV(side, 0);
+                te.setV(side, 0);
         } else {
             te.setV(side, te.getV(side) + 1);
         }
+
+        /* Set target to be the v'th block in the direction */
+        if (te.getV(side) == 0)
+           te.setTarget(side, new BlockPos(te.getPos()));
+        else
+            te.setTarget(side, BlockUtils.getNthBlock(worldIn, te.getPos(), side, te.getV(side)));
+
         worldIn.markBlockForUpdate(te.getPos());
     }
 
     @Override
     public void handleConfig(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking) {
 
-        LogHelper.info("handleConfig: SPACING");
     }
 
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
+        // calculate the center points and add them to the block list
         te.clearBlocklist();
-        for (EnumFacing f : EnumFacing.values()) {
-            int v = te.getV(f);
-            if (v != 0) {
-                for (int i = (v + 1); i < 64; i += (v + 1)) {
-                    BlockPos p = te.getPos().offset(f, i);
+
+        for (EnumFacing f : EnumFacing.VALUES) {
+            if (te.hasTarget(f)) {
+                List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getPos(), te.getTarget(f), f);
+                for (BlockPos p : centerList)
                     te.addToBlockList(p);
-                }
             }
         }
     }

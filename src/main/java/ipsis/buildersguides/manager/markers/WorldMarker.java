@@ -2,34 +2,32 @@ package ipsis.buildersguides.manager.markers;
 
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import ipsis.oss.LogHelper;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class LaserMarker extends Marker {
+public class WorldMarker extends Marker {
 
     @Override
     public boolean isMatch(MarkerType t) {
-        return t == MarkerType.LASER;
+        return t == MarkerType.WORLD;
     }
 
     @Override
     public void handleHammer(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking) {
-
-        LogHelper.info("handleHammer: LASER");
-
-        // Laser marker face hit is the one to enable
-        side = side.getOpposite();
-        if (isSneaking) {
-            te.setV(side, 0);
-        } else {
-            te.setV(side, 1);
-        }
-        worldIn.markBlockForUpdate(te.getPos());
+        // NOOP
     }
 
     @Override
     public void handleConfig(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking) {
         // NOOP
+    }
+
+    @Override
+    public void handleServerUpdate(TileEntityMarker te) {
+
+        te.clearBlocklist();
+        te.addToBlockList(new BlockPos(te.getPos().getX(), te.getWorld().getHeight(), te.getPos().getZ()));
+        te.addToBlockList(new BlockPos(te.getPos().getX(), 0, te.getPos().getZ()));
     }
 }

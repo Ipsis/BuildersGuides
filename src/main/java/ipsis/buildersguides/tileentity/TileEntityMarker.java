@@ -29,6 +29,7 @@ public class TileEntityMarker extends TileEntity {
     public MarkerType getType() {
         return type;
     }
+
     public void setType(MarkerType type) {
         this.type = type;
     }
@@ -36,6 +37,7 @@ public class TileEntityMarker extends TileEntity {
     public EnumFacing getFacing() {
         return facing;
     }
+
     public void setFacing(EnumFacing facing) {
         this.facing = facing;
     }
@@ -43,6 +45,7 @@ public class TileEntityMarker extends TileEntity {
     public ColorBG getColor() {
         return color;
     }
+
     public void setColor(ColorBG color) {
         this.color = color;
     }
@@ -50,12 +53,22 @@ public class TileEntityMarker extends TileEntity {
     public int getV(EnumFacing f) {
         return v[f.ordinal()];
     }
+
     public void setV(EnumFacing f, int val) {
-       v[f.ordinal()] = val;
+        v[f.ordinal()] = val;
     }
 
-    public BlockPos getTarget(EnumFacing f) { return target[f.ordinal()]; }
+    public BlockPos getTarget(EnumFacing f) {
+        if (target[f.ordinal()] == null)
+            return new BlockPos(this.getPos());
+        else
+            return target[f.ordinal()];
+    }
     public void setTarget(EnumFacing f, BlockPos p) { target[f.ordinal()] = new BlockPos(p); }
+    public boolean hasTarget(EnumFacing f) { return target[f.ordinal()] != null && !getPos().equals(target[f.ordinal()]); }
+
+
+    public void clearBlocklist() { blockList.clear(); }
 
     public TileEntityMarker() {
 
@@ -64,12 +77,10 @@ public class TileEntityMarker extends TileEntity {
         color = ColorBG.WHITE;
 
         v = new int[6];
-        target = new BlockPos[6];
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++)
             v[i] = 0;
-            target[i] = new BlockPos(this.getPos());
-        }
 
+        target = new BlockPos[6];
         blockList = new ArrayList<BlockPos>();
     }
 
@@ -119,12 +130,16 @@ public class TileEntityMarker extends TileEntity {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
+        s.append("TE Location: ").append(getPos());
         s.append(type).append(":").append(facing).append(":").append(color).append("\n");
         for (EnumFacing f : EnumFacing.VALUES)
             s.append(f).append(":").append(v[f.ordinal()]).append(" ");
         s.append("\n");
         for (EnumFacing f : EnumFacing.VALUES)
-            s.append(f).append(":").append(target[f.ordinal()]).append(" ");
+            if (hasTarget(f) )
+                s.append(f).append(":").append(target[f.ordinal()]).append(" ");
+            else
+                s.append(f).append(":none ");
         return s.toString();
     }
 }

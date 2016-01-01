@@ -50,7 +50,8 @@ public class MessageTileEntityMarker implements IMessage {
     @Override
     public String toString() {
         return "MessageTileEntityMarker: " + EnumFacing.getFront(facing) + " " + MarkerType.getMarkerType(type) + " " + ColorBG.getColor(color) +
-                " " + v[0] + " " + v[1] + " " + v[2] + " " + v[3] + " "  + v[4] + " " + v[5];
+                " " + v[0] + " " + v[1] + " " + v[2] + " " + v[3] + " "  + v[4] + " " + v[5] +
+                " " + target[0] + " " + target[1] + " " + target[2] + " " + target[3] + " " + target[4] + " " + target[5];
     }
 
     @Override

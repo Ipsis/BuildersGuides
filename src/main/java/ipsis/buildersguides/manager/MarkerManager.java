@@ -1,10 +1,7 @@
 package ipsis.buildersguides.manager;
 
 import ipsis.buildersguides.item.ItemMallet;
-import ipsis.buildersguides.manager.markers.AxisMarker;
-import ipsis.buildersguides.manager.markers.LaserMarker;
-import ipsis.buildersguides.manager.markers.Marker;
-import ipsis.buildersguides.manager.markers.SpacingMarker;
+import ipsis.buildersguides.manager.markers.*;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.oss.LogHelper;
 import net.minecraft.util.EnumFacing;
@@ -22,6 +19,8 @@ public class MarkerManager {
         markerList.add(new AxisMarker());
         markerList.add(new SpacingMarker());
         markerList.add(new LaserMarker());
+        markerList.add(new WorldMarker());
+        markerList.add(new CenterMarker());
     }
 
     public static void handleMalletMode(World worldIn,  TileEntityMarker te, EnumFacing side, ItemMallet.MalletMode mode, boolean isSneaking) {
