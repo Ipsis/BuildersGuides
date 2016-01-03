@@ -29,6 +29,7 @@ public class MessageTileEntityMarker implements IMessage {
     public byte color;
     public int v[];
     public BlockPos target[];
+    public byte mode;
 
     public MessageTileEntityMarker(TileEntityMarker te) {
 
@@ -39,6 +40,7 @@ public class MessageTileEntityMarker implements IMessage {
         this.facing = (byte)te.getFacing().ordinal();
         this.type = (byte)te.getType().ordinal();
         this.color = (byte)te.getColor().ordinal();
+        this.mode = (byte)te.getMode();
 
         for (EnumFacing f : EnumFacing.values())
             this.v[f.ordinal()] = te.getV(f);
@@ -49,7 +51,7 @@ public class MessageTileEntityMarker implements IMessage {
 
     @Override
     public String toString() {
-        return "MessageTileEntityMarker: " + EnumFacing.getFront(facing) + " " + MarkerType.getMarkerType(type) + " " + ColorBG.getColor(color) +
+        return "MessageTileEntityMarker: " + EnumFacing.getFront(facing) + " " + MarkerType.getMarkerType(type) + " " + ColorBG.getColor(color) + " " + mode +
                 " " + v[0] + " " + v[1] + " " + v[2] + " " + v[3] + " "  + v[4] + " " + v[5] +
                 " " + target[0] + " " + target[1] + " " + target[2] + " " + target[3] + " " + target[4] + " " + target[5];
     }
@@ -63,6 +65,7 @@ public class MessageTileEntityMarker implements IMessage {
         buf.writeByte(facing);
         buf.writeByte(type);
         buf.writeByte(color);
+        buf.writeByte(mode);
 
         for (int i = 0; i < 6; i++)
             buf.writeInt(v[i]);
@@ -83,6 +86,7 @@ public class MessageTileEntityMarker implements IMessage {
         this.facing = buf.readByte();
         this.type = buf.readByte();
         this.color = buf.readByte();
+        this.mode = buf.readByte();
 
         for (int i = 0; i < 6; i++)
             this.v[i] = buf.readInt();
@@ -121,6 +125,7 @@ public class MessageTileEntityMarker implements IMessage {
                 ((TileEntityMarker) te).setFacing(EnumFacing.getFront(message.facing));
                 ((TileEntityMarker) te).setType(MarkerType.getMarkerType(message.type));
                 ((TileEntityMarker) te).setColor(ColorBG.getColor(message.color));
+                ((TileEntityMarker) te).setMode(message.mode);
 
                 for (EnumFacing f : EnumFacing.values()) {
                     ((TileEntityMarker) te).setV(f, message.v[f.ordinal()]);

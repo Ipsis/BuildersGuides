@@ -16,7 +16,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TileEntityMarker extends TileEntity {
 
@@ -25,6 +27,7 @@ public class TileEntityMarker extends TileEntity {
     private ColorBG color;
     private int[] v; // Generic value per direction
     private BlockPos[] target; // Target position per direction
+    private int mode; // Type specific mode
 
     public MarkerType getType() {
         return type;
@@ -58,6 +61,13 @@ public class TileEntityMarker extends TileEntity {
         v[f.ordinal()] = val;
     }
 
+    public boolean hasValidV(EnumFacing f) {
+        return v[f.ordinal()] != 0;
+    }
+
+    public int getMode() { return mode; }
+    public void setMode(int mode) { this.mode = mode; }
+
     public BlockPos getTarget(EnumFacing f) {
         if (target[f.ordinal()] == null)
             return new BlockPos(this.getPos());
@@ -75,13 +85,14 @@ public class TileEntityMarker extends TileEntity {
         type = MarkerType.BLANK;
         facing = EnumFacing.SOUTH;
         color = ColorBG.WHITE;
+        mode = 0;
 
         v = new int[6];
         for (int i = 0; i < 6; i++)
             v[i] = 0;
 
         target = new BlockPos[6];
-        blockList = new ArrayList<BlockPos>();
+        blockList = new HashSet<BlockPos>();
     }
 
     /**
@@ -114,24 +125,25 @@ public class TileEntityMarker extends TileEntity {
         return TileEntity.INFINITE_EXTENT_AABB;
     }
 
-    public List<BlockPos> getBlockList() {
+    public Set<BlockPos> getBlockList() {
         return blockList;
     }
 
     public void addToBlockList(BlockPos p) {
-        blockList.add(p);
+        if (!p.equals(getPos()))
+            blockList.add(p);
     }
 
     /**
      * Client only data
      */
-    private List<BlockPos> blockList;
+    private Set<BlockPos> blockList;
 
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("TE Location: ").append(getPos());
-        s.append(type).append(":").append(facing).append(":").append(color).append("\n");
+        s.append(type).append(":").append(facing).append(":").append(color).append(":").append(mode).append("\n");
         for (EnumFacing f : EnumFacing.VALUES)
             s.append(f).append(":").append(v[f.ordinal()]).append(" ");
         s.append("\n");
