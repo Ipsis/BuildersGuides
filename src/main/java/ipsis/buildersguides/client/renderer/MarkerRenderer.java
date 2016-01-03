@@ -37,6 +37,8 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                 doRenderWorld((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
             else if (((TileEntityMarker) te).getType() == MarkerType.CENTER)
                 doRenderCenter((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
+            else if (((TileEntityMarker) te).getType() == MarkerType.GHOST)
+                doRenderGhost((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
         }
     }
 
@@ -184,6 +186,34 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.disableLighting();
             GlStateManager.disableTexture2D();
             GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 1.0F);
+
+            for (BlockPos p : te.getBlockList()) {
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(
+                        (te.getPos().getX() - p.getX()) * -1.0F,
+                        (te.getPos().getY() - p.getY()) * -1.0F,
+                        (te.getPos().getZ() - p.getZ()) * -1.0F);
+                RenderUtils.drawBlockShaded(0.4F);
+                GlStateManager.popMatrix();
+            }
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.popAttrib();
+    }
+
+    private void doRenderGhost(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks, int blockDamageProgress) {
+
+        if (te.getBlockList() == null || te.getBlockList().isEmpty())
+            return;
+
+        GlStateManager.pushAttrib();
+        GlStateManager.pushMatrix();
+        {
+            // translate to center or te
+            GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
+            GlStateManager.disableLighting();
+            GlStateManager.disableTexture2D();
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
 
             for (BlockPos p : te.getBlockList()) {
                 GlStateManager.pushMatrix();
