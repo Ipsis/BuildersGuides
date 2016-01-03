@@ -8,7 +8,6 @@ import ipsis.buildersguides.item.ItemMarkerCard;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ItemStackHelper;
 import ipsis.buildersguides.util.WorldHelper;
-import ipsis.oss.LogHelper;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -19,7 +18,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import sun.rmi.runtime.Log;
 
 public class BlockMarker extends BlockContainerBG {
 
@@ -82,7 +80,7 @@ public class BlockMarker extends BlockContainerBG {
             // ie. hitting the front face, pushes blocks out the back
             ItemMallet.MalletMode currMode = ItemMallet.getMode(heldItem);
             MarkerType t = ((TileEntityMarker) te).getType();
-            MarkerManager.handleMalletMode(worldIn, (TileEntityMarker) te, side.getOpposite(), currMode, playerIn.isSneaking());
+            MarkerManager.handleMalletMode(worldIn, (TileEntityMarker) te, playerIn, side.getOpposite(), currMode);
         }
 
         return true;

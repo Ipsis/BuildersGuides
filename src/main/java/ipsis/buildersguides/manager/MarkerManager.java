@@ -3,7 +3,7 @@ package ipsis.buildersguides.manager;
 import ipsis.buildersguides.item.ItemMallet;
 import ipsis.buildersguides.manager.markers.*;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import ipsis.oss.LogHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -21,20 +21,21 @@ public class MarkerManager {
         markerList.add(new LaserMarker());
         markerList.add(new WorldMarker());
         markerList.add(new CenterMarker());
+        markerList.add(new GhostMarker());
     }
 
-    public static void handleMalletMode(World worldIn,  TileEntityMarker te, EnumFacing side, ItemMallet.MalletMode mode, boolean isSneaking) {
+    public static void handleMalletMode(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side, ItemMallet.MalletMode mode) {
 
         for (Marker m : markerList) {
             if (m.isMatch(te.getType())) {
                 if (mode == ItemMallet.MalletMode.BCWRENCH)
-                    m.handleWrench(worldIn, te, side, isSneaking);
+                    m.handleWrench(worldIn, te, entityPlayer, side);
                 else if (mode == ItemMallet.MalletMode.HAMMER)
-                    m.handleHammer(worldIn, te, side, isSneaking);
+                    m.handleHammer(worldIn, te, entityPlayer, side);
                 else if (mode == ItemMallet.MalletMode.DECORATE)
-                    m.handleDecorate(worldIn, te, side, isSneaking);
+                    m.handleDecorate(worldIn, te, entityPlayer, side);
                 else if (mode == ItemMallet.MalletMode.CONFIG)
-                    m.handleConfig(worldIn, te, side, isSneaking);
+                    m.handleConfig(worldIn, te, entityPlayer, side);
             }
         }
     }

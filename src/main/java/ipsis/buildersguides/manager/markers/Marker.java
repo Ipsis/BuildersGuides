@@ -5,33 +5,34 @@ import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ItemStackHelper;
 import ipsis.oss.LogHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public abstract class Marker {
 
     public abstract boolean isMatch(MarkerType t);
-    public abstract void handleHammer(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking);
-    public abstract void handleConfig(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking);
+    public abstract void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side);
+    public abstract void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side);
     public void handleServerUpdate(TileEntityMarker te) { }
     public void findTargets(World worldIn, TileEntityMarker te) { }
 
-    public void handleDecorate(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking) {
+    public void handleDecorate(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
         LogHelper.info("handleDecorate:");
 
-        if (isSneaking) {
+        if (entityPlayer.isSneaking()) {
         } else {
             te.setColor(te.getColor().getNext());
             worldIn.markBlockForUpdate(te.getPos());
         }
     }
 
-    public void handleWrench(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking) {
+    public void handleWrench(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
         LogHelper.info("handleWrench:");
 
-        if (isSneaking) {
+        if (entityPlayer.isSneaking()) {
             MarkerType t = te.getType();
             if (t != MarkerType.BLANK) {
                 te.setType(MarkerType.BLANK);

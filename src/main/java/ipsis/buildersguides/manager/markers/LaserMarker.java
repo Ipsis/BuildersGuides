@@ -3,6 +3,7 @@ package ipsis.buildersguides.manager.markers;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.oss.LogHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -14,13 +15,13 @@ public class LaserMarker extends Marker {
     }
 
     @Override
-    public void handleHammer(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking) {
+    public void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
         LogHelper.info("handleHammer: LASER");
 
         // Laser marker face hit is the one to enable
         side = side.getOpposite();
-        if (isSneaking) {
+        if (entityPlayer.isSneaking()) {
             te.setV(side, 0);
         } else {
             te.setV(side, 1);
@@ -29,7 +30,7 @@ public class LaserMarker extends Marker {
     }
 
     @Override
-    public void handleConfig(World worldIn, TileEntityMarker te, EnumFacing side, boolean isSneaking) {
+    public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
         // NOOP
     }
 }
