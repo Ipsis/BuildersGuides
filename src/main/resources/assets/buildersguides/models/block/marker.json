@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "buildersguides:blocks/marker",
+    "up": "buildersguides:blocks/marker",
+    "north": "buildersguides:blocks/marker",
+    "east": "buildersguides:blocks/marker",
+    "south": "buildersguides:blocks/marker",
+    "west": "buildersguides:blocks/marker"
+  }
+}

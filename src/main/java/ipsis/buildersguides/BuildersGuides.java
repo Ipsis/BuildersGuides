@@ -1,17 +1,19 @@
 package ipsis.buildersguides;
 
-import ipsis.buildersguides.gui.GuiHandler;
-import ipsis.buildersguides.handler.ConfigurationHandler;
-import ipsis.buildersguides.item.BGItems;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import ipsis.buildersguides.block.BGBlocks;
-import ipsis.buildersguides.proxy.IProxy;
+import ipsis.buildersguides.init.ModBlocks;
+import ipsis.buildersguides.init.ModItems;
+import ipsis.buildersguides.network.PacketHandlerBG;
+import ipsis.buildersguides.proxy.CommonProxy;
 import ipsis.buildersguides.reference.Reference;
-import cpw.mods.fml.common.network.NetworkRegistry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
 public class BuildersGuides {
@@ -20,33 +22,34 @@ public class BuildersGuides {
     public static BuildersGuides instance;
 
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
-    public static IProxy proxy;
+    public static CommonProxy proxy;
+
+    public static CreativeTabs tabBG = new CreativeTabs(Reference.MOD_ID) {
+        @Override
+        @SideOnly(Side.CLIENT)
+        public Item getTabIconItem() {
+            return Item.getItemFromBlock(ModBlocks.blockMarker);
+        }
+    };
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
-        ConfigurationHandler.init(event.getSuggestedConfigurationFile());
-
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-
-        BGBlocks.preInit();
-        BGItems.preInit();
+        PacketHandlerBG.init();
+        proxy.registerKeyBindings();
     }
 
     @Mod.EventHandler
     public void initialize(FMLInitializationEvent event) {
 
-        BGBlocks.initialize();
-        BGItems.initialize();
+        ModItems.initialize();
+        ModBlocks.initialize();
 
-        proxy.initRenderingAndTexture();
-        proxy.initTileEntities();
+        proxy.registerTileEntitySpecialRenderer();
+        proxy.registerRenderInformation();
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
-        BGBlocks.postInit();
-        BGItems.postInit();
     }
 }

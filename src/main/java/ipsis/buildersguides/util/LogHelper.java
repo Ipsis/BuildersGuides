@@ -1,7 +1,7 @@
 package ipsis.buildersguides.util;
 
-import cpw.mods.fml.common.FMLLog;
 import ipsis.buildersguides.reference.Reference;
+import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
 /**

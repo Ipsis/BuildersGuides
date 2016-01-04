@@ -1,120 +1,76 @@
 package ipsis.buildersguides.util;
 
-import ipsis.buildersguides.block.BlockTarget;
+import ipsis.oss.LogHelper;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLever;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockUtils {
 
-    public static boolean isXAligned(BlockPosition a, BlockPosition b) {
-        return a.x == b.x;
+    /**
+     * Return the block position of the n'th non-air block in the facing direction
+     * Return the currPos value if no block found within maxDistance blcoks away
+     */
+    public static BlockPos getNthBlock(World world, BlockPos currPos, EnumFacing facing, int step) {
+        return getNthBlock(world, currPos, facing, step, 64);
     }
 
-    public static boolean isYAligned(BlockPosition a, BlockPosition b) {
-        return a.y == b.y;
+    public static BlockPos getNthBlock(World world, BlockPos currPos, EnumFacing facing, int step, int maxDistance) {
+
+        int count = 0;
+        BlockPos found = new BlockPos(currPos);
+        for (int i = 1; i <= maxDistance; i++) {
+            BlockPos c = currPos.offset(facing, i);
+            if (!world.isAirBlock(c)) {
+                count ++;
+                if (count == step) {
+                    found = new BlockPos(c);
+                    LogHelper.info("getNthBlock: " + found);
+                    break;
+                }
+            }
+        }
+        return found;
     }
 
-    public static boolean isZAligned(BlockPosition a, BlockPosition b) {
-        return a.z == b.z;
-    }
+    public static List<BlockPos> getCenterBlockList(BlockPos p1, BlockPos p2, EnumFacing facing) {
 
-    public static boolean isOnXYPlane(BlockPosition a, BlockPosition b) {
-        return a == b ? a.z == b.z : false;
-    }
+        List<BlockPos> centerList = new ArrayList<>();
+        int count = numBlocksBetween(p1, p2);
+        if (count == 0) {
+            /* no center */
+        } else if (count % 2 == 0) {
+            /* even */
+            count /= 2;
+            centerList.add(p1.offset(facing, count));
+            centerList.add(p1.offset(facing, count + 1));
+        } else {
+            /* odd */
+            centerList.add(p1.offset(facing, (count / 2) + 1));
+        }
 
-    public static boolean isOnXZPlane(BlockPosition a, BlockPosition b) {
-        return a == b ? a.y == b.y : false;
-    }
-
-    public static boolean isOnYZPlane(BlockPosition a, BlockPosition b) {
-        return a == b ? a.x == b.x : false;
-    }
-
-    public static boolean isOneDirection(BlockPosition a, BlockPosition b) {
-
-        if ((isXAligned(a, b) && isYAligned(a,b) && !isZAligned(a, b)) ||
-                (isXAligned(a, b) && !isYAligned(a,b) && isZAligned(a, b)) ||
-                (!isXAligned(a, b) && isYAligned(a,b) && isZAligned(a, b)))
-            return true;
-        else
-            return false;
+        LogHelper.info("getCenterBlockList: " + count + " " + centerList);
+        return centerList;
     }
 
     /**
-     * Get the number of blocks between two block
-     * Only if the two blocks are aligned along one axis
+     * Number of blocks between the two positions
      */
-    public static int blocksBetween(BlockPosition a, BlockPosition b) {
+    public static int numBlocksBetween(BlockPos p1, BlockPos p2) {
 
-        if (a.equals(b))
-            return 0;
-
-        if ((a.x == b.x && a.y == b.y) || (a.x == b.x && a.z == b.z) || (a.y == b.y && a.z == b.z))
-            return Math.abs((a.x - b.x) + (a.y - b.y) + (a.z - b.z)) - 1;
-
-        return 0;
-    }
-
-    public static BlockPosition getFirstBlock(World world, int x, int y, int z, ForgeDirection facing, int maxDistance, boolean isMarker) {
-
-        /* get the first block that is at least 1 away */
-        return getFirstBlock(1, world, x, y, z, facing, maxDistance, isMarker);
-    }
-
-    public static BlockPosition getFirstBlock(int min, World world, int x, int y, int z, ForgeDirection facing, int maxDistance, boolean isMarker) {
-
-        if (facing == ForgeDirection.UNKNOWN)
-            return null;
-
-        BlockPosition r = null;
-        BlockPosition p = new BlockPosition(x, y, z, facing);
-        for (int i = 0; i < maxDistance; i++) {
-
-            p.moveForwards(1);
-            Block b = world.getBlock(p.x, p.y, p.z);
-
-            if (b == null || world.isAirBlock(p.x, p.y, p.z) || b instanceof BlockLever)
-                continue;
-
-            if ((isMarker && b instanceof BlockTarget) || !isMarker) {
-                r = p;
-                break;
-            }
-        }
-
-        p = new BlockPosition(x, y, z, facing);
-        /* minimum distance to the first block */
-        p.moveForwards(min);
-        if (r != null && r.equals(p))
-            r = null;
-
-        return r;
-    }
-
-    public static BlockPosition getCenterBlock(int x, int y, int z, int x1, int y1, int z1, ForgeDirection facing) {
-
-        if (facing == ForgeDirection.UNKNOWN)
-            return null;
-
-        int count = numBlocksBetween(x, y, z, x1, y1, z1);
-        if (count == 0 || count == 1 || count % 2 == 0)
-            return null;
-
-        BlockPosition center = new BlockPosition(x, y, z, facing);
-        center.moveForwards((count / 2) + 1);
-        return center;
-    }
-
-    public static int numBlocksBetween(int x, int y, int z, int x1, int y1, int z1) {
-
-        if (x == x1 && y == y1 && z == z1)
+        if (p1.equals(p2))
             return 0;
 
         /* Must be a change in only one direction */
-        if (x == x1 && y == y1 || y == y1 && z == z1 || x == x1 && z == z1) {
-            int d = Math.abs((x - x1) + (y - y1) + (z - z1)) - 1;
+        if ((p1.getX() == p2.getX() && p1.getY() == p2.getY()) ||
+            (p1.getY() == p2.getY() && p1.getZ() == p2.getZ()) ||
+            (p1.getX() == p2.getX() && p1.getZ() == p2.getZ())) {
+
+            int d = Math.abs((p1.getX() - p2.getX()) + (p1.getY() - p2.getY()) + (p1.getZ() - p2.getZ())) - 1;
             if (d < 0)
                 d = 0;
 
@@ -123,5 +79,4 @@ public class BlockUtils {
 
         return 0;
     }
-
 }

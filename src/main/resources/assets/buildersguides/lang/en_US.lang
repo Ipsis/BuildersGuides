@@ -1,19 +1,22 @@
-key.categories.buildersguides=Builder's Guides
+tile.BuildersGuides:marker.name=Marker
 
-tile.buildersguides:advancedMarker.name=Advanced Marker
-tile.buildersguides:axisMarker.name=Axis Marker
-tile.buildersguides:chunkMarker.name=Chunk Marker
-tile.buildersguides:coordMarker.name=Coordinate Marker
-tile.buildersguides:direMarker.name=Dire Marker
-tile.buildersguides:centerMarker.name=Center Marker
-tile.buildersguides:laserMarker.name=Laser Marker
-tile.buildersguides:multiRangeMarker.name=Multi-Range Marker
-tile.buildersguides:multiTargetMarker.name=Multi-Target Marker
-tile.buildersguides:rangeMarker.name=Range Marker
-tile.buildersguides:skyMarker.name=Sky Marker
-tile.buildersguides:target.name=Target
-tile.buildersguides:targetMarker.name=Target Marker
+item.BuildersGuides:mallet.name=Mallet
+item.BuildersGuides:markerCard.AXIS.name=Axis Marker Card
+item.BuildersGuides:markerCard.BLANK.name=Blank Marker Card
+item.BuildersGuides:markerCard.CENTER.name=Center Marker Card
+item.BuildersGuides:markerCard.GHOST.name=Ghost Marker Card
+item.BuildersGuides:markerCard.GHOSTSTAIRS.name=Ghost Stair Marker Card
+item.BuildersGuides:markerCard.LASER.name=Laser Marker Card
+item.BuildersGuides:markerCard.RANGE.name=Range Marker Card
+item.BuildersGuides:markerCard.SPACING.name=Spacing Marker Card
+item.BuildersGuides:markerCard.WORLD.name=World Marker Card
 
-item.buildersguides:marker.name=Marker
-item.buildersguides:allenKey.name=Allen Key
-item.buildersguides:toolBox.name=Builder's Toolbox
+tooltip.BuildersGuides:mallet.BCWRENCH=Wrench
+tooltip.BuildersGuides:mallet.HAMMER=Hammer
+tooltip.BuildersGuides:mallet.CONFIG=Configuration
+tooltip.BuildersGuides:mallet.DECORATE=Decorate
+
+itemGroup.BuildersGuides=Builder's Guides
+
+keys.BuildersGuides.category=Builder's Guides
+keys.BuildersGuides.mode=Mallet Mode
