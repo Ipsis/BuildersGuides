@@ -60,12 +60,13 @@ public class CenterMarker extends Marker {
 
         // calculate the center points and add them to the block list
         te.clearBlocklist();
+        te.clearCenterList();
 
         for (EnumFacing f : EnumFacing.VALUES) {
             if (te.hasTarget(f)) {
                 List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getPos(), te.getTarget(f), f);
                 for (BlockPos p : centerList)
-                    te.addToBlockList(p);
+                    te.addToCenterList(p);
             }
         }
     }

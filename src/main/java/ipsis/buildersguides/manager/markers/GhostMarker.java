@@ -2,6 +2,7 @@ package ipsis.buildersguides.manager.markers;
 
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
+import ipsis.buildersguides.util.BlockUtils;
 import ipsis.oss.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
@@ -9,6 +10,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class GhostMarker extends Marker {
 
@@ -54,6 +57,7 @@ public class GhostMarker extends Marker {
 
         te.clearBlocklist();
 
+
         GhostMode ghostMode = GhostMode.getMode(te.getMode());
         if (ghostMode == GhostMode.SINGLE) {
 
@@ -61,8 +65,14 @@ public class GhostMarker extends Marker {
                 if (te.getV(f) != 0) {
                     for (int i = 1; i <= te.getV(f); i++)
                         te.addToBlockList(te.getPos().offset(f, i));
+
+                    /* centers */
+                    List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getPos(), te.getPos().offset(f, te.getV(f)), f);
+                    for (BlockPos p : centerList)
+                        te.addToCenterList(p);
                 }
             }
+
 
         } else if (ghostMode == GhostMode.FLOOR) {
 

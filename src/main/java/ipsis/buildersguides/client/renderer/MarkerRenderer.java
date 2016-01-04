@@ -159,7 +159,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             ColorBG nextColor = te.getColor().getNext();
             GlStateManager.color(nextColor.getRed(), nextColor.getGreen(), nextColor.getBlue(), 1.0F);
 
-            for (BlockPos p : te.getBlockList()) {
+            for (BlockPos p : te.getCenterList()) {
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(
                         (te.getPos().getX() - p.getX()) * -1.0F,
@@ -222,6 +222,20 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
                 RenderUtils.drawBlockShaded(0.4F);
+                GlStateManager.popMatrix();
+            }
+
+            // render the center points
+            ColorBG nextColor = te.getColor().getNext();
+            GlStateManager.color(nextColor.getRed(), nextColor.getGreen(), nextColor.getBlue(), 1.0F);
+
+            for (BlockPos p : te.getCenterList()) {
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(
+                        (te.getPos().getX() - p.getX()) * -1.0F,
+                        (te.getPos().getY() - p.getY()) * -1.0F,
+                        (te.getPos().getZ() - p.getZ()) * -1.0F);
+                RenderUtils.drawBlockOutline(0.5005F);
                 GlStateManager.popMatrix();
             }
         }
