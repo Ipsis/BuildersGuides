@@ -78,7 +78,6 @@ public class TileEntityMarker extends TileEntity {
     public boolean hasTarget(EnumFacing f) { return target[f.ordinal()] != null && !getPos().equals(target[f.ordinal()]); }
 
 
-    public void clearBlocklist() { blockList.clear(); }
 
     public TileEntityMarker() {
 
@@ -93,6 +92,7 @@ public class TileEntityMarker extends TileEntity {
 
         target = new BlockPos[6];
         blockList = new HashSet<BlockPos>();
+        centerList = new HashSet<BlockPos>();
     }
 
     /**
@@ -125,19 +125,26 @@ public class TileEntityMarker extends TileEntity {
         return TileEntity.INFINITE_EXTENT_AABB;
     }
 
-    public Set<BlockPos> getBlockList() {
-        return blockList;
-    }
 
+    /**
+     * Client only data
+     */
+
+    private Set<BlockPos> blockList;
+    public void clearBlocklist() { blockList.clear(); }
+    public Set<BlockPos> getBlockList() { return blockList; }
     public void addToBlockList(BlockPos p) {
         if (!p.equals(getPos()))
             blockList.add(p);
     }
 
-    /**
-     * Client only data
-     */
-    private Set<BlockPos> blockList;
+    private Set<BlockPos> centerList;
+    public void clearCenterList() { centerList.clear(); }
+    public Set<BlockPos> getCenterList() { return centerList; }
+    public void addToCenterList(BlockPos p) {
+        if (!p.equals(getPos()))
+            centerList.add(p);
+    }
 
     @Override
     public String toString() {
