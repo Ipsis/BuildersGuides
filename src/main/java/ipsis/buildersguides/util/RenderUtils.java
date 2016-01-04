@@ -2,6 +2,7 @@ package ipsis.buildersguides.util;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 
 public class RenderUtils {
@@ -11,43 +12,43 @@ public class RenderUtils {
         final float HALF_SIZE = 0.4F;
 
         WorldRenderer worldRenderer = Tessellator.getInstance().getWorldRenderer();
-        worldRenderer.startDrawingQuads();
+        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 
         // xy clockwise - back
-        worldRenderer.addVertex(-HALF_SIZE, -HALF_SIZE, -HALF_SIZE);
-        worldRenderer.addVertex(-HALF_SIZE, +HALF_SIZE, -HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, +HALF_SIZE, -HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, -HALF_SIZE, -HALF_SIZE);
+        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
+        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
 
         // xy anti-clockwise - front
-        worldRenderer.addVertex(-HALF_SIZE, -HALF_SIZE, +HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, -HALF_SIZE, +HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, +HALF_SIZE, +HALF_SIZE);
-        worldRenderer.addVertex(-HALF_SIZE, +HALF_SIZE, +HALF_SIZE);
+        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
+        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
 
         // anti-clockwise - left
-        worldRenderer.addVertex(-HALF_SIZE, -HALF_SIZE, -HALF_SIZE);
-        worldRenderer.addVertex(-HALF_SIZE, -HALF_SIZE, +HALF_SIZE);
-        worldRenderer.addVertex(-HALF_SIZE, +HALF_SIZE, +HALF_SIZE);
-        worldRenderer.addVertex(-HALF_SIZE, +HALF_SIZE, -HALF_SIZE);
+        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
+        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
+        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
+        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
 
         // clockwise - right
-        worldRenderer.addVertex(+HALF_SIZE, -HALF_SIZE, -HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, +HALF_SIZE, -HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, +HALF_SIZE, +HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, -HALF_SIZE, +HALF_SIZE);
+        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
 
         // clockwise - bottom
-        worldRenderer.addVertex(-HALF_SIZE, -HALF_SIZE, -HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, -HALF_SIZE, -HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, -HALF_SIZE, +HALF_SIZE);
-        worldRenderer.addVertex(-HALF_SIZE, -HALF_SIZE, +HALF_SIZE);
+        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
+        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
 
         // anticlockwise - top
-        worldRenderer.addVertex(-HALF_SIZE, +HALF_SIZE, -HALF_SIZE);
-        worldRenderer.addVertex(-HALF_SIZE, +HALF_SIZE, +HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, +HALF_SIZE, +HALF_SIZE);
-        worldRenderer.addVertex(+HALF_SIZE, +HALF_SIZE, -HALF_SIZE);
+        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
+        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
+        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
 
         Tessellator.getInstance().draw();
     }
@@ -70,43 +71,43 @@ public class RenderUtils {
         // Front - anticlockwise vertices
         // Back - clockwise vertices
 
-        worldRenderer.startDrawingQuads();
+        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 
         // xy anti-clockwise - front
-        worldRenderer.addVertex(-size, -size, size);
-        worldRenderer.addVertex(size, -size, size);
-        worldRenderer.addVertex(size, size, size);
-        worldRenderer.addVertex(-size, size, size);
+        worldRenderer.pos(-size, -size, size).endVertex();
+        worldRenderer.pos(size, -size, size).endVertex();
+        worldRenderer.pos(size, size, size).endVertex();
+        worldRenderer.pos(-size, size, size).endVertex();
 
         // xy clockwise - back
-        worldRenderer.addVertex(-size, -size, -size);
-        worldRenderer.addVertex(-size, size, -size);
-        worldRenderer.addVertex(size, size, -size);
-        worldRenderer.addVertex(size, -size, -size);
+        worldRenderer.pos(-size, -size, -size).endVertex();
+        worldRenderer.pos(-size, size, -size).endVertex();
+        worldRenderer.pos(size, size, -size).endVertex();
+        worldRenderer.pos(size, -size, -size).endVertex();
 
         // anti-clockwise - left
-        worldRenderer.addVertex(-size, -size, -size);
-        worldRenderer.addVertex(-size, -size, size);
-        worldRenderer.addVertex(-size, size, size);
-        worldRenderer.addVertex(-size, size, -size);
+        worldRenderer.pos(-size, -size, -size).endVertex();
+        worldRenderer.pos(-size, -size, size).endVertex();
+        worldRenderer.pos(-size, size, size).endVertex();
+        worldRenderer.pos(-size, size, -size).endVertex();
 
         // clockwise - right
-        worldRenderer.addVertex(size, -size, -size);
-        worldRenderer.addVertex(size, size, -size);
-        worldRenderer.addVertex(size, size, size);
-        worldRenderer.addVertex(size, -size, size);
+        worldRenderer.pos(size, -size, -size).endVertex();
+        worldRenderer.pos(size, size, -size).endVertex();
+        worldRenderer.pos(size, size, size).endVertex();
+        worldRenderer.pos(size, -size, size).endVertex();
 
         // anticlockwise - top
-        worldRenderer.addVertex(-size, size, -size);
-        worldRenderer.addVertex(-size, size, size);
-        worldRenderer.addVertex(size, size, size);
-        worldRenderer.addVertex(size, size, -size);
+        worldRenderer.pos(-size, size, -size).endVertex();
+        worldRenderer.pos(-size, size, size).endVertex();
+        worldRenderer.pos(size, size, size).endVertex();
+        worldRenderer.pos(size, size, -size).endVertex();
 
         // clockwise - bottom
-        worldRenderer.addVertex(-size, -size, -size);
-        worldRenderer.addVertex(size, -size, -size);
-        worldRenderer.addVertex(size, -size, size);
-        worldRenderer.addVertex(-size, -size, size);
+        worldRenderer.pos(-size, -size, -size).endVertex();
+        worldRenderer.pos(size, -size, -size).endVertex();
+        worldRenderer.pos(size, -size, size).endVertex();
+        worldRenderer.pos(-size, -size, size).endVertex();
 
         tessellator.draw();
     }
@@ -121,29 +122,29 @@ public class RenderUtils {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 
-        worldRenderer.startDrawing(GL11.GL_LINE_LOOP);
-        worldRenderer.addVertex(-size, size, -size);
-        worldRenderer.addVertex( size,  size, -size);
-        worldRenderer.addVertex( size, -size, -size);
-        worldRenderer.addVertex(-size, -size, -size);
+        worldRenderer.begin(GL11.GL_LINE_LOOP, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(-size, size, -size).endVertex();
+        worldRenderer.pos( size,  size, -size).endVertex();
+        worldRenderer.pos( size, -size, -size).endVertex();
+        worldRenderer.pos(-size, -size, -size).endVertex();
         tessellator.draw();
 
-        worldRenderer.startDrawing(GL11.GL_LINE_LOOP);
-        worldRenderer.addVertex(-size,  size,  size);
-        worldRenderer.addVertex( size,  size,  size);
-        worldRenderer.addVertex( size, -size,  size);
-        worldRenderer.addVertex(-size, -size,  size);
+        worldRenderer.begin(GL11.GL_LINE_LOOP, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(-size,  size,  size).endVertex();
+        worldRenderer.pos( size,  size,  size).endVertex();
+        worldRenderer.pos( size, -size,  size).endVertex();
+        worldRenderer.pos(-size, -size,  size).endVertex();
         tessellator.draw();
 
-        worldRenderer.startDrawing(GL11.GL_LINES);
-        worldRenderer.addVertex(-size,  size, -size);
-        worldRenderer.addVertex(-size,  size,  size);
-        worldRenderer.addVertex( size,  size, -size);
-        worldRenderer.addVertex( size,  size,  size);
-        worldRenderer.addVertex(-size, -size, -size);
-        worldRenderer.addVertex(-size, -size,  size);
-        worldRenderer.addVertex( size, -size, -size);
-        worldRenderer.addVertex( size, -size,  size);
+        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(-size,  size, -size).endVertex();
+        worldRenderer.pos(-size,  size,  size).endVertex();
+        worldRenderer.pos( size,  size, -size).endVertex();
+        worldRenderer.pos( size,  size,  size).endVertex();
+        worldRenderer.pos(-size, -size, -size).endVertex();
+        worldRenderer.pos(-size, -size,  size).endVertex();
+        worldRenderer.pos( size, -size, -size).endVertex();
+        worldRenderer.pos( size, -size,  size).endVertex();
         tessellator.draw();
     }
 }

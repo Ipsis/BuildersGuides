@@ -13,7 +13,9 @@ import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.oss.client.ModelHelper;
 import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -29,7 +31,7 @@ public class ClientProxy extends CommonProxy {
 
         for (MarkerType t : MarkerType.values()) {
             ModelHelper.registerItem(ModItems.itemMarkerCard, t.ordinal(), ItemMarkerCard.BASENAME + "." + t);
-            ModelBakery.addVariantName(ModItems.itemMarkerCard, Reference.MOD_ID + ":" + ItemMarkerCard.BASENAME + "." + t);
+            ModelBakery.registerItemVariants(ModItems.itemMarkerCard, new ResourceLocation(Reference.MOD_ID + ":" + ItemMarkerCard.BASENAME + "." + t));
         }
     }
 
@@ -42,7 +44,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerKeyBindings() {
 
-        FMLCommonHandler.instance().bus().register(new KeyInputEventHandler());
+        MinecraftForge.EVENT_BUS.register(new KeyInputEventHandler());
         for (KeyBindingsBG k : KeyBindingsBG.values()) {
             ClientRegistry.registerKeyBinding(k.getKeyBinding());
         }

@@ -9,6 +9,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraft.client.resources.data.PackMetadataSection;
 import net.minecraft.tileentity.TileEntity;
@@ -56,14 +59,14 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.disableTexture2D();
             GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
 
-            worldRenderer.startDrawing(GL11.GL_LINES);
+            worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
             for (EnumFacing f : EnumFacing.values()) {
                 if (te.getV(f) != 0) {
-                    worldRenderer.addVertex(0.0F, 0.0F, 0.0F);
-                    worldRenderer.addVertex(
+                    worldRenderer.pos(0.0F, 0.0F, 0.0F);
+                    worldRenderer.pos(
                             0.0F + (f.getFrontOffsetX() * 64.0F),
                             0.0F + (f.getFrontOffsetY() * 64.0F),
-                            0.0F + (f.getFrontOffsetZ() * 64.0F));
+                            0.0F + (f.getFrontOffsetZ() * 64.0F)).endVertex();
                 }
             }
             tessellator.draw();
@@ -86,13 +89,13 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.disableTexture2D();
             GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
 
-            worldRenderer.startDrawing(GL11.GL_LINES);
+            worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
             for (EnumFacing f : EnumFacing.values()) {
-                worldRenderer.addVertex(0.0F, 0.0F, 0.0F);
-                worldRenderer.addVertex(
+                worldRenderer.pos(0.0F, 0.0F, 0.0F);
+                worldRenderer.pos(
                         0.0F + (f.getFrontOffsetX() * 64.0F),
                         0.0F + (f.getFrontOffsetY() * 64.0F),
-                        0.0F + (f.getFrontOffsetZ() * 64.0F));
+                        0.0F + (f.getFrontOffsetZ() * 64.0F)).endVertex();
             }
             tessellator.draw();
         }
@@ -117,13 +120,13 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.disableTexture2D();
             GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
 
-            worldRenderer.startDrawing(GL11.GL_LINES);
+            worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
             for (BlockPos p : te.getBlockList()) {
-                worldRenderer.addVertex(0.0F, 0.0F, 0.0F);
-                worldRenderer.addVertex(
+                worldRenderer.pos(0.0F, 0.0F, 0.0F);
+                worldRenderer.pos(
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
-                        (te.getPos().getZ() - p.getZ()) * -1.0F);
+                        (te.getPos().getZ() - p.getZ()) * -1.0F).endVertex();
             }
             tessellator.draw();
         }
