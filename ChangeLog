@@ -1,46 +1,7 @@
 Builder's Guides ChangeLog
 ==========================
 
-1.7.10-1.0.2
+1.8.9-0.1.0
 
-* Remove the ghost block marker. Forgot to put all that work on its own Git branch!
+* Minecraft 1.8 version
 
-1.7.10-1.0.1
-
-* zh_CN.lang by ViKaleidoscope
-* Update to latest recommended Forge 10.13.2.1291
-
-Fixes
-* BGZ004 - Openeye: Chunkmarker causing NPE
-
-1.7.10-1.0.0
-
-* Actual release of V1.0.0
-** This means that, as per tradition, V1.0.1 will follow quickly
-* Update to latest recommended Forge 10.13.2.1230
-* com.ipsis.buildersguides -> ipsis.buildersguides
-* Toned down the textures a bit
-
-1.7.10-1.0.0B4
-
-Fixes
-* BGZ003 - Chunk marker was based off the players position not the marker block.
-
-1.7.10-1.0.0B3
-
-* Added the center marker than finds the centers between walls, rather than the marker and the target block.
-* Added a toolbox to carry the markers. Doesn't hold general items.
-
-Fixes
-* BGZ001 - Fix the Multi-Range Marker display name
-* BGZ002 - Breaking blocks by hand now drop the block
-
-1.7.10-1.0.0B2
-
-* Fix the modid and associated package, mod name.
-* Update to latest forge 10.13.0.1189
-* Add configuration file - only has one setting just now and that is to disable the guide lines rendering.
-
-1.7.10-1.0.0B1
-
-* Initial release
