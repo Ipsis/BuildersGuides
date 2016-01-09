@@ -34,7 +34,7 @@ public class ISBMMarker implements ISmartBlockModel {
         boolean west = extendedBlockState.getValue(BlockMarker.WEST);
         boolean up = extendedBlockState.getValue(BlockMarker.UP);
         boolean down = extendedBlockState.getValue(BlockMarker.DOWN);
-        return new BakedModelMarker(north, south, west, east, up , down);
+        return new BakedModelMarker(north, south, east, west, up , down);
     }
 
     @Override
