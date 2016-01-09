@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ISBMMarker implements ISmartBlockModel {
 
-    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(Reference.MOD_ID + ":marker");
+    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(Reference.MOD_ID + ":" + BlockMarker.BASENAME);
 
     @Override
     public IBakedModel handleBlockState(IBlockState state) {
