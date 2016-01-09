@@ -6,14 +6,26 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public abstract class CommonProxy implements IGuiHandler {
 
-    public void registerRenderInformation() {
+    public void preInit() {
+
+        registerBlockItemModels();
+        registerItemRenderers();
+        registerEventHandlers();
+        registerKeyBindings();
     }
 
-    public void registerTileEntitySpecialRenderer() {
+    public void init() {
+
+        registerTESRs();
     }
 
-    public void registerKeyBindings() {
-    }
+    public void postInit() { }
+
+    protected void registerBlockItemModels() { }
+    protected void registerItemRenderers() { }
+    protected void registerEventHandlers() { }
+    protected void registerKeyBindings() { }
+    protected void registerTESRs() { }
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {

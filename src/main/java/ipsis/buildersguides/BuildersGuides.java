@@ -36,17 +36,17 @@ public class BuildersGuides {
     public void preInit(FMLPreInitializationEvent event) {
 
         PacketHandlerBG.init();
-        proxy.registerKeyBindings();
+        ModBlocks.init();
+        ModItems.init();
+        proxy.preInit();
     }
 
     @Mod.EventHandler
     public void initialize(FMLInitializationEvent event) {
 
-        ModItems.initialize();
-        ModBlocks.initialize();
-
-        proxy.registerTileEntitySpecialRenderer();
-        proxy.registerRenderInformation();
+        //Recipes.init();
+        ModBlocks.registerTileEntities();
+        proxy.init();
     }
 
     @Mod.EventHandler

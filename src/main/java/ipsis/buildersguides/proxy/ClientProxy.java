@@ -18,15 +18,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class ClientProxy extends CommonProxy {
 
     @Override
-    public void registerRenderInformation() {
+    protected void registerBlockItemModels() {
 
         ModelHelper.registerBlock(ModBlocks.blockMarker, 0, BlockMarker.BASENAME);
+    }
+
+    @Override
+    protected void registerItemRenderers() {
+
         ModelHelper.registerItem(ModItems.itemMallet, 0, ItemMallet.BASENAME);
 
         for (MarkerType t : MarkerType.values()) {
@@ -36,7 +39,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void registerTileEntitySpecialRenderer() {
+    protected void registerTESRs() {
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMarker.class, new MarkerRenderer());
     }
