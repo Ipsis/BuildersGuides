@@ -91,8 +91,8 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
 
             worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
             for (EnumFacing f : EnumFacing.values()) {
-                if (te.getV(f) != 0) {
-                    worldRenderer.pos(0.0F, 0.0F, 0.0F);
+                if (te.isFaceEnabled(f)) {
+                    worldRenderer.pos(0.0F, 0.0F, 0.0F).endVertex();
                     worldRenderer.pos(
                             0.0F + (f.getFrontOffsetX() * 64.0F),
                             0.0F + (f.getFrontOffsetY() * 64.0F),
@@ -121,7 +121,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
 
             worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
             for (EnumFacing f : EnumFacing.values()) {
-                worldRenderer.pos(0.0F, 0.0F, 0.0F);
+                worldRenderer.pos(0.0F, 0.0F, 0.0F).endVertex();
                 worldRenderer.pos(
                         0.0F + (f.getFrontOffsetX() * 64.0F),
                         0.0F + (f.getFrontOffsetY() * 64.0F),
@@ -152,7 +152,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
 
             worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
             for (BlockPos p : te.getBlockList()) {
-                worldRenderer.pos(0.0F, 0.0F, 0.0F);
+                worldRenderer.pos(0.0F, 0.0F, 0.0F).endVertex();
                 worldRenderer.pos(
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
