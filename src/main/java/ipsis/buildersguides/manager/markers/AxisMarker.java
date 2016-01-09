@@ -25,4 +25,9 @@ public class AxisMarker extends Marker {
         /* NOOP */
         LogHelper.info("handleConfig: AXIS");
     }
+
+    @Override
+    public boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
+        return true;
+    }
 }

@@ -3,6 +3,7 @@ package ipsis.buildersguides.reference;
 public class Reference {
 
     public static final String MOD_ID = "BuildersGuides";
+    public static final String MOD_ID_LOWER = MOD_ID.toLowerCase();
     public static final String MOD_NAME = "Builders Guides";
     public static final String MOD_NAME_LOWER = MOD_NAME.toLowerCase();
     public static final String MOD_VERSION = "@VERSION@";

@@ -7,15 +7,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModItems {
 
-    public static void initialize() {
+    public static void init() {
 
-        itemMarkerCard = new ItemMarkerCard();
         GameRegistry.registerItem(itemMarkerCard, ItemMarkerCard.BASENAME);
-
-        itemMallet = new ItemMallet();
         GameRegistry.registerItem(itemMallet, ItemMallet.BASENAME);
     }
 
-    public static Item itemMarkerCard;
-    public static Item itemMallet;
+    public static Item itemMarkerCard = new ItemMarkerCard();
+    public static Item itemMallet = new ItemMallet();
 }
