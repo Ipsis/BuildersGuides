@@ -18,8 +18,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -38,13 +40,12 @@ public class ClientProxy extends CommonProxy {
             }
         };
         ModelLoader.setCustomStateMapper(ModBlocks.blockMarker, ignoreState);
-
-//        ModelHelper.registerBlock(ModBlocks.blockMarker, 0, BlockMarker.BASENAME);
     }
 
     @Override
     protected void registerItemRenderers() {
 
+        ModelHelper.registerItem(Item.getItemFromBlock(ModBlocks.blockMarker), 0, BlockMarker.BASENAME);
         ModelHelper.registerItem(ModItems.itemMallet, 0, ItemMallet.BASENAME);
 
         for (MarkerType t : MarkerType.values()) {
