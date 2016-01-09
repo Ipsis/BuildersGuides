@@ -1,19 +1,26 @@
 package ipsis.buildersguides.client.renderer;
 
+import ipsis.buildersguides.item.ItemMarkerCard;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ColorBG;
 import ipsis.buildersguides.util.RenderUtils;
 import ipsis.oss.LogHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraft.client.resources.data.PackMetadataSection;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -30,6 +37,9 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
     public void renderTileEntityAt(TileEntity te, double relativeX, double relativeY, double relativeZ, float partialTicks, int blockDamageProgress) {
 
         if (te instanceof TileEntityMarker) {
+
+            doRenderMarkerType((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks);
+
             if (((TileEntityMarker) te).getType() == MarkerType.SPACING)
                 doRenderSpacing((TileEntityMarker) te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
             else if (((TileEntityMarker) te).getType() == MarkerType.AXIS)
@@ -43,6 +53,26 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             else if (((TileEntityMarker) te).getType() == MarkerType.GHOST)
                 doRenderGhost((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
         }
+    }
+
+    private void doRenderMarkerType(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
+
+        RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+        ItemStack itemStack = ItemMarkerCard.getItemStack(te.getType());
+
+        GlStateManager.pushAttrib();
+        GlStateManager.pushMatrix();
+        {
+            GlStateManager.translate(relX + 0.5F, relY + 0.5F, relZ + 0.5F);
+            GlStateManager.rotate(-Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
+            GlStateManager.rotate(Minecraft.getMinecraft().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
+            EntityItem entityItem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemStack);
+            entityItem.getEntityItem().stackSize = 1;
+            GlStateManager.scale(0.25F, 0.25F, 0.25F);
+            renderItem.renderItem(itemStack, ItemCameraTransforms.TransformType.FIXED);
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.popAttrib();
     }
 
     private void doRenderLaser(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks, int blockDamageProgress) {
