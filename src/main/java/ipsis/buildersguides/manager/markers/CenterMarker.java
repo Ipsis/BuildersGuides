@@ -18,6 +18,12 @@ public class CenterMarker extends Marker {
     }
 
     @Override
+    public boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
+
+        return te.hasValidV(f);
+    }
+
+    @Override
     public void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
         LogHelper.info("handleHammer: CENTER");

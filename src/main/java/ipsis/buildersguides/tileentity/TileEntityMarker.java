@@ -1,6 +1,7 @@
 package ipsis.buildersguides.tileentity;
 
 import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
+import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.network.PacketHandlerBG;
 import ipsis.buildersguides.network.message.MessageTileEntityMarker;
@@ -77,6 +78,9 @@ public class TileEntityMarker extends TileEntity {
     public void setTarget(EnumFacing f, BlockPos p) { target[f.ordinal()] = new BlockPos(p); }
     public boolean hasTarget(EnumFacing f) { return target[f.ordinal()] != null && !getPos().equals(target[f.ordinal()]); }
 
+    public boolean isFaceEnabled(EnumFacing f) {
+        return MarkerManager.isFaceEnabled(this, f);
+    }
 
 
     public TileEntityMarker() {

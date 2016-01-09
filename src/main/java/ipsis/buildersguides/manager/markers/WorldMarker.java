@@ -15,6 +15,11 @@ public class WorldMarker extends Marker {
     }
 
     @Override
+    public boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
+        return f == EnumFacing.UP || f == EnumFacing.DOWN;
+    }
+
+    @Override
     public void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
         // NOOP
     }

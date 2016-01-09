@@ -17,6 +17,10 @@ public abstract class Marker {
     public void handleServerUpdate(TileEntityMarker te) { }
     public void findTargets(World worldIn, TileEntityMarker te) { }
 
+    public boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
+        return false;
+    }
+
     public void handleDecorate(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
         LogHelper.info("handleDecorate:");

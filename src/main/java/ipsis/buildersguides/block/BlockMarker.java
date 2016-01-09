@@ -8,6 +8,7 @@ import ipsis.buildersguides.init.ModItems;
 import ipsis.buildersguides.item.ItemMarkerCard;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ItemStackHelper;
+import ipsis.buildersguides.util.LogHelper;
 import ipsis.buildersguides.util.WorldHelper;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -54,12 +55,12 @@ public class BlockMarker extends BlockContainerBG {
         if (state instanceof IExtendedBlockState) {
             IExtendedBlockState extendedBlockState = (IExtendedBlockState)state;
             TileEntityMarker te = (TileEntityMarker)world.getTileEntity(pos);
-            boolean north = te.hasValidV(EnumFacing.NORTH);
-            boolean south = te.hasValidV(EnumFacing.SOUTH);
-            boolean east = te.hasValidV(EnumFacing.EAST);
-            boolean west = te.hasValidV(EnumFacing.WEST);
-            boolean up = te.hasValidV(EnumFacing.UP);
-            boolean down = te.hasValidV(EnumFacing.DOWN);
+            boolean north = te.isFaceEnabled(EnumFacing.NORTH);
+            boolean south = te.isFaceEnabled(EnumFacing.SOUTH);
+            boolean east = te.isFaceEnabled(EnumFacing.EAST);
+            boolean west = te.isFaceEnabled(EnumFacing.WEST);
+            boolean up = te.isFaceEnabled(EnumFacing.UP);
+            boolean down = te.isFaceEnabled(EnumFacing.DOWN);
 
             return extendedBlockState
                     .withProperty(NORTH, north)

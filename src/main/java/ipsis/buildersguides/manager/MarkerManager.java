@@ -47,4 +47,14 @@ public class MarkerManager {
                 m.handleServerUpdate(te);
         }
     }
+
+    public static boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
+
+        for (Marker m : markerList) {
+            if (m.isMatch(te.getType()))
+                return m.isFaceEnabled(te, f);
+        }
+
+        return false;
+    }
 }
