@@ -84,7 +84,7 @@ public class ISBMMarker implements ISmartBlockModel {
         private final boolean down;
 
         public BakedModelMarker(boolean north, boolean south, boolean east, boolean west, boolean up, boolean down) {
-            sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(Reference.MOD_ID + ":blocks/marker");
+            sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(Reference.MOD_ID_LOWER + ":blocks/" + BlockMarker.BASENAME);
             this.north = north;
             this.south = south;
             this.east = east;

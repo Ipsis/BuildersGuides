@@ -8,7 +8,6 @@ import ipsis.buildersguides.init.ModItems;
 import ipsis.buildersguides.item.ItemMarkerCard;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ItemStackHelper;
-import ipsis.buildersguides.util.LogHelper;
 import ipsis.buildersguides.util.WorldHelper;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
@@ -85,6 +84,12 @@ public class BlockMarker extends BlockContainerBG {
 
     @Override
     public boolean isOpaqueCube() {
+
+        return false;
+    }
+
+    @Override
+    public boolean isBlockNormalCube() {
 
         return false;
     }
