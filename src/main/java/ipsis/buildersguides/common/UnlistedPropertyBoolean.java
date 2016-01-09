@@ -17,7 +17,7 @@ public class UnlistedPropertyBoolean implements IUnlistedProperty<Boolean> {
 
     @Override
     public boolean isValid(Boolean value) {
-        return false;
+        return true;
     }
 
     @Override

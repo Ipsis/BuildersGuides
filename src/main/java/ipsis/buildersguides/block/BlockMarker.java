@@ -1,5 +1,6 @@
 package ipsis.buildersguides.block;
 
+import ipsis.buildersguides.common.UnlistedPropertyBoolean;
 import ipsis.buildersguides.item.ItemMallet;
 import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
@@ -10,6 +11,8 @@ import ipsis.buildersguides.util.ItemStackHelper;
 import ipsis.buildersguides.util.WorldHelper;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,14 +20,57 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 
 public class BlockMarker extends BlockContainerBG {
 
     public static final String BASENAME = "marker";
 
+    public static final UnlistedPropertyBoolean NORTH = new UnlistedPropertyBoolean("NORTH");
+    public static final UnlistedPropertyBoolean SOUTH = new UnlistedPropertyBoolean("SOUTH");
+    public static final UnlistedPropertyBoolean EAST = new UnlistedPropertyBoolean("EAST");
+    public static final UnlistedPropertyBoolean WEST = new UnlistedPropertyBoolean("WEST");
+    public static final UnlistedPropertyBoolean UP = new UnlistedPropertyBoolean("UP");
+    public static final UnlistedPropertyBoolean DOWN = new UnlistedPropertyBoolean("DOWN");
+
     public BlockMarker() {
         super(Material.ground, BASENAME);
+    }
+
+    @Override
+    protected BlockState createBlockState() {
+        IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{
+                NORTH, SOUTH, EAST, WEST, UP, DOWN
+        };
+        return new ExtendedBlockState(this, new IProperty[0], unlistedProperties);
+    }
+
+    @Override
+    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+        if (state instanceof IExtendedBlockState) {
+            IExtendedBlockState extendedBlockState = (IExtendedBlockState)state;
+            TileEntityMarker te = (TileEntityMarker)world.getTileEntity(pos);
+            boolean north = te.hasValidV(EnumFacing.NORTH);
+            boolean south = te.hasValidV(EnumFacing.SOUTH);
+            boolean east = te.hasValidV(EnumFacing.EAST);
+            boolean west = te.hasValidV(EnumFacing.WEST);
+            boolean up = te.hasValidV(EnumFacing.UP);
+            boolean down = te.hasValidV(EnumFacing.DOWN);
+
+            return extendedBlockState
+                    .withProperty(NORTH, north)
+                    .withProperty(SOUTH, south)
+                    .withProperty(EAST, east)
+                    .withProperty(WEST, west)
+                    .withProperty(UP, up)
+                    .withProperty(DOWN, down);
+        }
+
+        return state;
     }
 
     @Override
