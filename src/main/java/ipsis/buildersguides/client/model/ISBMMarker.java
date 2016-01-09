@@ -127,14 +127,16 @@ public class ISBMMarker implements ISmartBlockModel {
             List<BakedQuad> quads = new ArrayList<>();
             double o = .4;
 
-            // For each side we either cap it off if there is no similar block adjacent on that side
-            // or else we extend so that we touch the adjacent block:
+            /**
+             * If the face is active then extend the blocks in that direction
+             */
 
             if (up) {
                 quads.add(createQuad(new Vec3(1-o, 1-o, o), new Vec3(1-o, 1, o), new Vec3(1-o, 1, 1-o), new Vec3(1-o, 1-o, 1-o)));
                 quads.add(createQuad(new Vec3(o, 1-o, 1-o), new Vec3(o, 1, 1-o), new Vec3(o, 1, o), new Vec3(o, 1-o, o)));
                 quads.add(createQuad(new Vec3(o, 1, o), new Vec3(1-o, 1, o), new Vec3(1-o, 1-o, o), new Vec3(o, 1-o, o)));
                 quads.add(createQuad(new Vec3(o, 1-o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, 1, 1-o), new Vec3(o, 1, 1-o)));
+                quads.add(createQuad(new Vec3(o, 1, 1-o), new Vec3(1-o, 1, 1-o), new Vec3(1-o, 1, o), new Vec3(o, 1, o)));
             } else {
                 quads.add(createQuad(new Vec3(o, 1-o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, 1-o, o), new Vec3(o, 1-o, o)));
             }
@@ -144,6 +146,7 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(o, 0, 1-o), new Vec3(o, o, 1-o), new Vec3(o, o, o), new Vec3(o, 0, o)));
                 quads.add(createQuad(new Vec3(o, o, o), new Vec3(1-o, o, o), new Vec3(1-o, 0, o), new Vec3(o, 0, o)));
                 quads.add(createQuad(new Vec3(o, 0, 1-o), new Vec3(1-o, 0, 1-o), new Vec3(1-o, o, 1-o), new Vec3(o, o, 1-o)));
+                quads.add(createQuad(new Vec3(o, 0, o), new Vec3(1-o, 0, o), new Vec3(1-o, 0, 1-o), new Vec3(o, 0, 1-o)));
             } else {
                 quads.add(createQuad(new Vec3(o, o, o), new Vec3(1-o, o, o), new Vec3(1-o, o, 1-o), new Vec3(o, o, 1-o)));
             }
@@ -153,6 +156,7 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(1-o, o, o), new Vec3(1, o, o), new Vec3(1, o, 1-o), new Vec3(1-o, o, 1-o)));
                 quads.add(createQuad(new Vec3(1-o, 1-o, o), new Vec3(1, 1-o, o), new Vec3(1, o, o), new Vec3(1-o, o, o)));
                 quads.add(createQuad(new Vec3(1-o, o, 1-o), new Vec3(1, o, 1-o), new Vec3(1, 1-o, 1-o), new Vec3(1-o, 1-o, 1-o)));
+                quads.add(createQuad(new Vec3(1, o, o), new Vec3(1, 1-o, o), new Vec3(1, 1-o, 1-o), new Vec3(1, o, 1-o)));
             } else {
                 quads.add(createQuad(new Vec3(1-o, o, o), new Vec3(1-o, 1-o, o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, o, 1-o)));
             }
@@ -162,6 +166,7 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(0, o, o), new Vec3(o, o, o), new Vec3(o, o, 1-o), new Vec3(0, o, 1-o)));
                 quads.add(createQuad(new Vec3(0, 1-o, o), new Vec3(o, 1-o, o), new Vec3(o, o, o), new Vec3(0, o, o)));
                 quads.add(createQuad(new Vec3(0, o, 1-o), new Vec3(o, o, 1-o), new Vec3(o, 1-o, 1-o), new Vec3(0, 1-o, 1-o)));
+                quads.add(createQuad(new Vec3(0, o, 1-o), new Vec3(0, 1-o, 1-o), new Vec3(0, 1-o, o), new Vec3(0, o, o)));
             } else {
                 quads.add(createQuad(new Vec3(o, o, 1-o), new Vec3(o, 1-o, 1-o), new Vec3(o, 1-o, o), new Vec3(o, o, o)));
             }
@@ -171,6 +176,7 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(o, o, 0), new Vec3(1-o, o, 0), new Vec3(1-o, o, o), new Vec3(o, o, o)));
                 quads.add(createQuad(new Vec3(1-o, o, 0), new Vec3(1-o, 1-o, 0), new Vec3(1-o, 1-o, o), new Vec3(1-o, o, o)));
                 quads.add(createQuad(new Vec3(o, o, o), new Vec3(o, 1-o, o), new Vec3(o, 1-o, 0), new Vec3(o, o, 0)));
+                quads.add(createQuad(new Vec3(o, 1-o, 0), new Vec3(1-o, 1-o, 0), new Vec3(1-o, o, 0), new Vec3(o, o, 0)));
             } else {
                 quads.add(createQuad(new Vec3(o, 1-o, o), new Vec3(1-o, 1-o, o), new Vec3(1-o, o, o), new Vec3(o, o, o)));
             }
@@ -179,6 +185,7 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(o, o, 1-o), new Vec3(1-o, o, 1-o), new Vec3(1-o, o, 1), new Vec3(o, o, 1)));
                 quads.add(createQuad(new Vec3(1-o, o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, 1-o, 1), new Vec3(1-o, o, 1)));
                 quads.add(createQuad(new Vec3(o, o, 1), new Vec3(o, 1-o, 1), new Vec3(o, 1-o, 1-o), new Vec3(o, o, 1-o)));
+                quads.add(createQuad(new Vec3(o, o, 1), new Vec3(1-o, o, 1), new Vec3(1-o, 1-o, 1), new Vec3(o, 1-o, 1)));
             } else {
                 quads.add(createQuad(new Vec3(o, o, 1-o), new Vec3(1-o, o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(o, 1-o, 1-o)));
             }
