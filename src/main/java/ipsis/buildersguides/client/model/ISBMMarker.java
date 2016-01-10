@@ -169,11 +169,76 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.2F, 0.8F, 0.2F, sprite, f));
             }
 
+            float[][] v = new float[][]{
+                    { 0.4F, 0.6F, 0.2F, 0.4F, 1.0F },
+                    { 0.4F, 0.6F, 0.6F, 0.8F, 1.0F },
+                    { 0.2F, 0.4F, 0.4F, 0.6F, 1.0F },
+                    { 0.6F, 0.8F, 0.4F, 0.6F, 1.0F },
+
+                    { 0.4F, 0.6F, 0.2F, 0.4F, 0.2F },
+                    { 0.4F, 0.6F, 0.6F, 0.8F, 0.2F },
+                    { 0.2F, 0.4F, 0.4F, 0.6F, 0.2F },
+                    { 0.6F, 0.8F, 0.4F, 0.6F, 0.2F },
+            };
+
+            EnumFacing[][] sides = new EnumFacing[][]{
+                    { /* up */
+                            EnumFacing.UP, EnumFacing.UP, EnumFacing.UP, EnumFacing.UP,
+                            EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN,
+                    },
+                    { /* down */
+                            EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN,
+                            EnumFacing.UP, EnumFacing.UP, EnumFacing.UP, EnumFacing.UP,
+                    },
+                    { /* east */
+                            EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST,
+                            EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST,
+                    },
+                    { /* west */
+                            EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST,
+                            EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST,
+                    },
+                    { /* north */
+                            EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH,
+                            EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH,
+                    },
+                    { /* south */
+                            EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH,
+                            EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH,
+                    }
+            };
+
+            int numQuads = 8;
+
+            if (up) {
+                for (int i = 0; i < numQuads; i++)
+                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[0][i]));
+            }
+            if (down) {
+                for (int i = 0; i < numQuads; i++)
+                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[1][i]));
+            }
+            if (east) {
+                for (int i = 0; i < numQuads; i++)
+                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[2][i]));
+            }
+            if (west) {
+                for (int i = 0; i < numQuads; i++)
+                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[3][i]));
+            }
+            if (north) {
+                for (int i = 0; i < numQuads; i++)
+                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[4][i]));
+            }
+            if (south) {
+                for (int i = 0; i < numQuads; i++)
+                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[5][i]));
+            }
 
             /**
              * If the face is active then extend the blocks in that direction
              */
-
+/*
             if (up) {
                 quads.add(createQuad(new Vec3(1-o, 1-o, o), new Vec3(1-o, 1, o), new Vec3(1-o, 1, 1-o), new Vec3(1-o, 1-o, 1-o)));
                 quads.add(createQuad(new Vec3(o, 1-o, 1-o), new Vec3(o, 1, 1-o), new Vec3(o, 1, o), new Vec3(o, 1-o, o)));
@@ -221,6 +286,7 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(o, o, 1), new Vec3(o, 1-o, 1), new Vec3(o, 1-o, 1-o), new Vec3(o, o, 1-o)));
                 quads.add(createQuad(new Vec3(o, o, 1), new Vec3(1-o, o, 1), new Vec3(1-o, 1-o, 1), new Vec3(o, 1-o, 1)));
             }
+            */
 
             return quads;
         }
