@@ -10,6 +10,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeCache;
 
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class GhostMarker extends Marker {
     public void handleServerUpdate(TileEntityMarker te) {
 
         te.clearBlocklist();
-
+        te.clearCenterList();
 
         GhostMode ghostMode = GhostMode.getMode(te.getMode());
         if (ghostMode == GhostMode.SINGLE) {
@@ -78,7 +79,6 @@ public class GhostMarker extends Marker {
                 }
             }
 
-
         } else if (ghostMode == GhostMode.FLOOR) {
 
             EnumFacing[] dirA = new EnumFacing[]{ EnumFacing.NORTH, EnumFacing.SOUTH };
@@ -92,12 +92,7 @@ public class GhostMarker extends Marker {
                     if (!te.hasValidV(b))
                         continue;
 
-                    for (int i = 0; i <= te.getV(a); i++) {
-                        for (int j = 0; j <= te.getV(b); j++) {
-                            BlockPos p = te.getPos().offset(a, i).offset(b, j);
-                            te.addToBlockList(p);
-                        }
-                    }
+                    addPlane(te, te.getPos(), a, b);
                 }
             }
         } else if (ghostMode == GhostMode.WALL) {
@@ -113,17 +108,56 @@ public class GhostMarker extends Marker {
                     if (!te.hasValidV(b))
                         continue;
 
-                    for (int i = 0; i <= te.getV(a); i++) {
-                        for (int j = 0; j <= te.getV(b); j++) {
-                            BlockPos p = te.getPos().offset(a, i).offset(b, j);
-                            te.addToBlockList(p);
-                        }
-                    }
+                    addPlane(te, te.getPos(), a, b);
                 }
             }
         } else if (ghostMode == GhostMode.CUBE) {
 
+            if (te.hasValidV(EnumFacing.UP)) {
+
+                EnumFacing[] dirY = new EnumFacing[]{ EnumFacing.UP, EnumFacing.DOWN };
+                EnumFacing[] dirZ = new EnumFacing[]{ EnumFacing.NORTH, EnumFacing.SOUTH };
+                EnumFacing[] dirX = new EnumFacing[]{ EnumFacing.EAST, EnumFacing.WEST };
+
+                for (EnumFacing y : dirY ) {
+
+                    if (!te.hasValidV(y))
+                        continue;
+
+                    for (EnumFacing z : dirZ) {
+
+                        if (!te.hasValidV(z))
+                            continue;
+
+                        for (EnumFacing x : dirX) {
+
+                            if (!te.hasValidV(x))
+                                continue;
+
+                            // Front
+                            addPlane(te, te.getPos(), y, x);
+                            // Bottom
+                            addPlane(te, te.getPos(), z, x);
+                            // Left
+                            addPlane(te, te.getPos(), y, z);
+                            // Back
+                            addPlane(te, te.getPos().offset(z, te.getV(z)), y, x);
+                            // TOP
+                            addPlane(te, te.getPos().offset(y, te.getV(y)), z, x);
+                            // Right
+                            addPlane(te, te.getPos().offset(x, te.getV(x)), y, z);
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    private void addPlane(TileEntityMarker te, BlockPos origin, EnumFacing axisA, EnumFacing axisB) {
+
+        BlockUtils.PlaneInfo planeInfo = BlockUtils.getPlaneBlockList(origin, axisA, axisB, te.getV(axisA), te.getV(axisB));
+        te.addToBlockList(planeInfo.blockList);
+        te.addToCenterList(planeInfo.centerList);
     }
 
     public enum GhostMode {
