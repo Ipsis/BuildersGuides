@@ -127,6 +127,75 @@ public class ISBMMarker implements ISmartBlockModel {
             List<BakedQuad> quads = new ArrayList<>();
             double o = .4;
 
+            // Main Frame
+
+            // Top Face
+            quads.add(createQuad(new Vec3(0, 1, 0.2), new Vec3(1, 1, 0.2), new Vec3(1, 1, 0), new Vec3(0, 1, 0)));
+            quads.add(createQuad(new Vec3(0, 1, 1), new Vec3(1, 1, 1), new Vec3(1, 1, 0.8), new Vec3(0, 1, 0.8)));
+            quads.add(createQuad(new Vec3(0, 1, 0.8), new Vec3(0.2, 1, 0.8), new Vec3(0.2, 1, 0.2), new Vec3(0, 1, 0.2)));
+            quads.add(createQuad(new Vec3(0.8, 1, 0.8), new Vec3(1, 1, 0.8), new Vec3(1, 1, 0.2), new Vec3(0.8, 1, 0.2)));
+
+            quads.add(createQuad(new Vec3(0, 0.2, 0.2), new Vec3(1, 0.2, 0.2), new Vec3(1, 0.2, 0), new Vec3(0, 0.2, 0)));
+            quads.add(createQuad(new Vec3(0, 0.2, 1), new Vec3(1, 0.2, 1), new Vec3(1, 0.2, 0.8), new Vec3(0, 0.2, 0.8)));
+            quads.add(createQuad(new Vec3(0, 0.2, 0.8), new Vec3(0.2, 0.2, 0.8), new Vec3(0.2, 0.2, 0.2), new Vec3(0, 0.2, 0.2)));
+            quads.add(createQuad(new Vec3(0.8, 0.2, 0.8), new Vec3(1, 0.2, 0.8), new Vec3(1, 0.2, 0.2), new Vec3(0.8, 0.2, 0.2)));
+
+            // Bottom Face
+            quads.add(createQuad(new Vec3(0, 0, 0), new Vec3(1, 0, 0), new Vec3(1, 0, 0.2), new Vec3(0, 0, 0.2)));
+            quads.add(createQuad(new Vec3(0, 0, 0.8), new Vec3(1, 0, 0.8), new Vec3(1, 0, 1), new Vec3(0, 0, 1)));
+            quads.add(createQuad(new Vec3(0, 0, 0.2), new Vec3(0.2, 0, 0.2), new Vec3(0.2, 0, 0.8), new Vec3(0, 0, 0.8)));
+            quads.add(createQuad(new Vec3(0.8, 0, 0.2), new Vec3(1, 0, 0.2), new Vec3(1, 0, 0.8), new Vec3(0.8, 0, 0.8)));
+
+            quads.add(createQuad(new Vec3(0, 0.8, 0), new Vec3(1, 0.8, 0), new Vec3(1, 0.8, 0.2), new Vec3(0, 0.8, 0.2)));
+            quads.add(createQuad(new Vec3(0, 0.8, 0.8), new Vec3(1, 0.8, 0.8), new Vec3(1, 0.8, 1), new Vec3(0, 0.8, 1)));
+            quads.add(createQuad(new Vec3(0, 0.8, 0.2), new Vec3(0.2, 0.8, 0.2), new Vec3(0.2, 0.8, 0.8), new Vec3(0, 0.8, 0.8)));
+            quads.add(createQuad(new Vec3(0.8, 0.8, 0.2), new Vec3(1, 0.8, 0.2), new Vec3(1, 0.8, 0.8), new Vec3(0.8, 0.8, 0.8)));
+
+            // East Face
+            quads.add(createQuad(new Vec3(0, 0, 0.2), new Vec3(0, 1, 0.2), new Vec3(0, 1, 0), new Vec3(0, 0, 0)));
+            quads.add(createQuad(new Vec3(0, 0, 1), new Vec3(0, 1, 1), new Vec3(0, 1, 0.8), new Vec3(0, 0, 0.8)));
+            quads.add(createQuad(new Vec3(0, 0, 0.8), new Vec3(0, 0.2, 0.8), new Vec3(0, 0.2, 0.2), new Vec3(0, 0, 0.2)));
+            quads.add(createQuad(new Vec3(0, 0.8, 0.8), new Vec3(0, 1, 0.8), new Vec3(0, 1, 0.2), new Vec3(0, 0.8, 0.2)));
+
+            quads.add(createQuad(new Vec3(0.8, 0, 0.2), new Vec3(0.8, 1, 0.2), new Vec3(0.8, 1, 0), new Vec3(0.8, 0, 0)));
+            quads.add(createQuad(new Vec3(0.8, 0, 1), new Vec3(0.8, 1, 1), new Vec3(0.8, 1, 0.8), new Vec3(0.8, 0, 0.8)));
+            quads.add(createQuad(new Vec3(0.8, 0, 0.8), new Vec3(0.8, 0.2, 0.8), new Vec3(0.8, 0.2, 0.2), new Vec3(0.8, 0, 0.2)));
+            quads.add(createQuad(new Vec3(0.8, 0.8, 0.8), new Vec3(0.8, 1, 0.8), new Vec3(0.8, 1, 0.2), new Vec3(0.8, 0.8, 0.2)));
+
+            // West Face
+            quads.add(createQuad(new Vec3(1, 0, 0), new Vec3(1, 1, 0), new Vec3(1, 1, 0.2), new Vec3(1, 0, 0.2)));
+            quads.add(createQuad(new Vec3(1, 0, 0.8), new Vec3(1, 1, 0.8), new Vec3(1, 1, 1), new Vec3(1, 0, 1)));
+            quads.add(createQuad(new Vec3(1, 0, 0.2), new Vec3(1, 0.2, 0.2), new Vec3(1, 0.2, 0.8), new Vec3(1, 0, 0.8)));
+            quads.add(createQuad(new Vec3(1, 0.8, 0.2), new Vec3(1, 1, 0.2), new Vec3(1, 1, 0.8), new Vec3(1, 0.8, 0.8)));
+
+            quads.add(createQuad(new Vec3(0.2, 0, 0), new Vec3(0.2, 1, 0), new Vec3(0.2, 1, 0.2), new Vec3(0.2, 0, 0.2)));
+            quads.add(createQuad(new Vec3(0.2, 0, 0.8), new Vec3(0.2, 1, 0.8), new Vec3(0.2, 1, 1), new Vec3(0.2, 0, 1)));
+            quads.add(createQuad(new Vec3(0.2, 0, 0.2), new Vec3(0.2, 0.2, 0.2), new Vec3(0.2, 0.2, 0.8), new Vec3(0.2, 0, 0.8)));
+            quads.add(createQuad(new Vec3(0.2, 0.8, 0.2), new Vec3(0.2, 1, 0.2), new Vec3(0.2, 1, 0.8), new Vec3(0.2, 0.8, 0.8)));
+
+            // North Face
+            quads.add(createQuad(new Vec3(0.2, 0, 1), new Vec3(0.2, 1, 1), new Vec3(0, 1, 1), new Vec3(0, 0, 1)));
+            quads.add(createQuad(new Vec3(1, 0, 1), new Vec3(1, 1, 1), new Vec3(0.8, 1, 1), new Vec3(0.8, 0, 1)));
+            quads.add(createQuad(new Vec3(0.8, 0, 1), new Vec3(0.8, 0.2, 1), new Vec3(0.2, 0.2, 1), new Vec3(0.2, 0, 1)));
+            quads.add(createQuad(new Vec3(0.8, 0.8, 1), new Vec3(0.8, 1, 1), new Vec3(0.2, 1, 1), new Vec3(0.2, 0.8, 1)));
+
+            quads.add(createQuad(new Vec3(0.2, 0, 0.2), new Vec3(0.2, 1, 0.2), new Vec3(0, 1, 0.2), new Vec3(0, 0, 0.2)));
+            quads.add(createQuad(new Vec3(1, 0, 0.2), new Vec3(1, 1, 0.2), new Vec3(0.8, 1, 0.2), new Vec3(0.8, 0, 0.2)));
+            quads.add(createQuad(new Vec3(0.8, 0, 0.2), new Vec3(0.8, 0.2, 0.2), new Vec3(0.2, 0.2, 0.2), new Vec3(0.2, 0, 0.2)));
+            quads.add(createQuad(new Vec3(0.8, 0.8, 0.2), new Vec3(0.8, 1, 0.2), new Vec3(0.2, 1, 0.2), new Vec3(0.2, 0.8, 0.2)));
+
+            // South Face
+            quads.add(createQuad(new Vec3(0, 0, 0), new Vec3(0, 1, 0), new Vec3(0.2, 1, 0), new Vec3(0.2, 0, 0)));
+            quads.add(createQuad(new Vec3(0.8, 0, 0), new Vec3(0.8, 1, 0), new Vec3(1, 1, 0), new Vec3(1, 0, 0)));
+            quads.add(createQuad(new Vec3(0.2, 0, 0), new Vec3(0.2, 0.2, 0), new Vec3(0.8, 0.2, 0), new Vec3(0.8, 0, 0)));
+            quads.add(createQuad(new Vec3(0.2, 0.8, 0), new Vec3(0.2, 1, 0), new Vec3(0.8, 1, 0), new Vec3(0.8, 0.8, 0)));
+
+            quads.add(createQuad(new Vec3(0, 0, 0.8), new Vec3(0, 1, 0.8), new Vec3(0.2, 1, 0.8), new Vec3(0.2, 0, 0.8)));
+            quads.add(createQuad(new Vec3(0.8, 0, 0.8), new Vec3(0.8, 1, 0.8), new Vec3(1, 1, 0.8), new Vec3(1, 0, 0.8)));
+            quads.add(createQuad(new Vec3(0.2, 0, 0.8), new Vec3(0.2, 0.2, 0.8), new Vec3(0.8, 0.2, 0.8), new Vec3(0.8, 0, 0.8)));
+            quads.add(createQuad(new Vec3(0.2, 0.8, 0.8), new Vec3(0.2, 1, 0.8), new Vec3(0.8, 1, 0.8), new Vec3(0.8, 0.8, 0.8)));
+
+
             /**
              * If the face is active then extend the blocks in that direction
              */
@@ -137,8 +206,6 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(o, 1, o), new Vec3(1-o, 1, o), new Vec3(1-o, 1-o, o), new Vec3(o, 1-o, o)));
                 quads.add(createQuad(new Vec3(o, 1-o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, 1, 1-o), new Vec3(o, 1, 1-o)));
                 quads.add(createQuad(new Vec3(o, 1, 1-o), new Vec3(1-o, 1, 1-o), new Vec3(1-o, 1, o), new Vec3(o, 1, o)));
-            } else {
-                quads.add(createQuad(new Vec3(o, 1-o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, 1-o, o), new Vec3(o, 1-o, o)));
             }
 
             if (down) {
@@ -147,8 +214,6 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(o, o, o), new Vec3(1-o, o, o), new Vec3(1-o, 0, o), new Vec3(o, 0, o)));
                 quads.add(createQuad(new Vec3(o, 0, 1-o), new Vec3(1-o, 0, 1-o), new Vec3(1-o, o, 1-o), new Vec3(o, o, 1-o)));
                 quads.add(createQuad(new Vec3(o, 0, o), new Vec3(1-o, 0, o), new Vec3(1-o, 0, 1-o), new Vec3(o, 0, 1-o)));
-            } else {
-                quads.add(createQuad(new Vec3(o, o, o), new Vec3(1-o, o, o), new Vec3(1-o, o, 1-o), new Vec3(o, o, 1-o)));
             }
 
             if (east) {
@@ -157,8 +222,6 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(1-o, 1-o, o), new Vec3(1, 1-o, o), new Vec3(1, o, o), new Vec3(1-o, o, o)));
                 quads.add(createQuad(new Vec3(1-o, o, 1-o), new Vec3(1, o, 1-o), new Vec3(1, 1-o, 1-o), new Vec3(1-o, 1-o, 1-o)));
                 quads.add(createQuad(new Vec3(1, o, o), new Vec3(1, 1-o, o), new Vec3(1, 1-o, 1-o), new Vec3(1, o, 1-o)));
-            } else {
-                quads.add(createQuad(new Vec3(1-o, o, o), new Vec3(1-o, 1-o, o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, o, 1-o)));
             }
 
             if (west) {
@@ -167,8 +230,6 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(0, 1-o, o), new Vec3(o, 1-o, o), new Vec3(o, o, o), new Vec3(0, o, o)));
                 quads.add(createQuad(new Vec3(0, o, 1-o), new Vec3(o, o, 1-o), new Vec3(o, 1-o, 1-o), new Vec3(0, 1-o, 1-o)));
                 quads.add(createQuad(new Vec3(0, o, 1-o), new Vec3(0, 1-o, 1-o), new Vec3(0, 1-o, o), new Vec3(0, o, o)));
-            } else {
-                quads.add(createQuad(new Vec3(o, o, 1-o), new Vec3(o, 1-o, 1-o), new Vec3(o, 1-o, o), new Vec3(o, o, o)));
             }
 
             if (north) {
@@ -177,17 +238,14 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createQuad(new Vec3(1-o, o, 0), new Vec3(1-o, 1-o, 0), new Vec3(1-o, 1-o, o), new Vec3(1-o, o, o)));
                 quads.add(createQuad(new Vec3(o, o, o), new Vec3(o, 1-o, o), new Vec3(o, 1-o, 0), new Vec3(o, o, 0)));
                 quads.add(createQuad(new Vec3(o, 1-o, 0), new Vec3(1-o, 1-o, 0), new Vec3(1-o, o, 0), new Vec3(o, o, 0)));
-            } else {
-                quads.add(createQuad(new Vec3(o, 1-o, o), new Vec3(1-o, 1-o, o), new Vec3(1-o, o, o), new Vec3(o, o, o)));
             }
+
             if (south) {
                 quads.add(createQuad(new Vec3(o, 1-o, 1), new Vec3(1-o, 1-o, 1), new Vec3(1-o, 1-o, 1-o), new Vec3(o, 1-o, 1-o)));
                 quads.add(createQuad(new Vec3(o, o, 1-o), new Vec3(1-o, o, 1-o), new Vec3(1-o, o, 1), new Vec3(o, o, 1)));
                 quads.add(createQuad(new Vec3(1-o, o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, 1-o, 1), new Vec3(1-o, o, 1)));
                 quads.add(createQuad(new Vec3(o, o, 1), new Vec3(o, 1-o, 1), new Vec3(o, 1-o, 1-o), new Vec3(o, o, 1-o)));
                 quads.add(createQuad(new Vec3(o, o, 1), new Vec3(1-o, o, 1), new Vec3(1-o, 1-o, 1), new Vec3(o, 1-o, 1)));
-            } else {
-                quads.add(createQuad(new Vec3(o, o, 1-o), new Vec3(1-o, o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(o, 1-o, 1-o)));
             }
 
             return quads;
