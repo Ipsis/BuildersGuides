@@ -24,8 +24,6 @@ public class LaserMarker extends Marker {
 
         LogHelper.info("handleHammer: LASER");
 
-        // Laser marker face hit is the one to enable
-        side = side.getOpposite();
         if (entityPlayer.isSneaking()) {
             te.setV(side, 0);
         } else {
