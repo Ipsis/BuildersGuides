@@ -7,52 +7,6 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderUtils {
 
-    public static void drawBlockOB() {
-
-        final float HALF_SIZE = 0.4F;
-
-        WorldRenderer worldRenderer = Tessellator.getInstance().getWorldRenderer();
-        worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
-
-        // xy clockwise - back
-        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
-        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
-
-        // xy anti-clockwise - front
-        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
-        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
-
-        // anti-clockwise - left
-        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
-        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
-        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
-        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
-
-        // clockwise - right
-        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
-
-        // clockwise - bottom
-        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, -HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
-        worldRenderer.pos(-HALF_SIZE, -HALF_SIZE, +HALF_SIZE).endVertex();
-
-        // anticlockwise - top
-        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
-        worldRenderer.pos(-HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, +HALF_SIZE).endVertex();
-        worldRenderer.pos(+HALF_SIZE, +HALF_SIZE, -HALF_SIZE).endVertex();
-
-        Tessellator.getInstance().draw();
-    }
-
     /**
      * Draw a shaded block
      * Must already be translated to the correct position

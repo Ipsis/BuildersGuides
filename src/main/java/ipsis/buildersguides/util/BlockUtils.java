@@ -47,6 +47,7 @@ public class BlockUtils {
         }
     }
 
+    // TODO BlockPos has a getAllInBox that returns a list of BlockPos - can we use it???
     public static PlaneInfo getPlaneBlockList(BlockPos origin, EnumFacing axisA, EnumFacing axisB, int distA, int distB) {
 
         PlaneInfo planeInfo = new PlaneInfo();

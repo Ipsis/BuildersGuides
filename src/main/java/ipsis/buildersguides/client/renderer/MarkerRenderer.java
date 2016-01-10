@@ -33,6 +33,8 @@ import java.util.Set;
 
 public class MarkerRenderer extends TileEntitySpecialRenderer {
 
+    private static final float RENDER_ALPHA = 0.7F;
+
     @Override
     public void renderTileEntityAt(TileEntity te, double relativeX, double relativeY, double relativeZ, float partialTicks, int blockDamageProgress) {
 
@@ -87,7 +89,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
             GlStateManager.disableLighting();
             GlStateManager.disableTexture2D();
-            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RENDER_ALPHA);
 
             worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
             for (EnumFacing f : EnumFacing.values()) {
@@ -117,7 +119,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
             GlStateManager.disableLighting();
             GlStateManager.disableTexture2D();
-            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RENDER_ALPHA);
 
             worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
             for (EnumFacing f : EnumFacing.values()) {
@@ -148,7 +150,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
             GlStateManager.disableLighting();
             GlStateManager.disableTexture2D();
-            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RENDER_ALPHA);
 
             worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
             for (BlockPos p : te.getBlockList()) {
@@ -173,7 +175,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
             GlStateManager.disableLighting();
             GlStateManager.disableTexture2D();
-            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 1.0F);
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RENDER_ALPHA);
 
             // render target points
             for (EnumFacing f : EnumFacing.VALUES) {
@@ -183,14 +185,14 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                             (te.getPos().getX() - te.getTarget(f).getX()) * -1.0F,
                             (te.getPos().getY() - te.getTarget(f).getY()) * -1.0F,
                             (te.getPos().getZ() - te.getTarget(f).getZ()) * -1.0F);
-                    RenderUtils.drawBlockOutline(0.5005F);
+                    renderBlock();
                     GlStateManager.popMatrix();
                 }
             }
 
             // render the center points
             ColorBG nextColor = te.getColor().getNext();
-            GlStateManager.color(nextColor.getRed(), nextColor.getGreen(), nextColor.getBlue(), 1.0F);
+            GlStateManager.color(nextColor.getRed(), nextColor.getGreen(), nextColor.getBlue(), RENDER_ALPHA);
 
             for (BlockPos p : te.getCenterList()) {
                 GlStateManager.pushMatrix();
@@ -198,7 +200,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
-                RenderUtils.drawBlockOutline(0.5005F);
+                renderBlock();
                 GlStateManager.popMatrix();
             }
         }
@@ -218,7 +220,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
             GlStateManager.disableLighting();
             GlStateManager.disableTexture2D();
-            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 1.0F);
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RENDER_ALPHA);
 
             for (BlockPos p : te.getBlockList()) {
                 GlStateManager.pushMatrix();
@@ -226,7 +228,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
-                RenderUtils.drawBlockShaded(0.4F);
+                renderBlock();
                 GlStateManager.popMatrix();
             }
         }
@@ -246,7 +248,10 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
             GlStateManager.disableLighting();
             GlStateManager.disableTexture2D();
-            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), 0.8F);
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RENDER_ALPHA);
+
+//            GlStateManager.enableBlend();
+//            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 
             for (BlockPos p : te.getBlockList()) {
                 GlStateManager.pushMatrix();
@@ -254,13 +259,13 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
-                RenderUtils.drawBlockShaded(0.4F);
+                renderBlock();
                 GlStateManager.popMatrix();
             }
 
             // render the center points
             ColorBG nextColor = te.getColor().getNext();
-            GlStateManager.color(nextColor.getRed(), nextColor.getGreen(), nextColor.getBlue(), 1.0F);
+            GlStateManager.color(nextColor.getRed(), nextColor.getGreen(), nextColor.getBlue(), RENDER_ALPHA);
 
             for (BlockPos p : te.getCenterList()) {
                 GlStateManager.pushMatrix();
@@ -268,11 +273,17 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
-                RenderUtils.drawBlockOutline(0.5005F);
+                renderBlock();
                 GlStateManager.popMatrix();
             }
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
+    }
+
+    private static void renderBlock() {
+
+        //RenderUtils.drawBlockShaded(0.2F);
+        RenderUtils.drawBlockOutline(0.4F);
     }
 }
