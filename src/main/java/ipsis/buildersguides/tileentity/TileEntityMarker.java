@@ -16,10 +16,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TileEntityMarker extends TileEntity {
 
@@ -141,6 +138,9 @@ public class TileEntityMarker extends TileEntity {
         if (!p.equals(getPos()))
             blockList.add(p);
     }
+    public void addToBlockList(Collection<BlockPos> c) {
+        blockList.addAll(c);
+    }
 
     private Set<BlockPos> centerList;
     public void clearCenterList() { centerList.clear(); }
@@ -148,6 +148,9 @@ public class TileEntityMarker extends TileEntity {
     public void addToCenterList(BlockPos p) {
         if (!p.equals(getPos()))
             centerList.add(p);
+    }
+    public void addToCenterList(Collection<BlockPos> c) {
+        centerList.addAll(c);
     }
 
     @Override
