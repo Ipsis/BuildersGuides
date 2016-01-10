@@ -67,7 +67,17 @@ public class BlockUtils {
         p1 = origin.offset(axisB, distB);
         List<BlockPos> centersB = getCenterBlockList(origin, p1, axisB);
 
-        // TODO plane real center
+        for (BlockPos pA : centersA) {
+            for (BlockPos pB : centersB) {
+                if (axisA == EnumFacing.UP || axisA == EnumFacing.DOWN) {
+                    planeInfo.centerList.add(new BlockPos(pB.getX(), pA.getY(), pB.getZ()));
+                } else if (axisA == EnumFacing.NORTH || axisA == EnumFacing.SOUTH) {
+                    planeInfo.centerList.add(new BlockPos(pB.getX(), pB.getY(), pA.getZ()));
+                } else if (axisA == EnumFacing.EAST || axisA == EnumFacing.WEST) {
+                    planeInfo.centerList.add(new BlockPos(pA.getX(), pB.getY(), pA.getZ()));
+                }
+            }
+        }
 
         planeInfo.centerList.addAll(centersA);
         planeInfo.centerList.addAll(centersB);
