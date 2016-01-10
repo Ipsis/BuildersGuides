@@ -37,6 +37,35 @@ public class BlockUtils {
         return found;
     }
 
+    public static class PlaneInfo {
+        public List<BlockPos> blockList;
+        public List<BlockPos> centerList;
+
+        public PlaneInfo() {
+            blockList = new ArrayList<>();
+            centerList = new ArrayList<>();
+        }
+    }
+
+    public static PlaneInfo getPlaneBlockList(BlockPos origin, EnumFacing axisA, EnumFacing axisB, int distA, int distB) {
+
+        PlaneInfo planeInfo = new PlaneInfo();
+
+        if (axisA == axisB)
+            return planeInfo;
+
+        for (int i = 0; i <= distA; i++) {
+            for (int j = 0; j <= distB; j++) {
+                planeInfo.blockList.add(origin.offset(axisA, i).offset(axisB, j));
+            }
+        }
+
+        // TODO find the centers of the plane
+
+
+        return planeInfo;
+    }
+
     public static List<BlockPos> getCenterBlockList(BlockPos p1, BlockPos p2, EnumFacing facing) {
 
         List<BlockPos> centerList = new ArrayList<>();
