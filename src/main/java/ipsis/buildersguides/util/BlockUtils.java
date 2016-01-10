@@ -60,8 +60,26 @@ public class BlockUtils {
             }
         }
 
-        // TODO find the centers of the plane
+        // Near sides
+        BlockPos p1;
+        p1 = origin.offset(axisA, distA);
+        List<BlockPos> centersA = getCenterBlockList(origin, p1, axisA);
+        p1 = origin.offset(axisB, distB);
+        List<BlockPos> centersB = getCenterBlockList(origin, p1, axisB);
 
+        // TODO plane real center
+
+        planeInfo.centerList.addAll(centersA);
+        planeInfo.centerList.addAll(centersB);
+
+        BlockPos p2;
+        p1 = origin.offset(axisA, distA);
+        p2 = origin.offset(axisA, distA).offset(axisB, distB);
+        planeInfo.centerList.addAll(getCenterBlockList(p1, p2, axisB));
+
+        p1 = origin.offset(axisB, distB);
+        p2 = origin.offset(axisB, distB).offset(axisA, distA);
+        planeInfo.centerList.addAll(getCenterBlockList(p1, p2, axisA));
 
         return planeInfo;
     }
