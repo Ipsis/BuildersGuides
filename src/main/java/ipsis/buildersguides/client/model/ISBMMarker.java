@@ -157,6 +157,7 @@ public class ISBMMarker implements ISmartBlockModel {
             double o = .4;
 
             // Main Frame
+            /*
             for (EnumFacing f : EnumFacing.values()) {
                 quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.0F, 0.2F, 1.0F, sprite, f));
                 quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.8F, 1.0F, 1.0F, sprite, f));
@@ -167,7 +168,7 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.8F, 1.0F, 0.2F, sprite, f));
                 quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.2F, 0.8F, 0.2F, sprite, f));
                 quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.2F, 0.8F, 0.2F, sprite, f));
-            }
+            } */
 
             float[][] v = new float[][]{
                     { 0.4F, 0.6F, 0.2F, 0.4F, 1.0F },
@@ -179,36 +180,54 @@ public class ISBMMarker implements ISmartBlockModel {
                     { 0.4F, 0.6F, 0.6F, 0.8F, 0.2F },
                     { 0.2F, 0.4F, 0.4F, 0.6F, 0.2F },
                     { 0.6F, 0.8F, 0.4F, 0.6F, 0.2F },
+
+                    { 0.8F, 1.0F, 0.2F, 0.4F, 0.6F },
+                    { 0.8F, 1.0F, 0.6F, 0.8F, 0.6F },
+
+                    { 0.8F, 1.0F, 0.2F, 0.4F, 0.6F },
+                    { 0.8F, 1.0F, 0.6F, 0.8F, 0.6F },
             };
 
             EnumFacing[][] sides = new EnumFacing[][]{
                     { /* up */
                             EnumFacing.UP, EnumFacing.UP, EnumFacing.UP, EnumFacing.UP,
                             EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN,
+                            EnumFacing.EAST, EnumFacing.EAST,
+                            EnumFacing.NORTH, EnumFacing.NORTH,
                     },
                     { /* down */
                             EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN,
                             EnumFacing.UP, EnumFacing.UP, EnumFacing.UP, EnumFacing.UP,
+                            EnumFacing.WEST, EnumFacing.WEST,
+                            EnumFacing.SOUTH, EnumFacing.SOUTH,
                     },
                     { /* east */
                             EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST,
                             EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST,
+                            EnumFacing.SOUTH, EnumFacing.SOUTH,
+                            EnumFacing.NORTH, EnumFacing.NORTH,
                     },
                     { /* west */
                             EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST,
                             EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST,
+                            EnumFacing.NORTH, EnumFacing.NORTH,
+                            EnumFacing.SOUTH, EnumFacing.SOUTH,
                     },
                     { /* north */
                             EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH,
                             EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH,
+                            EnumFacing.WEST, EnumFacing.WEST,
+                            EnumFacing.EAST, EnumFacing.EAST,
                     },
                     { /* south */
                             EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH,
                             EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH,
+                            EnumFacing.EAST, EnumFacing.EAST,
+                            EnumFacing.WEST, EnumFacing.WEST,
                     }
             };
 
-            int numQuads = 8;
+            int numQuads = 12;
 
             if (up) {
                 for (int i = 0; i < numQuads; i++)
