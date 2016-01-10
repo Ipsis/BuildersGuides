@@ -157,7 +157,6 @@ public class ISBMMarker implements ISmartBlockModel {
             double o = .4;
 
             // Main Frame
-            /*
             for (EnumFacing f : EnumFacing.values()) {
                 quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.0F, 0.2F, 1.0F, sprite, f));
                 quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.8F, 1.0F, 1.0F, sprite, f));
@@ -168,7 +167,7 @@ public class ISBMMarker implements ISmartBlockModel {
                 quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.8F, 1.0F, 0.2F, sprite, f));
                 quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.2F, 0.8F, 0.2F, sprite, f));
                 quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.2F, 0.8F, 0.2F, sprite, f));
-            } */
+            }
 
             float[][] v = new float[][]{
                     { 0.4F, 0.6F, 0.2F, 0.4F, 1.0F },
@@ -184,128 +183,143 @@ public class ISBMMarker implements ISmartBlockModel {
                     { 0.8F, 1.0F, 0.2F, 0.4F, 0.6F },
                     { 0.8F, 1.0F, 0.6F, 0.8F, 0.6F },
 
-                    { 0.8F, 1.0F, 0.2F, 0.4F, 0.6F },
-                    { 0.8F, 1.0F, 0.6F, 0.8F, 0.6F },
+                    { 0.0F, 0.2F, 0.2F, 0.4F, 0.6F },
+                    { 0.0F, 0.2F, 0.6F, 0.8F, 0.6F },
+
+                    { 0.2F, 0.4F, 0.0F, 0.2F, 0.6F },
+                    { 0.6F, 0.8F, 0.0F, 0.2F, 0.6F },
+
+                    { 0.2F, 0.4F, 0.8F, 1.0F, 0.6F },
+                    { 0.6F, 0.8F, 0.8F, 1.0F, 0.6F },
             };
 
-            EnumFacing[][] sides = new EnumFacing[][]{
-                    { /* up */
-                            EnumFacing.UP, EnumFacing.UP, EnumFacing.UP, EnumFacing.UP,
-                            EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN,
-                            EnumFacing.EAST, EnumFacing.EAST,
-                            EnumFacing.NORTH, EnumFacing.NORTH,
-                    },
-                    { /* down */
-                            EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN, EnumFacing.DOWN,
-                            EnumFacing.UP, EnumFacing.UP, EnumFacing.UP, EnumFacing.UP,
-                            EnumFacing.WEST, EnumFacing.WEST,
-                            EnumFacing.SOUTH, EnumFacing.SOUTH,
-                    },
-                    { /* east */
-                            EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST,
-                            EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST,
-                            EnumFacing.SOUTH, EnumFacing.SOUTH,
-                            EnumFacing.NORTH, EnumFacing.NORTH,
-                    },
-                    { /* west */
-                            EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST, EnumFacing.WEST,
-                            EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST, EnumFacing.EAST,
-                            EnumFacing.NORTH, EnumFacing.NORTH,
-                            EnumFacing.SOUTH, EnumFacing.SOUTH,
-                    },
-                    { /* north */
-                            EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH,
-                            EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH,
-                            EnumFacing.WEST, EnumFacing.WEST,
-                            EnumFacing.EAST, EnumFacing.EAST,
-                    },
-                    { /* south */
-                            EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH, EnumFacing.SOUTH,
-                            EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH, EnumFacing.NORTH,
-                            EnumFacing.EAST, EnumFacing.EAST,
-                            EnumFacing.WEST, EnumFacing.WEST,
+            for (EnumFacing f : EnumFacing.values()) {
+
+                if (f == EnumFacing.NORTH) {
+                    if (north) {
+                        for (int i = 0; i < 4; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
                     }
-            };
+                    if (south) {
+                        for (int i = 4; i < 8; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (east) {
+                        for (int i = 8; i < 10; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (west) {
+                        for (int i = 10; i < 12; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                } else if (f == EnumFacing.SOUTH) {
 
-            int numQuads = 12;
+                    if (south) {
+                        for (int i = 0; i < 4; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (north) {
+                        for (int i = 4; i < 8; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (east) {
+                        for (int i = 8; i < 10; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (west) {
+                        for (int i = 10; i < 12; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                } else if (f == EnumFacing.EAST) {
 
-            if (up) {
-                for (int i = 0; i < numQuads; i++)
-                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[0][i]));
-            }
-            if (down) {
-                for (int i = 0; i < numQuads; i++)
-                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[1][i]));
-            }
-            if (east) {
-                for (int i = 0; i < numQuads; i++)
-                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[2][i]));
-            }
-            if (west) {
-                for (int i = 0; i < numQuads; i++)
-                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[3][i]));
-            }
-            if (north) {
-                for (int i = 0; i < numQuads; i++)
-                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[4][i]));
-            }
-            if (south) {
-                for (int i = 0; i < numQuads; i++)
-                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, sides[5][i]));
-            }
+                    if (east) {
+                        for (int i = 0; i < 4; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (west) {
+                        for (int i = 4; i < 8; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (up) {
+                        for (int i = 8; i < 10; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (down) {
+                        for (int i = 10; i < 12; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                } else if (f == EnumFacing.WEST) {
 
-            /**
-             * If the face is active then extend the blocks in that direction
-             */
-/*
-            if (up) {
-                quads.add(createQuad(new Vec3(1-o, 1-o, o), new Vec3(1-o, 1, o), new Vec3(1-o, 1, 1-o), new Vec3(1-o, 1-o, 1-o)));
-                quads.add(createQuad(new Vec3(o, 1-o, 1-o), new Vec3(o, 1, 1-o), new Vec3(o, 1, o), new Vec3(o, 1-o, o)));
-                quads.add(createQuad(new Vec3(o, 1, o), new Vec3(1-o, 1, o), new Vec3(1-o, 1-o, o), new Vec3(o, 1-o, o)));
-                quads.add(createQuad(new Vec3(o, 1-o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, 1, 1-o), new Vec3(o, 1, 1-o)));
-                quads.add(createQuad(new Vec3(o, 1, 1-o), new Vec3(1-o, 1, 1-o), new Vec3(1-o, 1, o), new Vec3(o, 1, o)));
-            }
+                    if (west) {
+                        for (int i = 0; i < 4; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (east) {
+                        for (int i = 4; i < 8; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (down) {
+                        for (int i = 8; i < 10; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (up) {
+                        for (int i = 10; i < 12; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                } else if (f == EnumFacing.UP) {
 
-            if (down) {
-                quads.add(createQuad(new Vec3(1-o, 0, o), new Vec3(1-o, o, o), new Vec3(1-o, o, 1-o), new Vec3(1-o, 0, 1-o)));
-                quads.add(createQuad(new Vec3(o, 0, 1-o), new Vec3(o, o, 1-o), new Vec3(o, o, o), new Vec3(o, 0, o)));
-                quads.add(createQuad(new Vec3(o, o, o), new Vec3(1-o, o, o), new Vec3(1-o, 0, o), new Vec3(o, 0, o)));
-                quads.add(createQuad(new Vec3(o, 0, 1-o), new Vec3(1-o, 0, 1-o), new Vec3(1-o, o, 1-o), new Vec3(o, o, 1-o)));
-                quads.add(createQuad(new Vec3(o, 0, o), new Vec3(1-o, 0, o), new Vec3(1-o, 0, 1-o), new Vec3(o, 0, 1-o)));
-            }
+                    if (up) {
+                        for (int i = 0; i < 4; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (down) {
+                        for (int i = 4; i < 8; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (east) {
+                        for (int i = 8; i < 10; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (west) {
+                        for (int i = 10; i < 12; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (north) {
+                        for (int i = 12; i < 14; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (south) {
+                        for (int i = 14; i < 16; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                } else if (f == EnumFacing.DOWN) {
 
-            if (east) {
-                quads.add(createQuad(new Vec3(1-o, 1-o, 1-o), new Vec3(1, 1-o, 1-o), new Vec3(1, 1-o, o), new Vec3(1-o, 1-o, o)));
-                quads.add(createQuad(new Vec3(1-o, o, o), new Vec3(1, o, o), new Vec3(1, o, 1-o), new Vec3(1-o, o, 1-o)));
-                quads.add(createQuad(new Vec3(1-o, 1-o, o), new Vec3(1, 1-o, o), new Vec3(1, o, o), new Vec3(1-o, o, o)));
-                quads.add(createQuad(new Vec3(1-o, o, 1-o), new Vec3(1, o, 1-o), new Vec3(1, 1-o, 1-o), new Vec3(1-o, 1-o, 1-o)));
-                quads.add(createQuad(new Vec3(1, o, o), new Vec3(1, 1-o, o), new Vec3(1, 1-o, 1-o), new Vec3(1, o, 1-o)));
+                    if (down) {
+                        for (int i = 0; i < 4; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (up) {
+                        for (int i = 4; i < 8; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (east) {
+                        for (int i = 8; i < 10; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (west) {
+                        for (int i = 10; i < 12; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (south) {
+                        for (int i = 12; i < 14; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                    if (north) {
+                        for (int i = 14; i < 16; i++)
+                            quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    }
+                }
             }
-
-            if (west) {
-                quads.add(createQuad(new Vec3(0, 1-o, 1-o), new Vec3(o, 1-o, 1-o), new Vec3(o, 1-o, o), new Vec3(0, 1-o, o)));
-                quads.add(createQuad(new Vec3(0, o, o), new Vec3(o, o, o), new Vec3(o, o, 1-o), new Vec3(0, o, 1-o)));
-                quads.add(createQuad(new Vec3(0, 1-o, o), new Vec3(o, 1-o, o), new Vec3(o, o, o), new Vec3(0, o, o)));
-                quads.add(createQuad(new Vec3(0, o, 1-o), new Vec3(o, o, 1-o), new Vec3(o, 1-o, 1-o), new Vec3(0, 1-o, 1-o)));
-                quads.add(createQuad(new Vec3(0, o, 1-o), new Vec3(0, 1-o, 1-o), new Vec3(0, 1-o, o), new Vec3(0, o, o)));
-            }
-
-            if (north) {
-                quads.add(createQuad(new Vec3(o, 1-o, o), new Vec3(1-o, 1-o, o), new Vec3(1-o, 1-o, 0), new Vec3(o, 1-o, 0)));
-                quads.add(createQuad(new Vec3(o, o, 0), new Vec3(1-o, o, 0), new Vec3(1-o, o, o), new Vec3(o, o, o)));
-                quads.add(createQuad(new Vec3(1-o, o, 0), new Vec3(1-o, 1-o, 0), new Vec3(1-o, 1-o, o), new Vec3(1-o, o, o)));
-                quads.add(createQuad(new Vec3(o, o, o), new Vec3(o, 1-o, o), new Vec3(o, 1-o, 0), new Vec3(o, o, 0)));
-                quads.add(createQuad(new Vec3(o, 1-o, 0), new Vec3(1-o, 1-o, 0), new Vec3(1-o, o, 0), new Vec3(o, o, 0)));
-            }
-
-            if (south) {
-                quads.add(createQuad(new Vec3(o, 1-o, 1), new Vec3(1-o, 1-o, 1), new Vec3(1-o, 1-o, 1-o), new Vec3(o, 1-o, 1-o)));
-                quads.add(createQuad(new Vec3(o, o, 1-o), new Vec3(1-o, o, 1-o), new Vec3(1-o, o, 1), new Vec3(o, o, 1)));
-                quads.add(createQuad(new Vec3(1-o, o, 1-o), new Vec3(1-o, 1-o, 1-o), new Vec3(1-o, 1-o, 1), new Vec3(1-o, o, 1)));
-                quads.add(createQuad(new Vec3(o, o, 1), new Vec3(o, 1-o, 1), new Vec3(o, 1-o, 1-o), new Vec3(o, o, 1-o)));
-                quads.add(createQuad(new Vec3(o, o, 1), new Vec3(1-o, o, 1), new Vec3(1-o, 1-o, 1), new Vec3(o, 1-o, 1)));
-            }
-            */
 
             return quads;
         }
