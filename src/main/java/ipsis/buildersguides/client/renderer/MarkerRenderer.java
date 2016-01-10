@@ -250,8 +250,14 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             GlStateManager.disableTexture2D();
             GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RENDER_ALPHA);
 
-//            GlStateManager.enableBlend();
-//            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+            RenderHelper.disableStandardItemLighting();
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GlStateManager.enableBlend();
+
+            if (Minecraft.isAmbientOcclusionEnabled())
+                GlStateManager.shadeModel(GL11.GL_SMOOTH);
+            else
+                GlStateManager.shadeModel(GL11.GL_FLAT);
 
             for (BlockPos p : te.getBlockList()) {
                 GlStateManager.pushMatrix();
@@ -276,6 +282,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                 renderBlock();
                 GlStateManager.popMatrix();
             }
+            RenderHelper.enableStandardItemLighting();
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
@@ -283,7 +290,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
 
     private static void renderBlock() {
 
-        //RenderUtils.drawBlockShaded(0.2F);
-        RenderUtils.drawBlockOutline(0.4F);
+        RenderUtils.drawBlockShaded(0.2F);
+        //RenderUtils.drawBlockOutline(0.4F);
     }
 }
