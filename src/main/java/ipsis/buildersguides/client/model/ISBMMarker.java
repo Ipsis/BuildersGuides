@@ -98,12 +98,12 @@ public class ISBMMarker implements ISmartBlockModel {
             return Collections.emptyList();
         }
 
-        private int[] vertexToInts(double x, double y, double z, float u, float v) {
+        private int[] vertexToInts(double x, double y, double z, int color, TextureAtlasSprite texture, float u, float v) {
             return new int[] {
                     Float.floatToRawIntBits((float) x),
                     Float.floatToRawIntBits((float) y),
                     Float.floatToRawIntBits((float) z),
-                    -1,
+                    color,
                     Float.floatToRawIntBits(sprite.getInterpolatedU(u)),
                     Float.floatToRawIntBits(sprite.getInterpolatedV(v)),
                     0
@@ -115,11 +115,40 @@ public class ISBMMarker implements ISmartBlockModel {
             EnumFacing side = LightUtil.toSide((float) normal.xCoord, (float) normal.yCoord, (float) normal.zCoord);
 
             return new BakedQuad(Ints.concat(
-                    vertexToInts(v1.xCoord, v1.yCoord, v1.zCoord, 0, 0),
-                    vertexToInts(v2.xCoord, v2.yCoord, v2.zCoord, 0, 16),
-                    vertexToInts(v3.xCoord, v3.yCoord, v3.zCoord, 16, 16),
-                    vertexToInts(v4.xCoord, v4.yCoord, v4.zCoord, 16, 0)
+                    vertexToInts(v1.xCoord, v1.yCoord, v1.zCoord, -1, sprite, 0, 0),
+                    vertexToInts(v2.xCoord, v2.yCoord, v2.zCoord, -1, sprite, 0, 16),
+                    vertexToInts(v3.xCoord, v3.yCoord, v3.zCoord, -1, sprite, 16, 16),
+                    vertexToInts(v4.xCoord, v4.yCoord, v4.zCoord, -1, sprite, 16, 0)
             ), -1, side);
+        }
+
+        // From ModelBakeEventDebug MinecraftForge
+        private BakedQuad createSidedBakedQuad(float x1, float x2, float z1, float z2, float y, TextureAtlasSprite texture, EnumFacing side) {
+            Vec3 v1 = rotate(new Vec3(x1 - .5, y - .5, z1 - .5), side).addVector(.5, .5, .5);
+            Vec3 v2 = rotate(new Vec3(x1 - .5, y - .5, z2 - .5), side).addVector(.5, .5, .5);
+            Vec3 v3 = rotate(new Vec3(x2 - .5, y - .5, z2 - .5), side).addVector(.5, .5, .5);
+            Vec3 v4 = rotate(new Vec3(x2 - .5, y - .5, z1 - .5), side).addVector(.5, .5, .5);
+            return new BakedQuad(Ints.concat(
+                    vertexToInts((float)v1.xCoord, (float)v1.yCoord, (float)v1.zCoord, -1, texture, 0, 0),
+                    vertexToInts((float)v2.xCoord, (float)v2.yCoord, (float)v2.zCoord, -1, texture, 0, 16),
+                    vertexToInts((float)v3.xCoord, (float)v3.yCoord, (float)v3.zCoord, -1, texture, 16, 16),
+                    vertexToInts((float)v4.xCoord, (float)v4.yCoord, (float)v4.zCoord, -1, texture, 16, 0)
+            ), -1, side);
+        }
+
+        // From ModelBakeEventDebug MinecraftForge
+        private Vec3 rotate(Vec3 vec, EnumFacing side)
+        {
+            switch(side)
+            {
+                case DOWN:  return new Vec3( vec.xCoord, -vec.yCoord, -vec.zCoord);
+                case UP:    return new Vec3( vec.xCoord,  vec.yCoord,  vec.zCoord);
+                case NORTH: return new Vec3( vec.xCoord,  vec.zCoord, -vec.yCoord);
+                case SOUTH: return new Vec3( vec.xCoord, -vec.zCoord,  vec.yCoord);
+                case WEST:  return new Vec3(-vec.yCoord,  vec.xCoord,  vec.zCoord);
+                case EAST:  return new Vec3( vec.yCoord, -vec.xCoord,  vec.zCoord);
+            }
+            return null;
         }
 
         @Override
@@ -128,72 +157,17 @@ public class ISBMMarker implements ISmartBlockModel {
             double o = .4;
 
             // Main Frame
+            for (EnumFacing f : EnumFacing.values()) {
+                quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.0F, 0.2F, 1.0F, sprite, f));
+                quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.8F, 1.0F, 1.0F, sprite, f));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.2F, 0.8F, 1.0F, sprite, f));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.2F, 0.8F, 1.0F, sprite, f));
 
-            // Top Face
-            quads.add(createQuad(new Vec3(0, 1, 0.2), new Vec3(1, 1, 0.2), new Vec3(1, 1, 0), new Vec3(0, 1, 0)));
-            quads.add(createQuad(new Vec3(0, 1, 1), new Vec3(1, 1, 1), new Vec3(1, 1, 0.8), new Vec3(0, 1, 0.8)));
-            quads.add(createQuad(new Vec3(0, 1, 0.8), new Vec3(0.2, 1, 0.8), new Vec3(0.2, 1, 0.2), new Vec3(0, 1, 0.2)));
-            quads.add(createQuad(new Vec3(0.8, 1, 0.8), new Vec3(1, 1, 0.8), new Vec3(1, 1, 0.2), new Vec3(0.8, 1, 0.2)));
-
-            quads.add(createQuad(new Vec3(0, 0.2, 0.2), new Vec3(1, 0.2, 0.2), new Vec3(1, 0.2, 0), new Vec3(0, 0.2, 0)));
-            quads.add(createQuad(new Vec3(0, 0.2, 1), new Vec3(1, 0.2, 1), new Vec3(1, 0.2, 0.8), new Vec3(0, 0.2, 0.8)));
-            quads.add(createQuad(new Vec3(0, 0.2, 0.8), new Vec3(0.2, 0.2, 0.8), new Vec3(0.2, 0.2, 0.2), new Vec3(0, 0.2, 0.2)));
-            quads.add(createQuad(new Vec3(0.8, 0.2, 0.8), new Vec3(1, 0.2, 0.8), new Vec3(1, 0.2, 0.2), new Vec3(0.8, 0.2, 0.2)));
-
-            // Bottom Face
-            quads.add(createQuad(new Vec3(0, 0, 0), new Vec3(1, 0, 0), new Vec3(1, 0, 0.2), new Vec3(0, 0, 0.2)));
-            quads.add(createQuad(new Vec3(0, 0, 0.8), new Vec3(1, 0, 0.8), new Vec3(1, 0, 1), new Vec3(0, 0, 1)));
-            quads.add(createQuad(new Vec3(0, 0, 0.2), new Vec3(0.2, 0, 0.2), new Vec3(0.2, 0, 0.8), new Vec3(0, 0, 0.8)));
-            quads.add(createQuad(new Vec3(0.8, 0, 0.2), new Vec3(1, 0, 0.2), new Vec3(1, 0, 0.8), new Vec3(0.8, 0, 0.8)));
-
-            quads.add(createQuad(new Vec3(0, 0.8, 0), new Vec3(1, 0.8, 0), new Vec3(1, 0.8, 0.2), new Vec3(0, 0.8, 0.2)));
-            quads.add(createQuad(new Vec3(0, 0.8, 0.8), new Vec3(1, 0.8, 0.8), new Vec3(1, 0.8, 1), new Vec3(0, 0.8, 1)));
-            quads.add(createQuad(new Vec3(0, 0.8, 0.2), new Vec3(0.2, 0.8, 0.2), new Vec3(0.2, 0.8, 0.8), new Vec3(0, 0.8, 0.8)));
-            quads.add(createQuad(new Vec3(0.8, 0.8, 0.2), new Vec3(1, 0.8, 0.2), new Vec3(1, 0.8, 0.8), new Vec3(0.8, 0.8, 0.8)));
-
-            // East Face
-            quads.add(createQuad(new Vec3(0, 0, 0.2), new Vec3(0, 1, 0.2), new Vec3(0, 1, 0), new Vec3(0, 0, 0)));
-            quads.add(createQuad(new Vec3(0, 0, 1), new Vec3(0, 1, 1), new Vec3(0, 1, 0.8), new Vec3(0, 0, 0.8)));
-            quads.add(createQuad(new Vec3(0, 0, 0.8), new Vec3(0, 0.2, 0.8), new Vec3(0, 0.2, 0.2), new Vec3(0, 0, 0.2)));
-            quads.add(createQuad(new Vec3(0, 0.8, 0.8), new Vec3(0, 1, 0.8), new Vec3(0, 1, 0.2), new Vec3(0, 0.8, 0.2)));
-
-            quads.add(createQuad(new Vec3(0.8, 0, 0.2), new Vec3(0.8, 1, 0.2), new Vec3(0.8, 1, 0), new Vec3(0.8, 0, 0)));
-            quads.add(createQuad(new Vec3(0.8, 0, 1), new Vec3(0.8, 1, 1), new Vec3(0.8, 1, 0.8), new Vec3(0.8, 0, 0.8)));
-            quads.add(createQuad(new Vec3(0.8, 0, 0.8), new Vec3(0.8, 0.2, 0.8), new Vec3(0.8, 0.2, 0.2), new Vec3(0.8, 0, 0.2)));
-            quads.add(createQuad(new Vec3(0.8, 0.8, 0.8), new Vec3(0.8, 1, 0.8), new Vec3(0.8, 1, 0.2), new Vec3(0.8, 0.8, 0.2)));
-
-            // West Face
-            quads.add(createQuad(new Vec3(1, 0, 0), new Vec3(1, 1, 0), new Vec3(1, 1, 0.2), new Vec3(1, 0, 0.2)));
-            quads.add(createQuad(new Vec3(1, 0, 0.8), new Vec3(1, 1, 0.8), new Vec3(1, 1, 1), new Vec3(1, 0, 1)));
-            quads.add(createQuad(new Vec3(1, 0, 0.2), new Vec3(1, 0.2, 0.2), new Vec3(1, 0.2, 0.8), new Vec3(1, 0, 0.8)));
-            quads.add(createQuad(new Vec3(1, 0.8, 0.2), new Vec3(1, 1, 0.2), new Vec3(1, 1, 0.8), new Vec3(1, 0.8, 0.8)));
-
-            quads.add(createQuad(new Vec3(0.2, 0, 0), new Vec3(0.2, 1, 0), new Vec3(0.2, 1, 0.2), new Vec3(0.2, 0, 0.2)));
-            quads.add(createQuad(new Vec3(0.2, 0, 0.8), new Vec3(0.2, 1, 0.8), new Vec3(0.2, 1, 1), new Vec3(0.2, 0, 1)));
-            quads.add(createQuad(new Vec3(0.2, 0, 0.2), new Vec3(0.2, 0.2, 0.2), new Vec3(0.2, 0.2, 0.8), new Vec3(0.2, 0, 0.8)));
-            quads.add(createQuad(new Vec3(0.2, 0.8, 0.2), new Vec3(0.2, 1, 0.2), new Vec3(0.2, 1, 0.8), new Vec3(0.2, 0.8, 0.8)));
-
-            // North Face
-            quads.add(createQuad(new Vec3(0.2, 0, 1), new Vec3(0.2, 1, 1), new Vec3(0, 1, 1), new Vec3(0, 0, 1)));
-            quads.add(createQuad(new Vec3(1, 0, 1), new Vec3(1, 1, 1), new Vec3(0.8, 1, 1), new Vec3(0.8, 0, 1)));
-            quads.add(createQuad(new Vec3(0.8, 0, 1), new Vec3(0.8, 0.2, 1), new Vec3(0.2, 0.2, 1), new Vec3(0.2, 0, 1)));
-            quads.add(createQuad(new Vec3(0.8, 0.8, 1), new Vec3(0.8, 1, 1), new Vec3(0.2, 1, 1), new Vec3(0.2, 0.8, 1)));
-
-            quads.add(createQuad(new Vec3(0.2, 0, 0.2), new Vec3(0.2, 1, 0.2), new Vec3(0, 1, 0.2), new Vec3(0, 0, 0.2)));
-            quads.add(createQuad(new Vec3(1, 0, 0.2), new Vec3(1, 1, 0.2), new Vec3(0.8, 1, 0.2), new Vec3(0.8, 0, 0.2)));
-            quads.add(createQuad(new Vec3(0.8, 0, 0.2), new Vec3(0.8, 0.2, 0.2), new Vec3(0.2, 0.2, 0.2), new Vec3(0.2, 0, 0.2)));
-            quads.add(createQuad(new Vec3(0.8, 0.8, 0.2), new Vec3(0.8, 1, 0.2), new Vec3(0.2, 1, 0.2), new Vec3(0.2, 0.8, 0.2)));
-
-            // South Face
-            quads.add(createQuad(new Vec3(0, 0, 0), new Vec3(0, 1, 0), new Vec3(0.2, 1, 0), new Vec3(0.2, 0, 0)));
-            quads.add(createQuad(new Vec3(0.8, 0, 0), new Vec3(0.8, 1, 0), new Vec3(1, 1, 0), new Vec3(1, 0, 0)));
-            quads.add(createQuad(new Vec3(0.2, 0, 0), new Vec3(0.2, 0.2, 0), new Vec3(0.8, 0.2, 0), new Vec3(0.8, 0, 0)));
-            quads.add(createQuad(new Vec3(0.2, 0.8, 0), new Vec3(0.2, 1, 0), new Vec3(0.8, 1, 0), new Vec3(0.8, 0.8, 0)));
-
-            quads.add(createQuad(new Vec3(0, 0, 0.8), new Vec3(0, 1, 0.8), new Vec3(0.2, 1, 0.8), new Vec3(0.2, 0, 0.8)));
-            quads.add(createQuad(new Vec3(0.8, 0, 0.8), new Vec3(0.8, 1, 0.8), new Vec3(1, 1, 0.8), new Vec3(1, 0, 0.8)));
-            quads.add(createQuad(new Vec3(0.2, 0, 0.8), new Vec3(0.2, 0.2, 0.8), new Vec3(0.8, 0.2, 0.8), new Vec3(0.8, 0, 0.8)));
-            quads.add(createQuad(new Vec3(0.2, 0.8, 0.8), new Vec3(0.2, 1, 0.8), new Vec3(0.8, 1, 0.8), new Vec3(0.8, 0.8, 0.8)));
+                quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.0F, 0.2F, 0.2F, sprite, f));
+                quads.add(createSidedBakedQuad(0.0F, 1.0F, 0.8F, 1.0F, 0.2F, sprite, f));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.2F, 0.8F, 0.2F, sprite, f));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.2F, 0.8F, 0.2F, sprite, f));
+            }
 
 
             /**
