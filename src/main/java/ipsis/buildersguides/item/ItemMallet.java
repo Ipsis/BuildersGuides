@@ -41,8 +41,9 @@ public class ItemMallet extends ItemBG implements IKeyBound {
         final ModelResourceLocation hammerModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".HAMMER", "inventory");
         final ModelResourceLocation wrenchModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".BCWRENCH", "inventory");
         final ModelResourceLocation paintModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".DECORATE", "inventory");
+        final ModelResourceLocation configModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".CONFIG", "inventory");
 
-        ModelBakery.registerItemVariants(this, hammerModel, wrenchModel, paintModel);
+        ModelBakery.registerItemVariants(this, hammerModel, wrenchModel, paintModel, configModel);
 
         ModelLoader.setCustomMeshDefinition(this, new ItemMeshDefinition() {
             @Override
@@ -52,6 +53,8 @@ public class ItemMallet extends ItemBG implements IKeyBound {
                     return hammerModel;
                 else if (m == MalletMode.BCWRENCH)
                     return wrenchModel;
+                else if (m == MalletMode.CONFIG)
+                    return configModel;
                 else
                     return paintModel;
             }
@@ -107,7 +110,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     public enum MalletMode {
         HAMMER,
         BCWRENCH,
-//        CONFIG,
+        CONFIG,
         DECORATE;
 
         public static MalletMode getMode(int id) {
