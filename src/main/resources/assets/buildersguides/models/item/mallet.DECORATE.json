@@ -1,7 +1,7 @@
 {
   "parent": "builtin/generated",
   "textures": {
-    "layer0": "buildersguides:items/mallet"
+    "layer0": "buildersguides:items/mallet.DECORATE"
   },
   "display": {
     "thirdperson": {

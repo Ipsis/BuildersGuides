@@ -34,8 +34,8 @@ public class MarkerManager {
                     m.handleHammer(worldIn, te, entityPlayer, side);
                 else if (mode == ItemMallet.MalletMode.DECORATE)
                     m.handleDecorate(worldIn, te, entityPlayer, side);
-                else if (mode == ItemMallet.MalletMode.CONFIG)
-                    m.handleConfig(worldIn, te, entityPlayer, side);
+/*                else if (mode == ItemMallet.MalletMode.CONFIG)
+                    m.handleConfig(worldIn, te, entityPlayer, side); */
             }
         }
     }
