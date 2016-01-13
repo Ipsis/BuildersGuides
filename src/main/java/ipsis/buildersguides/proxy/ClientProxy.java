@@ -33,13 +33,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     protected void registerBlockItemModels() {
 
-        StateMapperBase ignoreState = new StateMapperBase() {
-            @Override
-            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                return ISBMMarker.modelResourceLocation;
-            }
-        };
-        ModelLoader.setCustomStateMapper(ModBlocks.blockMarker, ignoreState);
+        ModBlocks.blockMarker.initModel();
     }
 
     @Override

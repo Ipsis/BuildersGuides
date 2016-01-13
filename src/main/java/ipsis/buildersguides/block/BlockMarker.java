@@ -1,5 +1,6 @@
 package ipsis.buildersguides.block;
 
+import ipsis.buildersguides.client.model.ISBMMarker;
 import ipsis.buildersguides.common.UnlistedPropertyBoolean;
 import ipsis.buildersguides.item.ItemMallet;
 import ipsis.buildersguides.manager.MarkerManager;
@@ -14,6 +15,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -22,9 +25,12 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockMarker extends BlockContainerBG {
 
@@ -39,6 +45,19 @@ public class BlockMarker extends BlockContainerBG {
 
     public BlockMarker() {
         super(Material.ground, BASENAME);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+
+        StateMapperBase ignoreState = new StateMapperBase() {
+            @Override
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                return ISBMMarker.modelResourceLocation;
+            }
+        };
+        ModelLoader.setCustomStateMapper(this, ignoreState);
     }
 
     @Override
