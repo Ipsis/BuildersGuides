@@ -153,6 +153,11 @@ public class TileEntityMarker extends TileEntity {
         centerList.addAll(c);
     }
 
+    public void cleanBlockList() {
+        /* strip the centers from the block list */
+        blockList.removeAll(centerList);
+    }
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
