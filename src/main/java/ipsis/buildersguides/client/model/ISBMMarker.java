@@ -177,142 +177,65 @@ public class ISBMMarker implements ISmartBlockModel {
             };
 
             // Main Frame
-            /*
             for (EnumFacing f : EnumFacing.values()) {
                 for (int i = 0; i < 12; i++) {
                     quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
                 }
-            } */
+            }
 
-            /*
-                // front == NORTH
+            if (north) {
                 quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.NORTH));
-                // back
                 quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.SOUTH));
-                // right
                 quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.WEST));
-                // left
                 quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.EAST));
-                // up
                 quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.UP));
-                // down
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.DOWN)); */
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.DOWN));
+            }
 
-            /*
-            // front == SOUTH
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.SOUTH));
-            // back
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.NORTH));
-            // right
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.EAST));
-            // left
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.WEST));
-            // down
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.DOWN));
-            // up
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.UP));
-            */
+            if (south) {
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.UP));
+            }
 
-            // front == EAST
-            /*
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.EAST));
-            // back
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.WEST));
-            // right
-            quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.NORTH));
-            // left
-            quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.SOUTH));
-            // down
-            quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.DOWN));
-             // up
-            quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.UP));
-            */
+            if (east) {
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.UP));
+            }
 
-            /*
-            // front == WEST
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.WEST));
-            // back
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.EAST));
-            // right
-            quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.SOUTH));
-            // left
-            quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.NORTH));
-            // down
-            quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.UP));
-            // up
-            quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.DOWN));
-            */
+            if (west) {
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.UP));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.DOWN));
+            }
 
-            /*
-            // front == UP
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.UP));
-            // back
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.DOWN));
-            // right
-            quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.EAST));
-            // left
-            quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.WEST));
-            // down
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.NORTH));
-            // up
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.SOUTH));
-            */
+            if (up) {
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.UP));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.SOUTH));
+            }
 
-            // front == DOWN
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.DOWN));
-            // back
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.UP));
-            // right
-            quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.WEST));
-            // left
-            quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.EAST));
-            // down
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.SOUTH));
-            // up
-            quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.NORTH));
-            /*
-            // front
-            quads.add(createQuad(
-                    new Vec3(0.4F, 0.4F, 1.0F),
-                    new Vec3(0.6F, 0.4F, 1.0F),
-                    new Vec3(0.6F, 0.6F, 1.0F),
-                    new Vec3(0.4F, 0.6F, 1.0F)));
-
-            // right
-            quads.add(createQuad(
-                    new Vec3(0.6F, 0.4F, 1.0F),
-                    new Vec3(0.6F, 0.4F, 0.8F),
-                    new Vec3(0.6F, 0.6F, 0.8F),
-                    new Vec3(0.6F, 0.6F, 1.0F)));
-
-            // back
-            quads.add(createQuad(
-                    new Vec3(0.6F, 0.4F, 0.8F),
-                    new Vec3(0.4F, 0.4F, 0.8F),
-                    new Vec3(0.4F, 0.6F, 0.8F),
-                    new Vec3(0.6F, 0.6F, 0.8F)));
-
-            // left
-            quads.add(createQuad(
-                    new Vec3(0.4F, 0.4F, 0.8F),
-                    new Vec3(0.4F, 0.4F, 1.0F),
-                    new Vec3(0.4F, 0.6F, 1.0F),
-                    new Vec3(0.4F, 0.6F, 0.8F)));
-
-            // top
-            quads.add(createQuad(
-                    new Vec3(0.4F, 0.6F, 1.0F),
-                    new Vec3(0.6F, 0.6F, 1.0F),
-                    new Vec3(0.6F, 0.6F, 0.8F),
-                    new Vec3(0.4F, 0.6F, 0.8F)));
-
-            // bottom
-            quads.add(createQuad(
-                    new Vec3(0.4F, 0.4F, 0.8F),
-                    new Vec3(0.6F, 0.4F, 0.8F),
-                    new Vec3(0.6F, 0.4F, 1.0F),
-                    new Vec3(0.4F, 0.4F, 1.0F)));
-                    */
+            if (down) {
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.UP));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.NORTH));
+            }
 
             return quads;
         }
