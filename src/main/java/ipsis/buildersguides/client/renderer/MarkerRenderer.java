@@ -185,7 +185,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                             (te.getPos().getX() - te.getTarget(f).getX()) * -1.0F,
                             (te.getPos().getY() - te.getTarget(f).getY()) * -1.0F,
                             (te.getPos().getZ() - te.getTarget(f).getZ()) * -1.0F);
-                    renderBlock();
+                    RenderUtils.drawBlockOutline(0.5F);
                     GlStateManager.popMatrix();
                 }
             }
@@ -200,7 +200,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
-                renderBlock();
+                renderBlock(0.4F);
                 GlStateManager.popMatrix();
             }
         }
@@ -265,7 +265,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
-                renderBlock();
+                renderBlock(0.4F);
                 GlStateManager.popMatrix();
             }
 
@@ -279,13 +279,19 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
-                renderBlock();
+                renderBlock(0.5F);
                 GlStateManager.popMatrix();
             }
             RenderHelper.enableStandardItemLighting();
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
+    }
+
+    private static void renderBlock(float size) {
+
+        RenderUtils.drawBlockShaded(size);
+        //RenderUtils.drawBlockOutline(size);
     }
 
     private static void renderBlock() {
