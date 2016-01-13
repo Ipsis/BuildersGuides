@@ -151,6 +151,8 @@ public class GhostMarker extends Marker {
                 }
             }
         }
+
+        te.cleanBlockList();
     }
 
     private void addPlane(TileEntityMarker te, BlockPos origin, EnumFacing axisA, EnumFacing axisB) {
