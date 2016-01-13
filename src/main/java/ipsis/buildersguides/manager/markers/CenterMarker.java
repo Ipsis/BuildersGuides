@@ -64,7 +64,7 @@ public class CenterMarker extends Marker {
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
-        // calculate the center points and add them to the block list
+        // calculate the center points and add them to the center list
         te.clearBlocklist();
         te.clearCenterList();
 
