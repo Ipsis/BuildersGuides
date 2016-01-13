@@ -2,8 +2,11 @@ package ipsis.buildersguides.item;
 
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.init.ModItems;
+import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.WorldHelper;
+import ipsis.oss.client.ModelHelper;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -11,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,6 +31,16 @@ public class ItemMarkerCard extends ItemBG {
         setMaxStackSize(16);
         setUnlocalizedName(BASENAME);
         setHasSubtypes(true);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+
+        for (MarkerType t : MarkerType.values()) {
+            ModelHelper.registerItem(ModItems.itemMarkerCard, t.ordinal(), BASENAME + "." + t);
+            ModelBakery.registerItemVariants(ModItems.itemMarkerCard, new ResourceLocation(Reference.MOD_ID + ":" + BASENAME + "." + t));
+        }
     }
 
     @Override

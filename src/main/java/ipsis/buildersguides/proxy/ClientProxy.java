@@ -46,12 +46,8 @@ public class ClientProxy extends CommonProxy {
     protected void registerItemRenderers() {
 
         ModelHelper.registerItem(Item.getItemFromBlock(ModBlocks.blockMarker), 0, BlockMarker.BASENAME);
-        ((ItemMallet)ModItems.itemMallet).initModel();
-
-        for (MarkerType t : MarkerType.values()) {
-            ModelHelper.registerItem(ModItems.itemMarkerCard, t.ordinal(), ItemMarkerCard.BASENAME + "." + t);
-            ModelBakery.registerItemVariants(ModItems.itemMarkerCard, new ResourceLocation(Reference.MOD_ID + ":" + ItemMarkerCard.BASENAME + "." + t));
-        }
+        ModItems.itemMallet.initModel();
+        ModItems.itemMarkerCard.initModel();
     }
 
     @Override

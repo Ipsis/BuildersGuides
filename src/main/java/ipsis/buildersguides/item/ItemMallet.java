@@ -34,6 +34,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
         setMaxStackSize(1);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void initModel() {
 
