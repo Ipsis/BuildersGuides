@@ -54,6 +54,8 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                 doRenderCenter((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
             else if (((TileEntityMarker) te).getType() == MarkerType.GHOST)
                 doRenderGhost((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
+            else if (((TileEntityMarker) te).getType() == MarkerType.GHOSTSTAIRS)
+                doRenderGhostStairs((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks, blockDamageProgress);
         }
     }
 
@@ -231,6 +233,45 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
                 renderBlock();
                 GlStateManager.popMatrix();
             }
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.popAttrib();
+    }
+
+    private void doRenderGhostStairs(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks, int blockDamageProgress) {
+
+        if (te.getBlockList() == null || te.getBlockList().isEmpty())
+            return;
+
+        GlStateManager.pushAttrib();
+        GlStateManager.pushMatrix();
+        {
+            // translate to center or te
+            GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
+            GlStateManager.disableLighting();
+            GlStateManager.disableTexture2D();
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RENDER_ALPHA);
+
+            RenderHelper.disableStandardItemLighting();
+            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GlStateManager.enableBlend();
+
+            if (Minecraft.isAmbientOcclusionEnabled())
+                GlStateManager.shadeModel(GL11.GL_SMOOTH);
+            else
+                GlStateManager.shadeModel(GL11.GL_FLAT);
+
+            for (BlockPos p : te.getBlockList()) {
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(
+                        (te.getPos().getX() - p.getX()) * -1.0F,
+                        (te.getPos().getY() - p.getY()) * -1.0F,
+                        (te.getPos().getZ() - p.getZ()) * -1.0F);
+                renderBlock(0.4F);
+                GlStateManager.popMatrix();
+            }
+
+            RenderHelper.enableStandardItemLighting();
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();

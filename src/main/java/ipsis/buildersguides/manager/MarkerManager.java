@@ -22,6 +22,7 @@ public class MarkerManager {
         markerList.add(new WorldMarker());
         markerList.add(new CenterMarker());
         markerList.add(new GhostMarker());
+        markerList.add(new GhostStairsMarker());
     }
 
     public static void handleMalletMode(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side, ItemMallet.MalletMode mode) {
