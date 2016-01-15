@@ -5,7 +5,6 @@ import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ColorBG;
 import ipsis.buildersguides.util.RenderUtils;
-import ipsis.oss.LogHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -15,21 +14,12 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.renderer.vertex.VertexFormatElement;
-import net.minecraft.client.resources.AbstractResourcePack;
-import net.minecraft.client.resources.data.PackMetadataSection;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-import sun.rmi.runtime.Log;
-
-import java.util.List;
-import java.util.Set;
 
 public class MarkerRenderer extends TileEntitySpecialRenderer {
 
