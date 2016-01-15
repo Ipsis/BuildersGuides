@@ -265,6 +265,7 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             else
                 GlStateManager.shadeModel(GL11.GL_FLAT);
 
+
             for (BlockPos p : te.getBlockList()) {
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(
