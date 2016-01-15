@@ -64,16 +64,20 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
         RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
         ItemStack itemStack = ItemMarkerCard.getItemStack(te.getType());
 
+        EntityItem entityItem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemStack);
+        entityItem.getEntityItem().stackSize = 1;
+
         GlStateManager.pushAttrib();
         GlStateManager.pushMatrix();
         {
+            RenderHelper.enableStandardItemLighting();
+            GlStateManager.enableLighting();
             GlStateManager.translate(relX + 0.5F, relY + 0.5F, relZ + 0.5F);
+
             GlStateManager.rotate(-Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(Minecraft.getMinecraft().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
-            EntityItem entityItem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemStack);
-            entityItem.getEntityItem().stackSize = 1;
             GlStateManager.scale(0.25F, 0.25F, 0.25F);
-            renderItem.renderItem(itemStack, ItemCameraTransforms.TransformType.FIXED);
+            Minecraft.getMinecraft().getRenderItem().renderItem(itemStack, ItemCameraTransforms.TransformType.NONE);
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
