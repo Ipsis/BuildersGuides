@@ -265,14 +265,24 @@ public class MarkerRenderer extends TileEntitySpecialRenderer {
             else
                 GlStateManager.shadeModel(GL11.GL_FLAT);
 
+            float rotAngle, rotX, rotY, rotZ;
+            if (te.getFacing() == EnumFacing.NORTH)
+                rotAngle = 180.0F;
+            else if (te.getFacing() == EnumFacing.EAST)
+                rotAngle = 90.0F;
+            else if (te.getFacing() == EnumFacing.WEST)
+                rotAngle = -90.0F;
+            else
+                rotAngle = 0.0F;
 
             for (BlockPos p : te.getBlockList()) {
                 GlStateManager.pushMatrix();
+                GlStateManager.rotate(rotAngle, 0.0F, 1.0F, 0.0F);
                 GlStateManager.translate(
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
-                renderBlock(0.4F);
+                RenderUtils.drawStairsOutline();
                 GlStateManager.popMatrix();
             }
 
