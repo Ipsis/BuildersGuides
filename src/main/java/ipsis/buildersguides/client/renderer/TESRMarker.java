@@ -21,7 +21,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
 
-public class MarkerRenderer extends TileEntitySpecialRenderer {
+public class TESRMarker extends TileEntitySpecialRenderer {
 
     private static final float RENDER_ALPHA = 0.7F;
 

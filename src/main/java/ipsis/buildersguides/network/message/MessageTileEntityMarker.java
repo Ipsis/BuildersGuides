@@ -118,7 +118,7 @@ public class MessageTileEntityMarker implements IMessage {
 
         private void processMessage(WorldClient worldClient, MessageTileEntityMarker message) {
 
-            LogHelper.info("processMessage: CLIENT " + message);
+//            LogHelper.info("processMessage: CLIENT " + message);
             TileEntity te = worldClient.getTileEntity(new BlockPos(message.x, message.y, message.z));
             if (te != null && te instanceof TileEntityMarker) {
 

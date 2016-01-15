@@ -9,7 +9,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class GhostStairsMarker extends Marker {
+public class MarkerGhostStairs extends Marker {
 
     @Override
     public boolean isMatch(MarkerType t) {
@@ -54,22 +54,18 @@ public class GhostStairsMarker extends Marker {
 
         for (EnumFacing f : EnumFacing.values()) {
             if (te.hasValidV(f)) {
-                if (f == upFacing) {
+                if (f == upFacing && upCount > 0) {
                     // Push stairs up
-                    if (upCount > 0) {
                         for (int i = 1; i <= upCount; i++) {
                             BlockPos p = te.getPos().offset(f, i).offset(EnumFacing.UP, i);
                             te.addToBlockList(p);
                         }
-                    }
-                } else if (f == downFacing) {
+                } else if (f == downFacing && downCount > 0) {
                     // Push Stairs down
-                    if (downCount > 0) {
                         for (int i = 1; i <= downCount; i++) {
                             BlockPos p = te.getPos().offset(f, i).offset(EnumFacing.DOWN, i);
                             te.addToBlockList(p);
                         }
-                    }
                 } else if (f != EnumFacing.DOWN && f != EnumFacing.UP) {
                     // Sideways
                     for (int i = 1; i <= te.getV(f); i++) {

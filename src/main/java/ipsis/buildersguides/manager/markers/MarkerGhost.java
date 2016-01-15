@@ -14,7 +14,7 @@ import net.minecraft.world.biome.BiomeCache;
 
 import java.util.List;
 
-public class GhostMarker extends Marker {
+public class MarkerGhost extends Marker {
 
     @Override
     public boolean isMatch(MarkerType t) {

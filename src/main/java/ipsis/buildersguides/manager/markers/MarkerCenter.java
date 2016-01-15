@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class CenterMarker extends Marker {
+public class MarkerCenter extends Marker {
     @Override
     public boolean isMatch(MarkerType t) {
         return t == MarkerType.CENTER;

@@ -12,18 +12,17 @@ import java.util.List;
 
 public class MarkerManager {
 
-    private static List<Marker> markerList;
-
-    static {
-        markerList = new ArrayList<Marker>();
-        markerList.add(new AxisMarker());
-        markerList.add(new SpacingMarker());
-        markerList.add(new LaserMarker());
-        markerList.add(new WorldMarker());
-        markerList.add(new CenterMarker());
-        markerList.add(new GhostMarker());
-        markerList.add(new GhostStairsMarker());
-    }
+    private static List<Marker> markerList = new ArrayList<Marker>() {
+        {
+            add(new MarkerAxis());
+            add(new MarkerSpacing());
+            add(new MarkerLaser());
+            add(new MarkerWorld());
+            add(new MarkerCenter());
+            add(new MarkerGhost());
+            add(new MarkerGhostStairs());
+        }
+    };
 
     public static void handleMalletMode(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side, ItemMallet.MalletMode mode) {
 

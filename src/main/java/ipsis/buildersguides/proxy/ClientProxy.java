@@ -3,30 +3,17 @@ package ipsis.buildersguides.proxy;
 import ipsis.buildersguides.client.KeyInputEventHandler;
 import ipsis.buildersguides.client.ModelBakeEventHandler;
 import ipsis.buildersguides.client.keys.KeyBindingsBG;
-import ipsis.buildersguides.client.model.ISBMMarker;
-import ipsis.buildersguides.manager.MarkerType;
+import ipsis.buildersguides.client.renderer.TESRMarker;
 import ipsis.buildersguides.block.BlockMarker;
-import ipsis.buildersguides.client.renderer.MarkerRenderer;
 import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.init.ModItems;
-import ipsis.buildersguides.item.ItemMallet;
-import ipsis.buildersguides.item.ItemMarkerCard;
-import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.oss.client.ModelHelper;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ClientProxy extends CommonProxy {
 
@@ -47,7 +34,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     protected void registerTESRs() {
 
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMarker.class, new MarkerRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMarker.class, new TESRMarker());
     }
 
     @Override

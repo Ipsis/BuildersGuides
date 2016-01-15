@@ -158,6 +158,11 @@ public class ISBMMarker implements ISmartBlockModel {
             List<BakedQuad> quads = new ArrayList<>();
             double o = .4;
 
+            // TODO
+            // Create all the models on startup
+            // The 6 bool values can be converted into a single number for a lookup of the model
+            // or we can cache as they are created
+
 
             float[][] v = new float[][]{
                     { 0.0F, 0.2F, 0.0F, 0.2F, 1.0F },
