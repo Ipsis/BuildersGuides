@@ -2,7 +2,7 @@
 
 Align EVERYTHING!
 
-#What Is This? (Apart from my first ever mod!)
+#What Is This?
 
 This mod is a small collection of blocks that allow you to setup some visual guides to help in building.
 
@@ -11,7 +11,21 @@ This mod is a small collection of blocks that allow you to setup some visual gui
 
 The textures are my own creation. I'm not proud of them :P
 
-#Code From Other Project
+#Credits
+
+* McJty for his Mod Tutorial series for 1.8.
+[Modded Minecraft Wiki][http://modwiki.temporal-reality.com/mw/index.php/Main_Page]
+
+#Code From Other Projects (1.8 version)
+
+## Pahimar
+[EE3 Repository](https://github.com/pahimar/Equivalent-Exchange-3)
+
+The following classes:
+
+* LogHelper.java
+
+#Code From Other Projects (1.7 version)
 This mod uses a small number of classes from other mods.
 ## CoFH
 
