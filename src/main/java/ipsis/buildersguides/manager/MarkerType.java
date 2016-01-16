@@ -7,6 +7,7 @@ import net.minecraft.util.MathHelper;
  *
  * AXIS - display three axes - can disable per side
  * CENTER - display odd/even centers
+ * CHUNK - display the current chunk
  * GHOST - display of configurable single, plane and cuboids
  * GHOSTSTAIRS - as above but stairs
  * LASER - display in facing direction
@@ -21,6 +22,7 @@ public enum MarkerType {
     BLANK,
     AXIS,
     CENTER,
+    CHUNK,
     GHOST,
     GHOSTSTAIRS,
     LASER,

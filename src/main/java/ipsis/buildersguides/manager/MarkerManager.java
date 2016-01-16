@@ -16,6 +16,7 @@ public class MarkerManager {
         {
             add(new MarkerAxis());
             add(new MarkerCenter());
+            add(new MarkerChunk());
             add(new MarkerGhost());
             add(new MarkerGhostStairs());
             add(new MarkerLaser());

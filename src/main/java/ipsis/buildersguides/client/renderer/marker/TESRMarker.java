@@ -20,6 +20,7 @@ public class TESRMarker extends TileEntitySpecialRenderer {
         {
             put(MarkerType.AXIS, new RendererMarkerAxis());
             put(MarkerType.CENTER, new RendererMarkerCenter());
+            put(MarkerType.CHUNK, new RendererMarkerChunk());
             put(MarkerType.GHOST, new RendererMarkerGhost());
             put(MarkerType.GHOSTSTAIRS, new RendererMarkerGhostStairs());
             put(MarkerType.LASER, new RendererMarkerLaser());
