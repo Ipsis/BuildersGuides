@@ -4,6 +4,7 @@ item.BuildersGuides:mallet.name=Mallet
 item.BuildersGuides:markerCard.AXIS.name=Axis Marker Card
 item.BuildersGuides:markerCard.BLANK.name=Blank Marker Card
 item.BuildersGuides:markerCard.CENTER.name=Center Marker Card
+item.BuildersGuides:markerCard.CHUNK.name=Chunk Marker Card
 item.BuildersGuides:markerCard.GHOST.name=Ghost Marker Card
 item.BuildersGuides:markerCard.GHOSTSTAIRS.name=Ghost Stair Marker Card
 item.BuildersGuides:markerCard.LASER.name=Laser Marker Card
