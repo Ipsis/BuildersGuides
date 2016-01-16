@@ -8,7 +8,6 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderUtils {
 
-
     /**
      * Draw a shaded block
      * Must already be translated to the correct position
@@ -140,5 +139,16 @@ public class RenderUtils {
         }
         GlStateManager.popAttrib();
         GlStateManager.popMatrix();
+    }
+
+    public static void drawLine(float x1, float y1, float z1, float x2, float y2, float z2) {
+
+        // TODO this is supposed to be a "fancy" line
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+        worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(x1, y1, z1).endVertex();
+        worldRenderer.pos(x2, y2, z2).endVertex();
+        tessellator.draw();
     }
 }
