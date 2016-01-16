@@ -110,7 +110,7 @@ public class MarkerGhost extends Marker {
                     addPlane(te, te.getPos(), a, b);
                 }
             }
-        } else if (ghostMode == GhostMode.CUBE) {
+        } else if (ghostMode == GhostMode.CUBOID) {
 
             if (te.hasValidV(EnumFacing.UP)) {
 
@@ -165,7 +165,7 @@ public class MarkerGhost extends Marker {
         SINGLE,
         FLOOR,
         WALL,
-        CUBE;
+        CUBOID;
 
         public static GhostMode getMode(int id) {
             return values()[MathHelper.clamp_int(id, 0, values().length - 1)];
