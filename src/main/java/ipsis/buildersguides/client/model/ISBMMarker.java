@@ -74,7 +74,8 @@ public class ISBMMarker implements ISmartBlockModel {
 
     public class BakedModelMarker implements IBakedModel {
 
-        private TextureAtlasSprite sprite;
+        private TextureAtlasSprite mainTexture;
+        private TextureAtlasSprite activeTexture;
 
         private final boolean north;
         private final boolean south;
@@ -84,7 +85,8 @@ public class ISBMMarker implements ISmartBlockModel {
         private final boolean down;
 
         public BakedModelMarker(boolean north, boolean south, boolean east, boolean west, boolean up, boolean down) {
-            sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(Reference.MOD_ID_LOWER + ":blocks/" + BlockMarker.BASENAME);
+            mainTexture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(Reference.MOD_ID_LOWER + ":blocks/" + BlockMarker.BASENAME);
+            activeTexture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/redstone_block");
             this.north = north;
             this.south = south;
             this.east = east;
@@ -104,21 +106,21 @@ public class ISBMMarker implements ISmartBlockModel {
                     Float.floatToRawIntBits((float) y),
                     Float.floatToRawIntBits((float) z),
                     color,
-                    Float.floatToRawIntBits(sprite.getInterpolatedU(u)),
-                    Float.floatToRawIntBits(sprite.getInterpolatedV(v)),
+                    Float.floatToRawIntBits(texture.getInterpolatedU(u)),
+                    Float.floatToRawIntBits(texture.getInterpolatedV(v)),
                     0
             };
         }
 
-        private BakedQuad createQuad(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4) {
+        private BakedQuad createQuad(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4, TextureAtlasSprite texture) {
             Vec3 normal = v1.subtract(v2).crossProduct(v3.subtract(v2));
             EnumFacing side = LightUtil.toSide((float) normal.xCoord, (float) normal.yCoord, (float) normal.zCoord);
 
             return new BakedQuad(Ints.concat(
-                    vertexToInts(v1.xCoord, v1.yCoord, v1.zCoord, -1, sprite, 0, 0),
-                    vertexToInts(v2.xCoord, v2.yCoord, v2.zCoord, -1, sprite, 0, 16),
-                    vertexToInts(v3.xCoord, v3.yCoord, v3.zCoord, -1, sprite, 16, 16),
-                    vertexToInts(v4.xCoord, v4.yCoord, v4.zCoord, -1, sprite, 16, 0)
+                    vertexToInts(v1.xCoord, v1.yCoord, v1.zCoord, -1, texture, 0, 0),
+                    vertexToInts(v2.xCoord, v2.yCoord, v2.zCoord, -1, texture, 0, 16),
+                    vertexToInts(v3.xCoord, v3.yCoord, v3.zCoord, -1, texture, 16, 16),
+                    vertexToInts(v4.xCoord, v4.yCoord, v4.zCoord, -1, texture, 16, 0)
             ), -1, side);
         }
 
@@ -184,62 +186,62 @@ public class ISBMMarker implements ISmartBlockModel {
             // Main Frame
             for (EnumFacing f : EnumFacing.values()) {
                 for (int i = 0; i < 12; i++) {
-                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], sprite, f));
+                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], mainTexture, f));
                 }
             }
 
             if (north) {
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.NORTH));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.SOUTH));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.WEST));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.EAST));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.UP));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, activeTexture, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, activeTexture, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, activeTexture, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, activeTexture, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, activeTexture, EnumFacing.UP));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, activeTexture, EnumFacing.DOWN));
             }
 
             if (south) {
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.SOUTH));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.NORTH));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.EAST));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.WEST));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.DOWN));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.UP));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, activeTexture, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, activeTexture, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, activeTexture, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, activeTexture, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, activeTexture, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, activeTexture, EnumFacing.UP));
             }
 
             if (east) {
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.EAST));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.WEST));
-                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.NORTH));
-                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.SOUTH));
-                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.DOWN));
-                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.UP));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, activeTexture, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, activeTexture, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.UP));
             }
 
             if (west) {
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.WEST));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.EAST));
-                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.SOUTH));
-                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.NORTH));
-                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.UP));
-                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, activeTexture, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, activeTexture, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.UP));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.DOWN));
             }
 
             if (up) {
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.UP));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.DOWN));
-                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.EAST));
-                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.WEST));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.NORTH));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, activeTexture, EnumFacing.UP));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, activeTexture, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, activeTexture, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, activeTexture, EnumFacing.SOUTH));
             }
 
             if (down) {
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, sprite, EnumFacing.DOWN));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, sprite, EnumFacing.UP));
-                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.WEST));
-                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, sprite, EnumFacing.EAST));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, sprite, EnumFacing.SOUTH));
-                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, sprite, EnumFacing.NORTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 1.0F, activeTexture, EnumFacing.DOWN));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.4F, 0.6F, 0.2F, activeTexture, EnumFacing.UP));
+                quads.add(createSidedBakedQuad(0.0F, 0.2F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.WEST));
+                quads.add(createSidedBakedQuad(0.8F, 1.0F, 0.4F, 0.6F, 0.6F, activeTexture, EnumFacing.EAST));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.8F, 1.0F, 0.6F, activeTexture, EnumFacing.SOUTH));
+                quads.add(createSidedBakedQuad(0.4F, 0.6F, 0.0F, 0.2F, 0.6F, activeTexture, EnumFacing.NORTH));
             }
 
             return quads;
@@ -262,7 +264,7 @@ public class ISBMMarker implements ISmartBlockModel {
 
         @Override
         public TextureAtlasSprite getParticleTexture() {
-            return sprite;
+            return mainTexture;
         }
 
         @Override
