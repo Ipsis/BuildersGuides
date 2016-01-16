@@ -2,6 +2,7 @@ package ipsis.buildersguides;
 
 import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.init.ModItems;
+import ipsis.buildersguides.init.ModRecipes;
 import ipsis.buildersguides.network.PacketHandlerBG;
 import ipsis.buildersguides.proxy.CommonProxy;
 import ipsis.buildersguides.reference.Reference;
@@ -44,7 +45,7 @@ public class BuildersGuides {
     @Mod.EventHandler
     public void initialize(FMLInitializationEvent event) {
 
-        //Recipes.init();
+        ModRecipes.init();
         ModBlocks.registerTileEntities();
         proxy.init();
     }
