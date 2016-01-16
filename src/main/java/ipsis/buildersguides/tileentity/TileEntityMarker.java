@@ -5,11 +5,14 @@ import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.network.PacketHandlerBG;
 import ipsis.buildersguides.network.message.MessageTileEntityMarker;
 import ipsis.buildersguides.util.ColorBG;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -71,6 +74,7 @@ public class TileEntityMarker extends TileEntity {
     }
     public void setTarget(EnumFacing f, BlockPos p) { target[f.ordinal()] = new BlockPos(p); }
     public boolean hasTarget(EnumFacing f) { return target[f.ordinal()] != null && !getPos().equals(target[f.ordinal()]); }
+    public void clearTarget(EnumFacing f) { target[f.ordinal()] = null; }
 
     public boolean isFaceEnabled(EnumFacing f) {
         return MarkerManager.isFaceEnabled(this, f);
@@ -170,4 +174,81 @@ public class TileEntityMarker extends TileEntity {
                 s.append(f).append(":none ");
         return s.toString();
     }
+
+    /**
+     * NBT
+     * Blocklist and centerlist are not handled on the server
+     */
+    public static final String NBT_TYPE = "MarkerType";
+    public static final String NBT_FACING = "Facing";
+    public static final String NBT_MODE = "Mode";
+    public static final String NBT_COLOR = "Color";
+    public static final String NBT_DIRECTION = "Direction";
+    public static final String NBT_V = "V";
+    public static final String NBT_V_LIST = "VList";
+    public static final String NBT_TARGET_LIST = "TargetList";
+
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+
+        compound.setByte(NBT_TYPE, (byte)type.ordinal());
+        compound.setByte(NBT_FACING, (byte)facing.ordinal());
+        compound.setByte(NBT_MODE, (byte)mode);
+        compound.setByte(NBT_COLOR, (byte)color.ordinal());
+
+        NBTTagList tagList = new NBTTagList();
+        for (EnumFacing f : EnumFacing.values()) {
+            NBTTagCompound nbtTagCompound = new NBTTagCompound();
+            nbtTagCompound.setByte(NBT_DIRECTION, (byte)f.ordinal());
+            nbtTagCompound.setInteger(NBT_V, getV(f));
+            tagList.appendTag(nbtTagCompound);
+        }
+        compound.setTag(NBT_V_LIST, tagList);
+
+        tagList = new NBTTagList();
+        for (EnumFacing f : EnumFacing.values()) {
+            if (hasTarget(f)) {
+                NBTTagCompound nbtTagCompound = new NBTTagCompound();
+                nbtTagCompound.setByte(NBT_DIRECTION, (byte)f.ordinal());
+                nbtTagCompound.setInteger("X", getTarget(f).getX());
+                nbtTagCompound.setInteger("Y", getTarget(f).getY());
+                nbtTagCompound.setInteger("Z", getTarget(f).getZ());
+                tagList.appendTag(nbtTagCompound);
+            }
+        }
+        compound.setTag(NBT_TARGET_LIST, tagList);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+
+        for (EnumFacing f : EnumFacing.values())
+            clearTarget(f);
+
+        type = MarkerType.getMarkerType(compound.getByte(NBT_TYPE));
+        facing = EnumFacing.getFront(compound.getByte(NBT_FACING));
+        mode = compound.getByte(NBT_MODE);
+        color = ColorBG.getColor(compound.getByte(NBT_COLOR));
+
+        NBTTagList tagList = compound.getTagList(NBT_V_LIST, Constants.NBT.TAG_COMPOUND);
+        for (int i = 0; i < tagList.tagCount(); i++) {
+            NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
+            EnumFacing f = EnumFacing.getFront(tagCompound.getByte(NBT_DIRECTION));
+            setV(f, tagCompound.getInteger(NBT_V));
+        }
+
+        tagList = compound.getTagList(NBT_TARGET_LIST, Constants.NBT.TAG_COMPOUND);
+        for (int i = 0; i < tagList.tagCount(); i++) {
+            NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
+            EnumFacing f = EnumFacing.getFront(tagCompound.getByte(NBT_DIRECTION));
+            int x = tagCompound.getInteger("X");
+            int y = tagCompound.getInteger("Y");
+            int z = tagCompound.getInteger("Z");
+            BlockPos p = new BlockPos(x, y, z);
+            setTarget(f, p);
+        }
+    }
+
 }
