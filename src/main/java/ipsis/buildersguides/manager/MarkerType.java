@@ -35,4 +35,15 @@ public enum MarkerType {
         ordinal = MathHelper.clamp_int(ordinal, 0, MarkerType.count - 1);
         return MarkerType.values()[ordinal];
     }
+
+    public MarkerType getNext() {
+
+        int next = ordinal();
+        next++;
+
+        if (next < 0 || next >= count)
+            next = 0;
+
+        return values()[next];
+    }
 }

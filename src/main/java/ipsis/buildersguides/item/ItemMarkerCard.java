@@ -62,23 +62,35 @@ public class ItemMarkerCard extends ItemBG {
         return new ItemStack(ModItems.itemMarkerCard, 1, t.ordinal());
     }
 
+    public static void setType(ItemStack stack, MarkerType t) {
+
+        if (stack != null) {
+            stack.setItemDamage(t.ordinal());
+        }
+    }
+
     @Override
     public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
 
         if (WorldHelper.isClient(world))
             return false;
 
-        MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
-        if (t == MarkerType.BLANK)
-            return false;
+        if (player.isSneaking()) {
+            MarkerType t = MarkerType.getMarkerType(stack.getItemDamage()).getNext();
+            setType(stack, t);
+        } else {
+            MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
+            if (t == MarkerType.BLANK)
+                return false;
 
-        TileEntity te = world.getTileEntity(pos);
-        if (te != null && te instanceof TileEntityMarker) {
+            TileEntity te = world.getTileEntity(pos);
+            if (te != null && te instanceof TileEntityMarker) {
 
-            if (((TileEntityMarker) te).getType() == MarkerType.BLANK) {
-                ((TileEntityMarker) te).setType(t);
-                world.markBlockForUpdate(pos);
-                stack.stackSize = player.capabilities.isCreativeMode ? stack.stackSize : stack.stackSize - 1;
+                if (((TileEntityMarker) te).getType() == MarkerType.BLANK) {
+                    ((TileEntityMarker) te).setType(t);
+                    world.markBlockForUpdate(pos);
+                    stack.stackSize = player.capabilities.isCreativeMode ? stack.stackSize : stack.stackSize - 1;
+                }
             }
         }
 
