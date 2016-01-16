@@ -1,7 +1,6 @@
 package ipsis.buildersguides.util;
 
 import ipsis.oss.LogHelper;
-import net.minecraft.block.Block;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;

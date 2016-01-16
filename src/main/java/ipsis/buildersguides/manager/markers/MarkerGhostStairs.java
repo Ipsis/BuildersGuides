@@ -1,6 +1,5 @@
 package ipsis.buildersguides.manager.markers;
 
-import ipsis.buildersguides.block.BlockBG;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.oss.LogHelper;

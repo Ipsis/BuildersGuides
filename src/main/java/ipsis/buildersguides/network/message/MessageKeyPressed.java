@@ -3,7 +3,6 @@ package ipsis.buildersguides.network.message;
 import io.netty.buffer.ByteBuf;
 import ipsis.buildersguides.client.keys.KeyBindingsBG;
 import ipsis.buildersguides.util.IKeyBound;
-import ipsis.oss.LogHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.WorldServer;

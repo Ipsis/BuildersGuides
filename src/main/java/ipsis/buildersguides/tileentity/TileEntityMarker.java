@@ -1,13 +1,10 @@
 package ipsis.buildersguides.tileentity;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.network.PacketHandlerBG;
 import ipsis.buildersguides.network.message.MessageTileEntityMarker;
 import ipsis.buildersguides.util.ColorBG;
-import ipsis.oss.LogHelper;
-import net.minecraft.block.Block;
 import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
