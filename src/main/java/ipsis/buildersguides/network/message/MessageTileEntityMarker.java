@@ -5,7 +5,6 @@ import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ColorBG;
-import ipsis.oss.LogHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
@@ -118,7 +117,6 @@ public class MessageTileEntityMarker implements IMessage {
 
         private void processMessage(WorldClient worldClient, MessageTileEntityMarker message) {
 
-//            LogHelper.info("processMessage: CLIENT " + message);
             TileEntity te = worldClient.getTileEntity(new BlockPos(message.x, message.y, message.z));
             if (te != null && te instanceof TileEntityMarker) {
 
