@@ -3,7 +3,7 @@ package ipsis.buildersguides.proxy;
 import ipsis.buildersguides.client.KeyInputEventHandler;
 import ipsis.buildersguides.client.ModelBakeEventHandler;
 import ipsis.buildersguides.client.keys.KeyBindingsBG;
-import ipsis.buildersguides.client.renderer.TESRMarker;
+import ipsis.buildersguides.client.renderer.marker.TESRMarker;
 import ipsis.buildersguides.block.BlockMarker;
 import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.init.ModItems;
