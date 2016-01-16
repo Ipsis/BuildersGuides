@@ -32,7 +32,7 @@ public enum ColorBG {
     private float green;
     private float blue;
 
-    private ColorBG(float red, float green, float blue) {
+    ColorBG(float red, float green, float blue) {
 
         this.red = red;
         this.green = green;

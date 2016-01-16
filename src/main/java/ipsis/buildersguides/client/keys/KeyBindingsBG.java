@@ -19,7 +19,7 @@ public enum KeyBindingsBG {
     }
 
     private final KeyBinding keyBinding;
-    private KeyBindingsBG(String name, int defaultKeyCode) {
+    KeyBindingsBG(String name, int defaultKeyCode) {
         keyBinding = new KeyBinding(name, defaultKeyCode, Keys.CATEGORY);
     }
 
