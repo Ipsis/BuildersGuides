@@ -87,7 +87,7 @@ public class ItemMarkerCard extends ItemBG {
             if (te != null && te instanceof TileEntityMarker) {
 
                 if (((TileEntityMarker) te).getType() == MarkerType.BLANK) {
-                    ((TileEntityMarker) te).setType(t);
+                    ((TileEntityMarker) te).resetToType(t);
                     world.markBlockForUpdate(pos);
                     stack.stackSize = player.capabilities.isCreativeMode ? stack.stackSize : stack.stackSize - 1;
                 }

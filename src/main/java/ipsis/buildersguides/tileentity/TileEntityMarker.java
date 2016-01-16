@@ -83,9 +83,15 @@ public class TileEntityMarker extends TileEntity {
 
     public TileEntityMarker() {
 
-        type = MarkerType.BLANK;
         facing = EnumFacing.SOUTH;
         color = ColorBG.WHITE;
+
+        resetToType(MarkerType.BLANK);
+    }
+
+    public void resetToType(MarkerType type) {
+
+        this.type = type;
         mode = 0;
 
         v = new int[6];
