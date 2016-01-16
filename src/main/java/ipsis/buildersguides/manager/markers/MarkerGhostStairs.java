@@ -17,6 +17,9 @@ public class MarkerGhostStairs extends Marker {
 
     @Override
     public boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
+        if (f == EnumFacing.UP || f == EnumFacing.DOWN)
+            return false;
+
         return te.hasValidV(f);
     }
 
