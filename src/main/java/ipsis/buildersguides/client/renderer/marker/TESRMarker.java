@@ -43,7 +43,6 @@ public class TESRMarker extends TileEntitySpecialRenderer {
 
     private void doRenderMarkerType(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
 
-        RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
         ItemStack itemStack = ItemMarkerCard.getItemStack(te.getType());
 
         EntityItem entityItem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemStack);
