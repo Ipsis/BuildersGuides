@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -38,6 +39,14 @@ public class WailaDataProviderBG implements IWailaDataProvider {
                 currenttip.add(mode);
 
             currenttip.add(((TileEntityMarker) accessor.getTileEntity()).getFacing().toString());
+        }
+
+        if (accessor.getPlayer().isSneaking()) {
+            TileEntityMarker tem = (TileEntityMarker)accessor.getTileEntity();
+            for (EnumFacing f : EnumFacing.values()) {
+                if (tem.hasValidV(f))
+                    currenttip.add(f.toString() + ":" + tem.getV(f));
+            }
         }
 
         return currenttip;
