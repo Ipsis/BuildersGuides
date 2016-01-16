@@ -15,12 +15,12 @@ public class MarkerManager {
     private static List<Marker> markerList = new ArrayList<Marker>() {
         {
             add(new MarkerAxis());
-            add(new MarkerSpacing());
-            add(new MarkerLaser());
-            add(new MarkerWorld());
             add(new MarkerCenter());
             add(new MarkerGhost());
             add(new MarkerGhostStairs());
+            add(new MarkerLaser());
+            add(new MarkerSpacing());
+            add(new MarkerWorld());
         }
     };
 
