@@ -1,5 +1,6 @@
 package ipsis.buildersguides.plugins.waila;
 
+import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -31,6 +32,11 @@ public class WailaDataProviderBG implements IWailaDataProvider {
 
         if (accessor.getTileEntity() instanceof TileEntityMarker) {
             currenttip.add(((TileEntityMarker) accessor.getTileEntity()).getType().toString());
+
+            String mode = MarkerManager.getMode((TileEntityMarker)accessor.getTileEntity());
+            if (!mode.equals(""))
+                currenttip.add(mode);
+
             currenttip.add(((TileEntityMarker) accessor.getTileEntity()).getFacing().toString());
         }
 
@@ -44,7 +50,8 @@ public class WailaDataProviderBG implements IWailaDataProvider {
 
     @Override
     public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
-       return null;
+        /* Already synching the relevant data via description packet */
+        return tag;
     }
 
     public static void callbackRegister(IWailaRegistrar registrar) {
