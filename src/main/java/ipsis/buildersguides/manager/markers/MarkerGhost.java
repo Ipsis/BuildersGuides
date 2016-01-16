@@ -58,6 +58,11 @@ public class MarkerGhost extends Marker {
     }
 
     @Override
+    public String getMode(TileEntityMarker te) {
+        return GhostMode.getMode(te.getMode()).toString();
+    }
+
+    @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
         te.clearBlocklist();
