@@ -36,6 +36,8 @@ public class TESRMarker extends TileEntitySpecialRenderer {
         if (!(te instanceof TileEntityMarker))
             return;
 
+        // TODO The renderer will NOT be called when you move such that the chunk is no longer rendered - BIG PROBLEM
+
         if (map.containsKey(((TileEntityMarker) te).getType())) {
             doRenderMarkerType((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks);
             map.get(((TileEntityMarker) te).getType()).doRenderMarkerType(this, (TileEntityMarker) te, relativeX, relativeY, relativeZ, partialTicks);
