@@ -3,12 +3,16 @@ package ipsis.buildersguides.client.renderer.marker;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.RenderUtils;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
 public class RendererMarkerLaser extends RendererMarker {
 
     @Override
     public void doRenderMarkerType(TESRMarker tesrMarker, TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
+
+        if (te.getBlockList() == null || te.getBlockList().isEmpty())
+            return;
 
         GlStateManager.pushAttrib();
         GlStateManager.pushMatrix();
@@ -19,14 +23,14 @@ public class RendererMarkerLaser extends RendererMarker {
             GlStateManager.disableTexture2D();
             GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RendererMarker.RENDER_ALPHA);
 
-            for (EnumFacing f : EnumFacing.values()) {
-                if (te.isFaceEnabled(f)) {
-                    RenderUtils.drawLine(
-                            0.0F, 0.0F, 0.0F,
-                            0.0F + (f.getFrontOffsetX() * 64.0F),
-                            0.0F + (f.getFrontOffsetY() * 64.0F),
-                            0.0F + (f.getFrontOffsetZ() * 64.0F));
-                }
+            for (BlockPos p : te.getBlockList()) {
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(
+                        (te.getPos().getX() - p.getX()) * -1.0F,
+                        (te.getPos().getY() - p.getY()) * -1.0F,
+                        (te.getPos().getZ() - p.getZ()) * -1.0F);
+                renderBlock();
+                GlStateManager.popMatrix();
             }
         }
         GlStateManager.popMatrix();
