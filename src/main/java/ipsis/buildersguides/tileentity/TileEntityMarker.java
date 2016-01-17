@@ -126,13 +126,27 @@ public class TileEntityMarker extends TileEntity {
         return PacketHandlerBG.INSTANCE.getPacketFrom(new MessageTileEntityMarker(this));
     }
 
+    private static final int MAX_DISTANCE = 128;
+    private static final int MAX_WORLD_HEIGHT = 256;
+
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
-        /* TODO getRenderBoundingBox */
-        return TileEntity.INFINITE_EXTENT_AABB;
+
+        final AxisAlignedBB box = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
+
+        if (getType() != MarkerType.BLANK)
+            return INFINITE_EXTENT_AABB;
+
+        return box;
     }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public double getMaxRenderDistanceSquared() {
+
+        return (double)(256 * 256);
+    }
 
     /**
      * Client only data
