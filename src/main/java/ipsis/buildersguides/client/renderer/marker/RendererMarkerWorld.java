@@ -23,11 +23,13 @@ public class RendererMarkerWorld extends RendererMarker {
             GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RendererMarker.RENDER_ALPHA);
 
             for (BlockPos p : te.getBlockList()) {
-                RenderUtils.drawLine(
-                        0.0F, 0.0F, 0.0F,
+                GlStateManager.pushMatrix();
+                GlStateManager.translate(
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
+                renderBlock();
+                GlStateManager.popMatrix();
             }
         }
         GlStateManager.popMatrix();
