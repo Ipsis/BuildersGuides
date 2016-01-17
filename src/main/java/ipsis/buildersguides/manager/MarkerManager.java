@@ -20,6 +20,7 @@ public class MarkerManager {
             add(new MarkerGhost());
             add(new MarkerGhostStairs());
             add(new MarkerLaser());
+            add(new MarkerRange());
             add(new MarkerSpacing());
             add(new MarkerWorld());
         }

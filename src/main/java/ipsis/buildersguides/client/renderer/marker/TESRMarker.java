@@ -24,6 +24,7 @@ public class TESRMarker extends TileEntitySpecialRenderer {
             put(MarkerType.GHOST, new RendererMarkerGhost());
             put(MarkerType.GHOSTSTAIRS, new RendererMarkerGhostStairs());
             put(MarkerType.LASER, new RendererMarkerLaser());
+            put(MarkerType.RANGE, new RendererMarkerRange());
             put(MarkerType.SPACING, new RendererMarkerSpacing());
             put(MarkerType.WORLD, new RendererMarkerWorld());
         }
