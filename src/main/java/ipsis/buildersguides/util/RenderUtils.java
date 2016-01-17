@@ -146,6 +146,7 @@ public class RenderUtils {
         // TODO this is supposed to be a "fancy" line
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+        GL11.glLineWidth(3.5F);
         worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
         worldRenderer.pos(x1, y1, z1).endVertex();
         worldRenderer.pos(x2, y2, z2).endVertex();
