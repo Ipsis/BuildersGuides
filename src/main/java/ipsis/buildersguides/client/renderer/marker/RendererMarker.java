@@ -7,7 +7,7 @@ public abstract class RendererMarker {
 
     public static final float RENDER_ALPHA = 0.7F;
 
-    public abstract void doRenderMarkerType(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks);
+    public abstract void doRenderMarkerType(TESRMarker tesrMarker, TileEntityMarker te, double relX, double relY, double relZ, float partialTicks);
 
     protected void renderBlock(float size) {
 

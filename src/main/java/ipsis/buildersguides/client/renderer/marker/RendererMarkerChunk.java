@@ -13,7 +13,7 @@ import org.lwjgl.opengl.GL11;
 public class RendererMarkerChunk extends RendererMarker {
 
     @Override
-    public void doRenderMarkerType(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
+    public void doRenderMarkerType(TESRMarker tesrMarker, TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
 
         Chunk chunk = te.getWorld().getChunkFromBlockCoords(te.getPos());
         if (chunk == null)

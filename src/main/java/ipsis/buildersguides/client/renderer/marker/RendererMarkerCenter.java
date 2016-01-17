@@ -10,7 +10,7 @@ import net.minecraft.util.EnumFacing;
 public class RendererMarkerCenter extends RendererMarker {
 
     @Override
-    public void doRenderMarkerType(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
+    public void doRenderMarkerType(TESRMarker tesrMarker, TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
 
         GlStateManager.pushAttrib();
         GlStateManager.pushMatrix();

@@ -37,7 +37,7 @@ public class TESRMarker extends TileEntitySpecialRenderer {
 
         if (map.containsKey(((TileEntityMarker) te).getType())) {
             doRenderMarkerType((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks);
-            map.get(((TileEntityMarker) te).getType()).doRenderMarkerType((TileEntityMarker) te, relativeX, relativeY, relativeZ, partialTicks);
+            map.get(((TileEntityMarker) te).getType()).doRenderMarkerType(this, (TileEntityMarker) te, relativeX, relativeY, relativeZ, partialTicks);
         }
     }
 

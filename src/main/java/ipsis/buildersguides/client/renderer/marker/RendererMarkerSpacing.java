@@ -7,7 +7,7 @@ import net.minecraft.util.BlockPos;
 public class RendererMarkerSpacing extends RendererMarker {
 
     @Override
-    public void doRenderMarkerType(TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
+    public void doRenderMarkerType(TESRMarker tesrMarker, TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
 
         if (te.getBlockList() == null || te.getBlockList().isEmpty())
             return;
