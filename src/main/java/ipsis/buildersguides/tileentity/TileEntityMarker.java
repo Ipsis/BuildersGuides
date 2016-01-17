@@ -5,6 +5,7 @@ import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.network.PacketHandlerBG;
 import ipsis.buildersguides.network.message.MessageTileEntityMarker;
 import ipsis.buildersguides.util.ColorBG;
+import ipsis.oss.LogHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
@@ -133,12 +134,7 @@ public class TileEntityMarker extends TileEntity {
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
 
-        final AxisAlignedBB box = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
-
-        if (getType() != MarkerType.BLANK)
-            return INFINITE_EXTENT_AABB;
-
-        return box;
+        return INFINITE_EXTENT_AABB;
     }
 
     @Override
@@ -270,5 +266,4 @@ public class TileEntityMarker extends TileEntity {
             setTarget(f, p);
         }
     }
-
 }
