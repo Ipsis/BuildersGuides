@@ -15,11 +15,11 @@ public class RendererMarkerCenter extends RendererMarker {
         GlStateManager.pushAttrib();
         GlStateManager.pushMatrix();
         {
-            // translate to center or te
-            GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
+            // translate to center of te
+            GlStateManager.translate(relX + 0.5F, relY + 0.5F, relZ + 0.5F);
             GlStateManager.disableLighting();
             GlStateManager.disableTexture2D();
-            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RendererMarker.RENDER_ALPHA);
+            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue());
 
             // render target points
             for (EnumFacing f : EnumFacing.VALUES) {
@@ -33,22 +33,11 @@ public class RendererMarkerCenter extends RendererMarker {
                     GlStateManager.popMatrix();
                 }
             }
-
-            // render the center points
-            ColorBG nextColor = te.getColor().getNext();
-            GlStateManager.color(nextColor.getRed(), nextColor.getGreen(), nextColor.getBlue(), RendererMarker.RENDER_ALPHA);
-
-            for (BlockPos p : te.getCenterList()) {
-                GlStateManager.pushMatrix();
-                GlStateManager.translate(
-                        (te.getPos().getX() - p.getX()) * -1.0F,
-                        (te.getPos().getY() - p.getY()) * -1.0F,
-                        (te.getPos().getZ() - p.getZ()) * -1.0F);
-                renderBlock(0.4F);
-                GlStateManager.popMatrix();
-            }
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
+
+        ColorBG color = te.getColor().getNext();
+        renderBlockList(te.getCenterList(), te, relX, relY, relZ, color.getRed(), color.getGreen(), color.getBlue());
     }
 }

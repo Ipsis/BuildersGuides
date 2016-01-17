@@ -30,34 +30,7 @@ public class RendererMarkerGhostStairs extends RendererMarker {
             else
                 rotAngle = 0.0F;
 
-            // translate to center or te
-            GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
-            GlStateManager.disableLighting();
-            GlStateManager.disableTexture2D();
-            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RendererMarker.RENDER_ALPHA);
-
-            RenderHelper.disableStandardItemLighting();
-            GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            GlStateManager.enableBlend();
-
-            if (Minecraft.isAmbientOcclusionEnabled())
-                GlStateManager.shadeModel(GL11.GL_SMOOTH);
-            else
-                GlStateManager.shadeModel(GL11.GL_FLAT);
-
-
-            for (BlockPos p : te.getBlockList()) {
-                GlStateManager.pushMatrix();
-                GlStateManager.translate(
-                        (te.getPos().getX() - p.getX()) * -1.0F,
-                        (te.getPos().getY() - p.getY()) * -1.0F,
-                        (te.getPos().getZ() - p.getZ()) * -1.0F);
-                GlStateManager.rotate(rotAngle, 0.0F, 1.0F, 0.0F);
-                RenderUtils.drawStairsOutline();
-                GlStateManager.popMatrix();
-            }
-
-            RenderHelper.enableStandardItemLighting();
+            renderBlockListAsStairs(te.getBlockList(), te, relX, relY, relZ, rotAngle);
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();

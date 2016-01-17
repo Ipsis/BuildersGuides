@@ -1,13 +1,6 @@
 package ipsis.buildersguides.client.renderer.marker;
 
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import ipsis.buildersguides.util.RenderUtils;
-import ipsis.oss.LogHelper;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 
 public class RendererMarkerAxis extends RendererMarker {
 
@@ -17,26 +10,6 @@ public class RendererMarkerAxis extends RendererMarker {
         if (te.getBlockList() == null || te.getBlockList().isEmpty())
             return;
 
-        GlStateManager.pushAttrib();
-        GlStateManager.pushMatrix();
-        {
-            // translate to center or te
-            GlStateManager.translate(relX + 0.5F , relY + 0.5F, relZ + 0.5F);
-            GlStateManager.disableLighting();
-            GlStateManager.disableTexture2D();
-            GlStateManager.color(te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue(), RendererMarker.RENDER_ALPHA);
-
-            for (BlockPos p : te.getBlockList()) {
-                GlStateManager.pushMatrix();
-                GlStateManager.translate(
-                        (te.getPos().getX() - p.getX()) * -1.0F,
-                        (te.getPos().getY() - p.getY()) * -1.0F,
-                        (te.getPos().getZ() - p.getZ()) * -1.0F);
-                renderBlock();
-                GlStateManager.popMatrix();
-            }
-        }
-        GlStateManager.popMatrix();
-        GlStateManager.popAttrib();
+        renderBlockList(te.getBlockList(), te, relX, relY, relZ);
     }
 }

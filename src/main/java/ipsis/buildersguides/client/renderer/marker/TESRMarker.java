@@ -55,9 +55,7 @@ public class TESRMarker extends TileEntitySpecialRenderer {
         GlStateManager.pushMatrix();
         {
             RenderHelper.enableStandardItemLighting();
-            GlStateManager.enableLighting();
             GlStateManager.translate(relX + 0.5F, relY + 0.5F, relZ + 0.5F);
-
             GlStateManager.rotate(-Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(Minecraft.getMinecraft().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
             GlStateManager.scale(0.25F, 0.25F, 0.25F);
