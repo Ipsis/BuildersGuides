@@ -102,6 +102,8 @@ public class TileEntityMarker extends TileEntity {
         target = new BlockPos[6];
         blockList = new HashSet<BlockPos>();
         centerList = new HashSet<BlockPos>();
+
+        MarkerManager.initServerMarker(this);
     }
 
     /**

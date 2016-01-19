@@ -50,6 +50,15 @@ public class MarkerManager {
         }
     }
 
+    public static void initServerMarker(TileEntityMarker te) {
+
+        for (Marker m : markerList) {
+            if (m.isMatch(te.getType()))
+                m.initServerMarker(te);
+        }
+
+    }
+
     public static boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
 
         for (Marker m : markerList) {
