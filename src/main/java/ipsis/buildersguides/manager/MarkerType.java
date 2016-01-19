@@ -2,21 +2,6 @@ package ipsis.buildersguides.manager;
 
 import net.minecraft.util.MathHelper;
 
-/**
- * Types
- *
- * AXIS - display three axes - can disable per side
- * CENTER - display odd/even centers
- * CHUNK - display the current chunk
- * GHOST - display of configurable single, plane and cuboids
- * GHOSTSTAIRS - as above but stairs
- * LASER - display in facing direction
- * RANGE - displays range information
- * SPACING - display blocks spaced at intervals
- * WORLD - display full world height
- *
- */
-
 public enum MarkerType {
 
     BLANK,
@@ -25,7 +10,7 @@ public enum MarkerType {
     CHUNK,
     GHOST,
     GHOSTSTAIRS,
-    LASER,
+    /* LASER, */
     RANGE,
     SPACING,
     WORLD;
