@@ -55,6 +55,16 @@ public class MarkerCenter extends Marker {
             findTarget(worldIn, te, f);
     }
 
+    @Override
+    public void initServerMarker(TileEntityMarker te) {
+
+        for (EnumFacing f : EnumFacing.values())
+            te.setV(f, 1);
+
+        findTargets(te.getWorld(), te);
+        te.getWorld().markBlockForUpdate(te.getPos());
+    }
+
     private void findTarget(World worldIn, TileEntityMarker te, EnumFacing side) {
 
         /* Set target to be the v'th block in the direction */
@@ -76,12 +86,22 @@ public class MarkerCenter extends Marker {
         te.clearBlocklist();
         te.clearCenterList();
 
-        for (EnumFacing f : EnumFacing.VALUES) {
-            if (te.hasTarget(f)) {
-                List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getPos(), te.getTarget(f), f);
-                for (BlockPos p : centerList)
-                    te.addToCenterList(p);
-            }
+        if (te.hasTarget(EnumFacing.DOWN) && te.hasTarget(EnumFacing.UP)) {
+            List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getTarget(EnumFacing.DOWN), te.getTarget(EnumFacing.UP), EnumFacing.UP);
+            for (BlockPos p : centerList)
+                te.addToCenterList(p);
+        }
+
+        if (te.hasTarget(EnumFacing.EAST) && te.hasTarget(EnumFacing.WEST)) {
+            List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getTarget(EnumFacing.EAST), te.getTarget(EnumFacing.WEST), EnumFacing.WEST);
+            for (BlockPos p : centerList)
+                te.addToCenterList(p);
+        }
+
+        if (te.hasTarget(EnumFacing.SOUTH) && te.hasTarget(EnumFacing.NORTH)) {
+            List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getTarget(EnumFacing.SOUTH), te.getTarget(EnumFacing.NORTH), EnumFacing.NORTH);
+            for (BlockPos p : centerList)
+                te.addToCenterList(p);
         }
     }
 }
