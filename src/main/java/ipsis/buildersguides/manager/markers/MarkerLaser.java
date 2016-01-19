@@ -17,7 +17,8 @@ public class MarkerLaser extends Marker {
 
     @Override
     public boolean isMatch(MarkerType t) {
-        return t == MarkerType.LASER;
+        return false;
+        /* return t == MarkerType.LASER; */
     }
 
     @Override

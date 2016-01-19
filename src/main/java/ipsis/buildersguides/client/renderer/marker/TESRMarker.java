@@ -23,7 +23,7 @@ public class TESRMarker extends TileEntitySpecialRenderer {
             put(MarkerType.CHUNK, new RendererMarkerChunk());
             put(MarkerType.GHOST, new RendererMarkerGhost());
             put(MarkerType.GHOSTSTAIRS, new RendererMarkerGhostStairs());
-            put(MarkerType.LASER, new RendererMarkerLaser());
+            /* put(MarkerType.LASER, new RendererMarkerLaser()); */
             put(MarkerType.RANGE, new RendererMarkerRange());
             put(MarkerType.SPACING, new RendererMarkerSpacing());
             put(MarkerType.WORLD, new RendererMarkerWorld());
@@ -51,6 +51,7 @@ public class TESRMarker extends TileEntitySpecialRenderer {
         EntityItem entityItem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemStack);
         entityItem.getEntityItem().stackSize = 1;
 
+        /** TODO Orient the card to the front */
         GlStateManager.pushAttrib();
         GlStateManager.pushMatrix();
         {
