@@ -5,6 +5,7 @@ import ipsis.buildersguides.util.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -26,6 +27,42 @@ public abstract class RendererMarker {
 
         RenderUtils.drawBlockShaded(0.2F);
         //RenderUtils.drawBlockOutline(0.4F);
+    }
+
+    protected void renderTargets(TileEntityMarker te, double relX, double relY, double relZ) {
+
+        renderTargets(te, relX, relY, relZ, te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue());
+    }
+
+    protected void renderTargets(TileEntityMarker te, double relX, double relY, double relZ, float red, float green, float blue) {
+
+        GlStateManager.pushAttrib();
+        GlStateManager.pushMatrix();
+        {
+            // translate to center of te
+            GlStateManager.translate(relX + 0.5F, relY + 0.5F, relZ + 0.5F);
+            GlStateManager.disableLighting();
+            GlStateManager.disableTexture2D();
+            GlStateManager.color(red, green, blue);
+
+            // render target points
+            for (EnumFacing f : EnumFacing.VALUES) {
+                if (te.hasTarget(f)) {
+                    GlStateManager.pushMatrix();
+                    GlStateManager.translate(
+                            (te.getPos().getX() - te.getTarget(f).getX()) * -1.0F,
+                            (te.getPos().getY() - te.getTarget(f).getY()) * -1.0F,
+                            (te.getPos().getZ() - te.getTarget(f).getZ()) * -1.0F);
+                    RenderUtils.drawBlockOutline(0.5F);
+                    GlStateManager.popMatrix();
+                }
+            }
+
+            GlStateManager.enableTexture2D();
+            GlStateManager.enableLighting();
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.popAttrib();
     }
 
     protected void renderBlockList(Set<BlockPos> blockPosList, TileEntityMarker te, double relX, double relY, double relZ) {
