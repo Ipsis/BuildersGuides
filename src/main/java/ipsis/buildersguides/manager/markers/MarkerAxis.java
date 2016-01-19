@@ -27,8 +27,14 @@ public class MarkerAxis extends Marker {
 
     @Override
     public void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
-        /* NOOP */
+
         LogHelper.info("handleHammer: AXIS");
+        if (entityPlayer.isSneaking()) {
+            te.setV(side, 0);
+        } else {
+            te.setV(side, 1);
+        }
+        worldIn.markBlockForUpdate(te.getPos());
     }
 
     @Override
@@ -39,9 +45,17 @@ public class MarkerAxis extends Marker {
 
     @Override
     public boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
-        return true;
+        return te.hasValidV(f);
     }
 
+    @Override
+    public void initServerMarker(TileEntityMarker te) {
+
+        for (EnumFacing f : EnumFacing.values())
+            te.setV(f, 1);
+
+        te.getWorld().markBlockForUpdate(te.getPos());
+    }
 
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
@@ -50,8 +64,10 @@ public class MarkerAxis extends Marker {
         te.clearCenterList();
 
         for (EnumFacing f : EnumFacing.VALUES) {
-            for (int i = 1; i <= MAX_AXIS_DISTANCE; i ++) {
-                te.addToBlockList(new BlockPos(te.getPos().add(f.getFrontOffsetX() * i, f.getFrontOffsetY() * i, f.getFrontOffsetZ() * i)));
+            if (te.isFaceEnabled(f)) {
+                for (int i = 1; i <= MAX_AXIS_DISTANCE; i++) {
+                    te.addToBlockList(new BlockPos(te.getPos().add(f.getFrontOffsetX() * i, f.getFrontOffsetY() * i, f.getFrontOffsetZ() * i)));
+                }
             }
         }
     }
