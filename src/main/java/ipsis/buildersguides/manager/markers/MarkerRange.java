@@ -9,6 +9,14 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Range Marker
+ *
+ * Finds the nearest target block in the direction and displays the distance
+ * and the center points.
+ * Defaults to no face enabled and user must enable each one desired
+ *
+ */
 public class MarkerRange extends Marker {
     @Override
     public boolean isMatch(MarkerType t) {

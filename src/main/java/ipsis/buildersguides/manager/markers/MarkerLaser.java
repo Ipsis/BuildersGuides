@@ -8,6 +8,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Laser Marker
+ *
+ * No longer needed as the Axis one with disabled faces replaces it
+ */
 public class MarkerLaser extends Marker {
 
     @Override

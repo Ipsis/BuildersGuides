@@ -8,6 +8,12 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Ghost Stairs Marker
+ *
+ * Displays a set of stairs that depend on the direction that the block is facing.
+ * The stairs can be extended up, down and to the sides
+ */
 public class MarkerGhostStairs extends Marker {
 
     @Override

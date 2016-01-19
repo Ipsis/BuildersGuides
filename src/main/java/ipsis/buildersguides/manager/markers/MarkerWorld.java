@@ -7,6 +7,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * World Marker
+ *
+ * Highlights blocks from bedrock to world height
+ */
 public class MarkerWorld extends Marker {
 
     @Override

@@ -8,6 +8,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Spacing Marker
+ *
+ * Highlights blocks in each direction at spaced intervals
+ */
 public class MarkerSpacing extends Marker {
     @Override
     public boolean isMatch(MarkerType t) {

@@ -11,6 +11,14 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+/**
+ * Center Marker
+ *
+ * Identifies the nearest target block in each direction
+ * The more directions with target blocks the more center points
+ * can be calculated.
+ * Defaults to finding the nearest in all directions
+ */
 public class MarkerCenter extends Marker {
     @Override
     public boolean isMatch(MarkerType t) {

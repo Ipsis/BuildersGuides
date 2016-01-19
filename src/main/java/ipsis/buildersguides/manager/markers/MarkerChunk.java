@@ -9,6 +9,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
+/**
+ * Chunk Marker
+ *
+ * Displays the current chunk boundary and displays the center blocks in the xz plane
+ */
 public class MarkerChunk extends Marker {
     @Override
     public boolean isMatch(MarkerType t) {

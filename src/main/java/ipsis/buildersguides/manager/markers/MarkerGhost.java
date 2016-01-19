@@ -13,6 +13,11 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+/**
+ * Ghost Marker
+ *
+ * Displays a single, plane or box and the center blocks depending on mode
+ */
 public class MarkerGhost extends Marker {
 
     @Override

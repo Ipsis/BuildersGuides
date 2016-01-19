@@ -8,7 +8,17 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+
+/**
+ * Axis Marker
+ *
+ * Displays the three dimensional axes
+ * Can disable each face
+ * Default to all faces active
+ */
 public class MarkerAxis extends Marker {
+
+    private final static int MAX_AXIS_DISTANCE = 64;
 
     @Override
     public boolean isMatch(MarkerType t) {
@@ -40,7 +50,7 @@ public class MarkerAxis extends Marker {
         te.clearCenterList();
 
         for (EnumFacing f : EnumFacing.VALUES) {
-            for (int i = 1; i <= 64; i ++) {
+            for (int i = 1; i <= MAX_AXIS_DISTANCE; i ++) {
                 te.addToBlockList(new BlockPos(te.getPos().add(f.getFrontOffsetX() * i, f.getFrontOffsetY() * i, f.getFrontOffsetZ() * i)));
             }
         }
