@@ -33,6 +33,9 @@ public class RendererMarkerCenter extends RendererMarker {
                     GlStateManager.popMatrix();
                 }
             }
+
+            GlStateManager.enableTexture2D();
+            GlStateManager.enableLighting();
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();

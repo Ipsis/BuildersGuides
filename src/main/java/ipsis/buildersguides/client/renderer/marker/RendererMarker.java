@@ -61,6 +61,10 @@ public abstract class RendererMarker {
                 RenderUtils.drawBlockShaded(0.2F);
                 GlStateManager.popMatrix();
             }
+
+            GlStateManager.disableBlend();
+            GlStateManager.enableTexture2D();
+            GlStateManager.enableLighting();
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
@@ -100,6 +104,10 @@ public abstract class RendererMarker {
                 RenderUtils.drawStairsShaded();
                 GlStateManager.popMatrix();
             }
+
+            GlStateManager.disableBlend();
+            GlStateManager.enableTexture2D();
+            GlStateManager.enableLighting();
         }
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
