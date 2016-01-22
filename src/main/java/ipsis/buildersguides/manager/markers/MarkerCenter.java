@@ -79,6 +79,13 @@ public class MarkerCenter extends Marker {
 
     }
 
+    private void calcCenterList(TileEntityMarker te, BlockPos p1, BlockPos p2, EnumFacing f) {
+
+        List<BlockPos> centerList = BlockUtils.getCenterBlockList(p1, p2, f);
+        for (BlockPos p : centerList)
+            te.addToCenterList(p);
+    }
+
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
@@ -86,22 +93,17 @@ public class MarkerCenter extends Marker {
         te.clearBlocklist();
         te.clearCenterList();
 
-        if (te.hasTarget(EnumFacing.DOWN) && te.hasTarget(EnumFacing.UP)) {
-            List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getTarget(EnumFacing.DOWN), te.getTarget(EnumFacing.UP), EnumFacing.UP);
-            for (BlockPos p : centerList)
-                te.addToCenterList(p);
-        }
+        EnumFacing[] facings = new EnumFacing[] { EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.UP };
 
-        if (te.hasTarget(EnumFacing.EAST) && te.hasTarget(EnumFacing.WEST)) {
-            List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getTarget(EnumFacing.EAST), te.getTarget(EnumFacing.WEST), EnumFacing.WEST);
-            for (BlockPos p : centerList)
-                te.addToCenterList(p);
-        }
+        for (EnumFacing f : facings) {
+            EnumFacing o = f.getOpposite();
 
-        if (te.hasTarget(EnumFacing.SOUTH) && te.hasTarget(EnumFacing.NORTH)) {
-            List<BlockPos> centerList = BlockUtils.getCenterBlockList(te.getTarget(EnumFacing.SOUTH), te.getTarget(EnumFacing.NORTH), EnumFacing.NORTH);
-            for (BlockPos p : centerList)
-                te.addToCenterList(p);
+            if (te.hasTarget(f) && te.hasTarget(o))
+                calcCenterList(te, te.getTarget(f), te.getTarget(o), o);
+            else if (te.hasTarget(f))
+                calcCenterList(te, te.getTarget(f), te.getPos(), o);
+            else if (te.hasTarget(o))
+                calcCenterList(te, te.getPos(), te.getTarget(o), o);
         }
     }
 }
