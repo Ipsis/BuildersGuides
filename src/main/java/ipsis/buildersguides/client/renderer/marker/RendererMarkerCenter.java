@@ -12,6 +12,7 @@ public class RendererMarkerCenter extends RendererMarker {
     @Override
     public void doRenderMarkerType(TESRMarker tesrMarker, TileEntityMarker te, double relX, double relY, double relZ, float partialTicks) {
 
+        renderLineToTargets(te, relX, relY, relZ);
         renderTargets(te, relX, relY, relZ);
 
         ColorBG color = te.getColor().getNext();

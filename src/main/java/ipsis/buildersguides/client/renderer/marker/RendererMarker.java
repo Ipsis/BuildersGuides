@@ -29,6 +29,35 @@ public abstract class RendererMarker {
         //RenderUtils.drawBlockOutline(0.4F);
     }
 
+    protected void renderLineToTargets(TileEntityMarker te, double relX, double relY, double relZ) {
+
+        renderLineToTargets(te, relX, relY, relZ, te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue());
+    }
+
+    protected void renderLineToTargets(TileEntityMarker te, double relX, double relY, double relZ, float red, float green, float blue) {
+
+        GlStateManager.pushAttrib();
+        GlStateManager.pushMatrix();
+        {
+            GlStateManager.translate(relX + 0.5F, relY + 0.5F, relZ + 0.5F);
+            GlStateManager.disableLighting();
+            GlStateManager.disableTexture2D();
+            GlStateManager.color(red, green, blue);
+            for (EnumFacing f : EnumFacing.values()) {
+                if (te.hasTarget(f)) {
+                    RenderUtils.drawLine(0.0F, 0.0F, 0.0F,
+                            (te.getPos().getX() - te.getTarget(f).getX()) * -1.0F,
+                            (te.getPos().getY() - te.getTarget(f).getY()) * -1.0F,
+                            (te.getPos().getZ() - te.getTarget(f).getZ()) * -1.0F);
+                }
+            }
+            GlStateManager.enableTexture2D();
+            GlStateManager.enableLighting();
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.popAttrib();
+    }
+
     protected void renderTargets(TileEntityMarker te, double relX, double relY, double relZ) {
 
         renderTargets(te, relX, relY, relZ, te.getColor().getRed(), te.getColor().getGreen(), te.getColor().getBlue());
