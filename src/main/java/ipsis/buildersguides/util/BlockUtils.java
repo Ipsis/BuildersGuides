@@ -1,6 +1,5 @@
 package ipsis.buildersguides.util;
 
-import ipsis.oss.LogHelper;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -28,7 +27,6 @@ public class BlockUtils {
                 count ++;
                 if (count == step) {
                     found = new BlockPos(c);
-                    LogHelper.info("getNthBlock: " + found);
                     break;
                 }
             }
@@ -110,7 +108,6 @@ public class BlockUtils {
             centerList.add(p1.offset(facing, (count / 2) + 1));
         }
 
-        LogHelper.info("getCenterBlockList: " + count + " " + centerList);
         return centerList;
     }
 

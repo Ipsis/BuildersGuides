@@ -2,7 +2,6 @@ package ipsis.buildersguides.manager.markers;
 
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import ipsis.oss.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -28,8 +27,6 @@ public class MarkerLaser extends Marker {
 
     @Override
     public void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
-
-        LogHelper.info("handleHammer: LASER");
 
         if (entityPlayer.isSneaking()) {
             te.setV(side, 0);

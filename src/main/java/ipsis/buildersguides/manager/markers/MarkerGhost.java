@@ -5,7 +5,6 @@ import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.StringHelper;
-import ipsis.oss.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
@@ -35,8 +34,6 @@ public class MarkerGhost extends Marker {
     @Override
     public void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
-        LogHelper.info("handleHammer: GHOST");
-
         if (entityPlayer.isSneaking()) {
             te.setV(side, te.getV(side) - 1);
             if (te.getV(side) < 0)
@@ -49,8 +46,6 @@ public class MarkerGhost extends Marker {
 
     @Override
     public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
-
-        LogHelper.info("handleConfig: GHOST");
 
         if (entityPlayer.isSneaking()) {
 

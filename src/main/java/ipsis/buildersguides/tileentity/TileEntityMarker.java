@@ -5,7 +5,6 @@ import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.network.PacketHandlerBG;
 import ipsis.buildersguides.network.message.MessageTileEntityMarker;
 import ipsis.buildersguides.util.ColorBG;
-import ipsis.oss.LogHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;

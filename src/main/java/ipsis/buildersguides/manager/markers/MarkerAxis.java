@@ -2,7 +2,6 @@ package ipsis.buildersguides.manager.markers;
 
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import ipsis.oss.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -28,7 +27,6 @@ public class MarkerAxis extends Marker {
     @Override
     public void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
-        LogHelper.info("handleHammer: AXIS");
         if (entityPlayer.isSneaking()) {
             te.setV(side, 0);
         } else {
@@ -40,7 +38,6 @@ public class MarkerAxis extends Marker {
     @Override
     public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
         /* NOOP */
-        LogHelper.info("handleConfig: AXIS");
     }
 
     @Override

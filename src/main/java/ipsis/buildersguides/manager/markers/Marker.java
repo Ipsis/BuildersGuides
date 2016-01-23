@@ -4,7 +4,6 @@ import ipsis.buildersguides.item.ItemMarkerCard;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ItemStackHelper;
-import ipsis.oss.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -25,8 +24,6 @@ public abstract class Marker {
 
     public void handleDecorate(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
-        LogHelper.info("handleDecorate:");
-
         if (entityPlayer.isSneaking()) {
         } else {
             te.setColor(te.getColor().getNext());
@@ -35,8 +32,6 @@ public abstract class Marker {
     }
 
     public void handleWrench(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
-
-        LogHelper.info("handleWrench:");
 
         if (entityPlayer.isSneaking()) {
             MarkerType t = te.getType();
