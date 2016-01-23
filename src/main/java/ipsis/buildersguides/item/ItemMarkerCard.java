@@ -103,6 +103,12 @@ public class ItemMarkerCard extends ItemBG {
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 
         MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
-        tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString()));
+
+        if (t == MarkerType.CENTER || t == MarkerType.GHOSTSTAIRS || t == MarkerType.RANGE) {
+            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString() + ".1"));
+            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString() + ".2"));
+        } else {
+            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString()));
+        }
     }
 }
