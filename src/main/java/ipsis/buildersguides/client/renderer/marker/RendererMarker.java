@@ -10,7 +10,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import org.lwjgl.opengl.GL11;
 
-import java.util.List;
 import java.util.Set;
 
 public abstract class RendererMarker {

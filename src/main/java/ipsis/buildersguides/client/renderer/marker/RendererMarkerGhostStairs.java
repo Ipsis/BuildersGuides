@@ -1,13 +1,8 @@
 package ipsis.buildersguides.client.renderer.marker;
 
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import ipsis.buildersguides.util.RenderUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import org.lwjgl.opengl.GL11;
 
 public class RendererMarkerGhostStairs extends RendererMarker {
     @Override

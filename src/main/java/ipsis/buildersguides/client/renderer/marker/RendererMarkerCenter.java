@@ -2,10 +2,6 @@ package ipsis.buildersguides.client.renderer.marker;
 
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ColorBG;
-import ipsis.buildersguides.util.RenderUtils;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 
 public class RendererMarkerCenter extends RendererMarker {
 

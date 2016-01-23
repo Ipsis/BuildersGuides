@@ -1,16 +1,6 @@
 package ipsis.buildersguides.client.renderer.marker;
 
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import ipsis.buildersguides.util.BlockUtils;
-import ipsis.buildersguides.util.ColorBG;
-import ipsis.buildersguides.util.RenderUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.EnumFacing;
-import org.lwjgl.opengl.GL11;
-import scala.Int;
 
 public class RendererMarkerRange extends RendererMarker {
 

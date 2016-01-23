@@ -2,11 +2,6 @@ package ipsis.buildersguides.client.renderer.marker;
 
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.ColorBG;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.util.BlockPos;
-import org.lwjgl.opengl.GL11;
 
 public class RendererMarkerGhost extends RendererMarker {
     @Override
