@@ -264,7 +264,7 @@ public class TileEntityMarker extends TileEntity {
     public void setFaceData(EnumFacing f, int i) { clientData.faceData[f.ordinal()] = i; }
 
     public void clearClientData() {
-        clientData.reset();;
+        clientData.reset();
     }
 
     public Set<BlockPos> getBlockList() { return clientData.blockList; }
