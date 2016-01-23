@@ -2,8 +2,10 @@ package ipsis.buildersguides.item;
 
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.init.ModItems;
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
+import ipsis.buildersguides.util.StringHelper;
 import ipsis.buildersguides.util.WorldHelper;
 import ipsis.oss.client.ModelHelper;
 import net.minecraft.client.resources.model.ModelBakery;
@@ -95,5 +97,12 @@ public class ItemMarkerCard extends ItemBG {
         }
 
         return true;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+
+        MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
+        tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString()));
     }
 }

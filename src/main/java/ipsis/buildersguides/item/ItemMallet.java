@@ -1,8 +1,10 @@
 package ipsis.buildersguides.item;
 
 import ipsis.buildersguides.client.keys.KeyBindingsBG;
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.util.IKeyBound;
+import ipsis.buildersguides.util.StringHelper;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -89,7 +91,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
 
     public static String getModeTranslation(ItemStack itemStack) {
 
-        return StatCollector.translateToLocal("tooltip." + Reference.MOD_ID + ":" + BASENAME + "." + getMode(itemStack));
+        return StringHelper.localize(Names.NAME, BASENAME + "." + getMode(itemStack).toString());
     }
 
     @Override
@@ -97,6 +99,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 
         tooltip.add(getModeTranslation(stack));
+        tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + getMode(stack).toString()));
     }
 
     /* IKeyBound */
