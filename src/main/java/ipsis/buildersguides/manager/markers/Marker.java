@@ -17,6 +17,7 @@ public abstract class Marker {
     public void handleServerUpdate(TileEntityMarker te) { te.clearClientData(); }
     public void findTargets(World worldIn, TileEntityMarker te) { }
     public void initServerMarker(TileEntityMarker te) { }
+    public String getMode(TileEntityMarker te) { return ""; }
 
     public boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
         return false;

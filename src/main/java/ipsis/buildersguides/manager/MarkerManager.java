@@ -68,4 +68,14 @@ public class MarkerManager {
 
         return false;
     }
+
+    public static String getMode(TileEntityMarker te) {
+
+        for (Marker m : markerList) {
+            if (m.isMatch(te.getType()))
+                return m.getMode(te);
+        }
+
+        return "";
+    }
 }

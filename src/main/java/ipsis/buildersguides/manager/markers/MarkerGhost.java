@@ -59,7 +59,13 @@ public class MarkerGhost extends Marker {
             te.setMode(m.ordinal());
             // TODO fix the ghost mode display names
             entityPlayer.addChatComponentMessage(new ChatComponentText(m.name()));
+            worldIn.markBlockForUpdate(te.getPos());
         }
+    }
+
+    @Override
+    public String getMode(TileEntityMarker te) {
+        return GhostMode.getMode(te.getMode()).toString();
     }
 
     @Override
