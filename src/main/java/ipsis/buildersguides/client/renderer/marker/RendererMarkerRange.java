@@ -2,6 +2,7 @@ package ipsis.buildersguides.client.renderer.marker;
 
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
+import ipsis.buildersguides.util.ColorBG;
 import ipsis.buildersguides.util.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -40,30 +41,17 @@ public class RendererMarkerRange extends RendererMarker {
                         String s = Integer.toString(diff);
                         GlStateManager.pushMatrix();
                         {
-                            /* Position of text depends on the line direction */
-                            switch (f) {
-                                case UP:
-                                    GlStateManager.translate(0.0F, 1.0F, 0.0F);
-                                    break;
-                                case DOWN:
-                                    GlStateManager.translate(0.0F, -1.0F, 0.0F);
-                                    break;
-                                case EAST:
-                                case WEST:
-                                    GlStateManager.translate(f.getFrontOffsetX(), 0.5F, 0.0F);
-                                    break;
-                                case NORTH:
-                                case SOUTH:
-                                    GlStateManager.translate(0.0F, 0.5F, f.getFrontOffsetZ());
-                                    break;
-                            }
+                            GlStateManager.translate(f.getFrontOffsetX() * 0.5F, f.getFrontOffsetY() * 0.5F, f.getFrontOffsetZ() * 0.5F);
+
+                            /* Move the text into the space above the block */
+                            GlStateManager.translate(0.0F, 1.0F, 0.0F);
 
                             GlStateManager.rotate(-Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
                             GlStateManager.rotate(Minecraft.getMinecraft().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
 
                             float f1 = 0.016666668F * 1.6F;
                             GlStateManager.scale(-f1, -f1, f1);
-                            fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 16777215);
+                            fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, ColorBG.BLACK.getV());
 
                         }
                         GlStateManager.popMatrix();
