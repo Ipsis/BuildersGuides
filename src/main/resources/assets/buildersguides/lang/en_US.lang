@@ -27,6 +27,15 @@ tooltip.BuildersGuides:markerCard.RANGE.2=blocks to the target blocks in each di
 tooltip.BuildersGuides:markerCard.SPACING=Displays n'th block in each direction
 tooltip.BuildersGuides:markerCard.WORLD=Displays the blocks from bedrock to world height
 
+name.BuildersGuides:marker.AXIS=Axis Marker
+name.BuildersGuides:marker.CENTER=Center Marker
+name.BuildersGuides:marker.CHUNK=Chunk Marker
+name.BuildersGuides:marker.GHOST=Ghost Marker
+name.BuildersGuides:marker.GHOSTSTAIRS=Ghost Stair Marker
+name.BuildersGuides:marker.RANGE=Range Marker
+name.BuildersGuides:marker.SPACING=Spacing Marker
+name.BuildersGuides:marker.WORLD=World Marker
+
 name.BuildersGuides:mallet.BCWRENCH=Wrench
 name.BuildersGuides:mallet.HAMMER=Hammer
 name.BuildersGuides:mallet.CONFIG=Config
@@ -41,7 +50,12 @@ tooltip.BuildersGuides:mallet.HAMMER.srclick=Pull target in or disable face
 name.BuildersGuides:rclick=Right
 name.BuildersGuides:srclick=Shift Right
 name.BuildersGuides:mode=Mode
+name.BuildersGuides:type=Type
 name.BuildersGuides:pressShift=Press shift for more information
+name.BuildersGuides:ghostmode.SINGLE=Column/Row
+name.BuildersGuides:ghostmode.FLOOR=Floor
+name.BuildersGuides:ghostmode.WALL=Wall
+name.BuildersGuides:ghostmode.CUBOID=Cuboid
 
 itemGroup.BuildersGuides=Builder's Guides
 

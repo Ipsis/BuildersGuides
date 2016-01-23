@@ -1,5 +1,8 @@
 package ipsis.buildersguides.manager;
 
+import ipsis.buildersguides.block.BlockMarker;
+import ipsis.buildersguides.reference.Names;
+import ipsis.buildersguides.util.StringHelper;
 import net.minecraft.util.MathHelper;
 
 public enum MarkerType {
@@ -32,5 +35,9 @@ public enum MarkerType {
             next = 0;
 
         return values()[next];
+    }
+
+    public String getTranslatedType() {
+        return StringHelper.localize(Names.NAME, BlockMarker.BASENAME + "." + this.toString());
     }
 }

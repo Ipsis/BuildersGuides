@@ -1,8 +1,10 @@
 package ipsis.buildersguides.manager.markers;
 
 import ipsis.buildersguides.manager.MarkerType;
+import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
+import ipsis.buildersguides.util.StringHelper;
 import ipsis.oss.LogHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
@@ -57,15 +59,15 @@ public class MarkerGhost extends Marker {
             GhostMode m = GhostMode.getMode(te.getMode());
             m = m.getNext();
             te.setMode(m.ordinal());
-            // TODO fix the ghost mode display names
-            entityPlayer.addChatComponentMessage(new ChatComponentText(m.name()));
+            entityPlayer.addChatComponentMessage(new ChatComponentText(m.getTranslatedMode()));
             worldIn.markBlockForUpdate(te.getPos());
         }
     }
 
     @Override
     public String getMode(TileEntityMarker te) {
-        return GhostMode.getMode(te.getMode()).toString();
+
+        return GhostMode.getMode(te.getMode()).getTranslatedMode();
     }
 
     @Override
@@ -184,6 +186,10 @@ public class MarkerGhost extends Marker {
         public GhostMode getNext() {
             int next = (this.ordinal() + 1) % values().length;
             return values()[next];
+        }
+
+        public String getTranslatedMode() {
+            return StringHelper.localize(Names.NAME, "ghostmode." + this.toString());
         }
     }
 }
