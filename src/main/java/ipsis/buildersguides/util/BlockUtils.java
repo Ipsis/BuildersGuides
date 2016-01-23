@@ -39,8 +39,8 @@ public class BlockUtils {
         public List<BlockPos> centerList;
 
         public PlaneInfo() {
-            blockList = new ArrayList<>();
-            centerList = new ArrayList<>();
+            blockList = new ArrayList<BlockPos>();
+            centerList = new ArrayList<BlockPos>();
         }
     }
 
@@ -94,7 +94,7 @@ public class BlockUtils {
 
     public static List<BlockPos> getCenterBlockList(BlockPos p1, BlockPos p2, EnumFacing facing) {
 
-        List<BlockPos> centerList = new ArrayList<>();
+        List<BlockPos> centerList = new ArrayList<BlockPos>();
         int count = numBlocksBetween(p1, p2);
         if (count == 0) {
             /* no center */

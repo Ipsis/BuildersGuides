@@ -157,7 +157,7 @@ public class ISBMMarker implements ISmartBlockModel {
 
         @Override
         public List<BakedQuad> getGeneralQuads() {
-            List<BakedQuad> quads = new ArrayList<>();
+            List<BakedQuad> quads = new ArrayList<BakedQuad>();
             double o = .4;
 
             // TODO
