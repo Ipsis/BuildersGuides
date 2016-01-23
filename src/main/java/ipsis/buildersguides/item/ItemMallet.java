@@ -11,14 +11,12 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
 
 import java.util.List;
 
@@ -91,7 +89,8 @@ public class ItemMallet extends ItemBG implements IKeyBound {
 
     public static String getModeTranslation(ItemStack itemStack) {
 
-        return StringHelper.localize(Names.NAME, BASENAME + "." + getMode(itemStack).toString());
+        return EnumChatFormatting.YELLOW + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.MODE),
+                StringHelper.localize(Names.NAME, BASENAME + "." + getMode(itemStack).toString()));
     }
 
     @Override
@@ -99,7 +98,27 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 
         tooltip.add(getModeTranslation(stack));
-        tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + getMode(stack).toString()));
+
+        MalletMode m = getMode(stack);
+        boolean right = false;
+        boolean sright = false;
+        if (m == MalletMode.BCWRENCH) {
+            right = true;
+            sright = true;
+        } else if (m == MalletMode.CONFIG) {
+            right = true;
+        } else if (m == MalletMode.DECORATE) {
+            right = true;
+        } else if (m == MalletMode.HAMMER) {
+            right = true;
+            sright = true;
+        }
+
+        if (right)
+            tooltip.add(EnumChatFormatting.RED + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.RCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.RCLICK)));
+        if (sright)
+            tooltip.add(EnumChatFormatting.GREEN + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.SRCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.SRCLICK)));
+
     }
 
     /* IKeyBound */

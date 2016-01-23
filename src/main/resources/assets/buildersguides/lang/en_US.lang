@@ -11,35 +11,37 @@ item.BuildersGuides:markerCard.RANGE.name=Range Marker Card
 item.BuildersGuides:markerCard.SPACING.name=Spacing Marker Card
 item.BuildersGuides:markerCard.WORLD.name=World Marker Card
 
-tooltip.BuildersGuides.marker=Right click with card to set type
+tooltip.BuildersGuides.marker=Displays guide lines and blocks
 
 tooltip.BuildersGuides:markerCard.AXIS=Displays the world axes in all directions
-tooltip.BuildersGuides:markerCard.BLANK=Shift click on to cycle card type
-tooltip.BuildersGuides:markerCard.CENTER=Displays the distance and center blocks between the target blocks in each direction
+tooltip.BuildersGuides:markerCard.BLANK=Shift click on ground to cycle card type
+tooltip.BuildersGuides:markerCard.CENTER.1=Displays the distance and center blocks
+tooltip.BuildersGuides:markerCard.CENTER.2=between the targets in each axis
+tooltip.BuildersGuides:markerCard.CENTER=Displays the distance and center blocks/between the targets in each axis
 tooltip.BuildersGuides:markerCard.CHUNK=Displays the current chunk
 tooltip.BuildersGuides:markerCard.GHOST=Displays various shapes depending on mode
-tooltip.BuildersGuides:markerCard.GHOSTSTAIRS=Displays stairs in the direction the marker is facing
-tooltip.BuildersGuides:markerCard.RANGE=Displays the distance and center blocks to the target block in each direction
+tooltip.BuildersGuides:markerCard.GHOSTSTAIRS.1=Displays stairs in the direction
+tooltip.BuildersGuides:markerCard.GHOSTSTAIRS.2=the marker is facing
+tooltip.BuildersGuides:markerCard.RANGE.1=Displays the distance and center
+tooltip.BuildersGuides:markerCard.RANGE.2=blocks to the target blocks in each direction
 tooltip.BuildersGuides:markerCard.SPACING=Displays n'th block in each direction
 tooltip.BuildersGuides:markerCard.WORLD=Displays the blocks from bedrock to world height
 
-info.BuildersGuides:markerCard.AXIS.0=Right click with mallet in hammer mode to enable in direction facing
-info.BuildersGuides:markerCard.AXIS.1=Shift right click with mallet in hammer mode to disable in direction facing
-info.BuildersGuides:markerCard.CENTER.0=Use mallet in hammer mode to push pull the target blocks
-info.BuildersGuides:markerCard.GHOST.0=Use mallet in config mode to set the mode
-info.BuildersGuides:markerCard.GHOST.1=Use mallet in hammer mode to push/pull in each direction
-info.BuildersGuides:markerCard.GHOSTSTAIRS.0=Use mallet in hammer to push/pull the stairs up,down,left,right
-info.BuildersGuides:markerCard.RANGE.0=Use mallet in hammer mode to push pull the target blocks
-info.BuildersGuides:markerCard.SPACING.0=Use mallet in hammer mode to increase and decrease the spacing
+name.BuildersGuides:mallet.BCWRENCH=Wrench
+name.BuildersGuides:mallet.HAMMER=Hammer
+name.BuildersGuides:mallet.CONFIG=Config
+name.BuildersGuides:mallet.DECORATE=Decorate
+tooltip.BuildersGuides:mallet.BCWRENCH.rclick=Rotate marker
+tooltip.BuildersGuides:mallet.BCWRENCH.srclick=Remove current marker card
+tooltip.BuildersGuides:mallet.DECORATE.rclick=Change marker color
+tooltip.BuildersGuides:mallet.CONFIG.rclick=Change marker mode
+tooltip.BuildersGuides:mallet.HAMMER.rclick=Push target out or enable face
+tooltip.BuildersGuides:mallet.HAMMER.srclick=Pull target in or disable face
 
-name.BuildersGuides:mallet.BCWRENCH=Wrench Mode
-name.BuildersGuides:mallet.HAMMER=Hammer Mode
-name.BuildersGuides:mallet.CONFIG=Config Mode
-name.BuildersGuides:mallet.DECORATE=Decorate Mode
-tooltip.BuildersGuides:mallet.BCWRENCH=Rotate a marker or remove the current card
-tooltip.BuildersGuides:mallet.HAMMER=Right click to push the marker out, shift to pull the marker in
-tooltip.BuildersGuides:mallet.CONFIG=Right click to change the mode of the marker
-tooltip.BuildersGuides:mallet.DECORATE=Right click to change the color of the marker
+name.BuildersGuides:rclick=Right
+name.BuildersGuides:srclick=Shift Right
+name.BuildersGuides:mode=Mode
+name.BuildersGuides:pressShift=Press shift for more information
 
 itemGroup.BuildersGuides=Builder's Guides
 
