@@ -96,12 +96,16 @@ public class MarkerCenter extends Marker {
         for (EnumFacing f : facings) {
             EnumFacing o = f.getOpposite();
 
-            if (te.hasTarget(f) && te.hasTarget(o))
+            if (te.hasTarget(f) && te.hasTarget(o)) {
                 calcCenterList(te, te.getTarget(f), te.getTarget(o), o);
-            else if (te.hasTarget(f))
+                te.setFaceData(f, BlockUtils.numBlocksBetween(te.getTarget(f), te.getTarget(o)));
+            } else if (te.hasTarget(f)) {
                 calcCenterList(te, te.getTarget(f), te.getPos(), o);
-            else if (te.hasTarget(o))
+                te.setFaceData(f, BlockUtils.numBlocksBetween(te.getTarget(f), te.getPos()));
+            } else if (te.hasTarget(o)) {
                 calcCenterList(te, te.getPos(), te.getTarget(o), o);
+                te.setFaceData(f, BlockUtils.numBlocksBetween(te.getPos(), te.getTarget(o)));
+            }
         }
     }
 }

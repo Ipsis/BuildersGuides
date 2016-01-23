@@ -65,4 +65,15 @@ public class MarkerRange extends Marker {
     public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
     }
+
+    @Override
+    public void handleServerUpdate(TileEntityMarker te) {
+
+        te.clearClientData();
+
+        for (EnumFacing f : EnumFacing.values()) {
+            if (te.hasTarget(f))
+                te.setFaceData(f, BlockUtils.numBlocksBetween(te.getPos(), te.getTarget(f)));
+        }
+    }
 }

@@ -14,6 +14,7 @@ public class RendererMarkerCenter extends RendererMarker {
 
         renderLineToTargets(te, relX, relY, relZ);
         renderTargets(te, relX, relY, relZ);
+        renderRangeToTargets(tesrMarker, te, relX, relY, relZ);
 
         ColorBG color = te.getColor().getNext();
         renderBlockList(te.getCenterList(), te, relX, relY, relZ, color.getRed(), color.getGreen(), color.getBlue());

@@ -14,7 +14,7 @@ public abstract class Marker {
     public abstract boolean isMatch(MarkerType t);
     public abstract void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side);
     public abstract void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side);
-    public void handleServerUpdate(TileEntityMarker te) { }
+    public void handleServerUpdate(TileEntityMarker te) { te.clearClientData(); }
     public void findTargets(World worldIn, TileEntityMarker te) { }
     public void initServerMarker(TileEntityMarker te) { }
 

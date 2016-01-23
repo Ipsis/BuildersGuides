@@ -19,6 +19,8 @@ public class RendererMarkerRange extends RendererMarker {
 
         renderLineToTargets(te, relX, relY, relZ);
         renderTargets(te, relX, relY, relZ);
+        renderRangeToTargets(tesrMarker, te, relX, relY, relZ);
+        /*
         GlStateManager.pushAttrib();
         GlStateManager.pushMatrix();
         {
@@ -33,34 +35,32 @@ public class RendererMarkerRange extends RendererMarker {
 
             // render target points
             for (EnumFacing f : EnumFacing.VALUES) {
-                if (te.hasTarget(f)) {
+                if (te.hasTarget(f) && te.getFaceData(f) > 0) {
 
-                    int diff = BlockUtils.numBlocksBetween(te.getPos(), te.getTarget(f));
-                    if (diff > 0) {
+                    int diff = te.getFaceData(f);
+                    String s = Integer.toString(diff);
 
-                        String s = Integer.toString(diff);
-                        GlStateManager.pushMatrix();
-                        {
-                            GlStateManager.translate(f.getFrontOffsetX() * 0.5F, f.getFrontOffsetY() * 0.5F, f.getFrontOffsetZ() * 0.5F);
+                    GlStateManager.pushMatrix();
+                    {
+                        GlStateManager.translate(f.getFrontOffsetX() * 0.5F, f.getFrontOffsetY() * 0.5F, f.getFrontOffsetZ() * 0.5F);
 
-                            /* Move the text into the space above the block */
-                            GlStateManager.translate(0.0F, 1.0F, 0.0F);
+                        GlStateManager.translate(0.0F, 1.0F, 0.0F);
 
-                            GlStateManager.rotate(-Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
-                            GlStateManager.rotate(Minecraft.getMinecraft().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
+                        GlStateManager.rotate(-Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
+                        GlStateManager.rotate(Minecraft.getMinecraft().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
 
-                            float f1 = 0.016666668F * 1.6F;
-                            GlStateManager.scale(-f1, -f1, f1);
-                            fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, ColorBG.BLACK.getV());
+                        float f1 = 0.016666668F * 1.6F;
+                        GlStateManager.scale(-f1, -f1, f1);
+                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, ColorBG.BLACK.getV());
 
-                        }
-                        GlStateManager.popMatrix();
                     }
+                    GlStateManager.popMatrix();
                 }
             }
         }
 
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
+                    */
     }
 }
