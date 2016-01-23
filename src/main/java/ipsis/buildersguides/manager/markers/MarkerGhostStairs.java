@@ -52,8 +52,7 @@ public class MarkerGhostStairs extends Marker {
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
-        te.clearBlocklist();
-        te.clearCenterList();
+        te.clearClientData();
 
         EnumFacing upFacing = te.getFacing().getOpposite();
         EnumFacing downFacing = te.getFacing();

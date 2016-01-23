@@ -89,9 +89,7 @@ public class MarkerCenter extends Marker {
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
-        // calculate the center points and add them to the center list
-        te.clearBlocklist();
-        te.clearCenterList();
+        te.clearClientData();
 
         EnumFacing[] facings = new EnumFacing[] { EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.UP };
 

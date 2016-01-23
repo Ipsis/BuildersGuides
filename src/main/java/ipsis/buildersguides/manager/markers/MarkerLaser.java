@@ -47,8 +47,7 @@ public class MarkerLaser extends Marker {
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
-        te.clearBlocklist();
-        te.clearCenterList();
+        te.clearClientData();
 
         for (EnumFacing f : EnumFacing.VALUES) {
             if (te.isFaceEnabled(f)) {

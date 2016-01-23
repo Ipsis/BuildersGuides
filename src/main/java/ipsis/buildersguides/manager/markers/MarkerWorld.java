@@ -37,8 +37,7 @@ public class MarkerWorld extends Marker {
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
-        te.clearBlocklist();
-        te.clearCenterList();
+        te.clearClientData();
 
         for (int i = 0; i <= 256; i ++)
             te.addToBlockList(new BlockPos(te.getPos().getX(), i, te.getPos().getZ()));

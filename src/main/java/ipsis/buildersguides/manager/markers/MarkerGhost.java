@@ -65,8 +65,7 @@ public class MarkerGhost extends Marker {
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
-        te.clearBlocklist();
-        te.clearCenterList();
+        te.clearClientData();
 
         GhostMode ghostMode = GhostMode.getMode(te.getMode());
         if (ghostMode == GhostMode.SINGLE) {

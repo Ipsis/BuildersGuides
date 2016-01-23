@@ -50,7 +50,8 @@ public class MarkerSpacing extends Marker {
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
-        te.clearBlocklist();
+        te.clearClientData();
+
         for (EnumFacing f : EnumFacing.values()) {
             int v = te.getV(f);
             if (v != 0) {

@@ -86,6 +86,7 @@ public class TileEntityMarker extends TileEntity {
 
         facing = EnumFacing.SOUTH;
         color = ColorBG.WHITE;
+        clientData = new ClientData();
 
         resetToType(MarkerType.BLANK);
     }
@@ -100,8 +101,7 @@ public class TileEntityMarker extends TileEntity {
             v[i] = 0;
 
         target = new BlockPos[6];
-        blockList = new HashSet<BlockPos>();
-        centerList = new HashSet<BlockPos>();
+        clientData.reset();
 
         MarkerManager.initServerMarker(this);
     }
@@ -144,37 +144,6 @@ public class TileEntityMarker extends TileEntity {
     public double getMaxRenderDistanceSquared() {
 
         return (double)(256 * 256);
-    }
-
-    /**
-     * Client only data
-     */
-
-    private Set<BlockPos> blockList;
-    public void clearBlocklist() { blockList.clear(); }
-    public Set<BlockPos> getBlockList() { return blockList; }
-    public void addToBlockList(BlockPos p) {
-        if (!p.equals(getPos()))
-            blockList.add(p);
-    }
-    public void addToBlockList(Collection<BlockPos> c) {
-        blockList.addAll(c);
-    }
-
-    private Set<BlockPos> centerList;
-    public void clearCenterList() { centerList.clear(); }
-    public Set<BlockPos> getCenterList() { return centerList; }
-    public void addToCenterList(BlockPos p) {
-        if (!p.equals(getPos()))
-            centerList.add(p);
-    }
-    public void addToCenterList(Collection<BlockPos> c) {
-        centerList.addAll(c);
-    }
-
-    public void cleanBlockList() {
-        /* strip the centers from the block list */
-        blockList.removeAll(centerList);
     }
 
     @Override
@@ -267,5 +236,58 @@ public class TileEntityMarker extends TileEntity {
             BlockPos p = new BlockPos(x, y, z);
             setTarget(f, p);
         }
+    }
+
+    /**
+     * Client only data
+     */
+    private ClientData clientData;
+    private class ClientData {
+
+        Set<BlockPos> blockList;
+        Set<BlockPos> centerList;
+        int[] faceData; // per face information
+
+        public ClientData() {
+            blockList=new HashSet<BlockPos>();
+            centerList=new HashSet<BlockPos>();
+            faceData = new int[6];
+        }
+
+        public void reset() {
+            blockList.clear();
+            centerList.clear();
+            Arrays.fill(faceData, 0);
+        }
+    }
+
+    public int getFaceData(EnumFacing f) { return clientData.faceData[f.ordinal()]; }
+    public void setFaceData(EnumFacing f, int i) { clientData.faceData[f.ordinal()] = i; }
+
+    public void clearClientData() {
+        clientData.reset();;
+    }
+
+    public Set<BlockPos> getBlockList() { return clientData.blockList; }
+    public void addToBlockList(BlockPos p) {
+        if (!p.equals(getPos()))
+            clientData.blockList.add(p);
+    }
+    public void addToBlockList(Collection<BlockPos> c) {
+        clientData.blockList.addAll(c);
+    }
+
+    public Set<BlockPos> getCenterList() { return clientData.centerList; }
+    public void addToCenterList(BlockPos p) {
+        if (!p.equals(getPos()))
+            clientData.centerList.add(p);
+    }
+    public void addToCenterList(Collection<BlockPos> c) {
+        clientData.centerList.addAll(c);
+    }
+
+    public void cleanBlockList() {
+        /* strip the centers from the block list */
+        clientData.blockList.removeAll(clientData.centerList);
     }
 }
