@@ -59,10 +59,6 @@ public class MarkerRange extends Marker {
             te.setTarget(side, BlockUtils.getNthBlock(worldIn, te.getPos(), side, te.getV(side)));
     }
 
-    public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
-
-    }
-
     @Override
     public void handleServerUpdate(TileEntityMarker te) {
 

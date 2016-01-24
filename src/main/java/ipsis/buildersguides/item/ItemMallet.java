@@ -109,6 +109,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
             sright = true;
         } else if (m == MalletMode.CONFIG) {
             right = true;
+            sright = true;
         } else if (m == MalletMode.DECORATE) {
             right = true;
         } else if (m == MalletMode.HAMMER) {

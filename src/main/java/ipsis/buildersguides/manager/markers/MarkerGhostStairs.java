@@ -44,6 +44,8 @@ public class MarkerGhostStairs extends Marker {
     @Override
     public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
+        if (entityPlayer.isSneaking() && (side == EnumFacing.UP || side == EnumFacing.DOWN))
+            super.handleConfig(worldIn, te, entityPlayer, side);
     }
 
     @Override

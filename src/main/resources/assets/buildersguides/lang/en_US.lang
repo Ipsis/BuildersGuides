@@ -44,6 +44,7 @@ tooltip.BuildersGuides:mallet.BCWRENCH.rclick=Rotate marker
 tooltip.BuildersGuides:mallet.BCWRENCH.srclick=Remove current marker card
 tooltip.BuildersGuides:mallet.DECORATE.rclick=Change marker color
 tooltip.BuildersGuides:mallet.CONFIG.rclick=Change marker mode
+tooltip.BuildersGuides:mallet.CONFIG.srclick=Refresh marker targets
 tooltip.BuildersGuides:mallet.HAMMER.rclick=Push target out or enable face
 tooltip.BuildersGuides:mallet.HAMMER.srclick=Pull target in or disable face
 tooltip.BuildersGuides:mallet=Press %s to change mode

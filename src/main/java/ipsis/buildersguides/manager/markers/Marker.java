@@ -12,7 +12,6 @@ public abstract class Marker {
 
     public abstract boolean isMatch(MarkerType t);
     public abstract void handleHammer(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side);
-    public abstract void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side);
     public void handleServerUpdate(TileEntityMarker te) { te.clearClientData(); }
     public void findTargets(World worldIn, TileEntityMarker te) { }
     public void initServerMarker(TileEntityMarker te) { }
@@ -20,6 +19,14 @@ public abstract class Marker {
 
     public boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
         return false;
+    }
+
+    public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
+
+        if (entityPlayer.isSneaking()) {
+            findTargets(worldIn, te);
+            worldIn.markBlockForUpdate(te.getPos());
+        }
     }
 
     public void handleDecorate(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {

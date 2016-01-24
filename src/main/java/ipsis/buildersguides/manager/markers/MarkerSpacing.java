@@ -39,11 +39,6 @@ public class MarkerSpacing extends Marker {
     }
 
     @Override
-    public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
-
-    }
-
-    @Override
     public void handleServerUpdate(TileEntityMarker te) {
 
         te.clearClientData();

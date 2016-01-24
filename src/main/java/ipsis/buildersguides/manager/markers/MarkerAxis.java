@@ -36,11 +36,6 @@ public class MarkerAxis extends Marker {
     }
 
     @Override
-    public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
-        /* NOOP */
-    }
-
-    @Override
     public boolean isFaceEnabled(TileEntityMarker te, EnumFacing f) {
         return te.hasValidV(f);
     }

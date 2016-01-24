@@ -48,9 +48,8 @@ public class MarkerGhost extends Marker {
     public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
 
         if (entityPlayer.isSneaking()) {
-
+            super.handleConfig(worldIn, te, entityPlayer, side);
         } else {
-
             GhostMode m = GhostMode.getMode(te.getMode());
             m = m.getNext();
             te.setMode(m.ordinal());

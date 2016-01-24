@@ -160,6 +160,8 @@ public class BlockMarker extends BlockContainerBG {
     @Override
     public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
 
+        /** TODO need the player for this to work with the MarkerManager
+         *
         TileEntity te = world.getTileEntity(pos);
         if (te == null || !(te instanceof TileEntityMarker))
             return false;
@@ -167,7 +169,7 @@ public class BlockMarker extends BlockContainerBG {
         if (WorldHelper.isServer(world)) {
             ((TileEntityMarker) te).rotateTile(axis);
             return true;
-        }
+        } */
 
         return false;
     }

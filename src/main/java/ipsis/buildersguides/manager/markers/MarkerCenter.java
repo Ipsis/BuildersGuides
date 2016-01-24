@@ -71,11 +71,6 @@ public class MarkerCenter extends Marker {
             te.setTarget(side, BlockUtils.getNthBlock(worldIn, te.getPos(), side, te.getV(side)));
     }
 
-    @Override
-    public void handleConfig(World worldIn, TileEntityMarker te, EntityPlayer entityPlayer, EnumFacing side) {
-
-    }
-
     private void calcCenterList(TileEntityMarker te, BlockPos p1, BlockPos p2, EnumFacing f) {
 
         List<BlockPos> centerList = BlockUtils.getCenterBlockList(p1, p2, f);
