@@ -2,6 +2,7 @@ package ipsis.buildersguides.block;
 
 import ipsis.buildersguides.client.model.ISBMMarker;
 import ipsis.buildersguides.common.UnlistedPropertyBoolean;
+import ipsis.buildersguides.common.UnlistedPropertyEnumFacing;
 import ipsis.buildersguides.item.ItemMallet;
 import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
@@ -42,6 +43,7 @@ public class BlockMarker extends BlockContainerBG {
     public static final UnlistedPropertyBoolean WEST = new UnlistedPropertyBoolean("WEST");
     public static final UnlistedPropertyBoolean UP = new UnlistedPropertyBoolean("UP");
     public static final UnlistedPropertyBoolean DOWN = new UnlistedPropertyBoolean("DOWN");
+    public static final UnlistedPropertyEnumFacing FACING = new UnlistedPropertyEnumFacing("FACING");
 
     public BlockMarker() {
         super(Material.ground, BASENAME);
@@ -63,7 +65,7 @@ public class BlockMarker extends BlockContainerBG {
     @Override
     protected BlockState createBlockState() {
         IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{
-                NORTH, SOUTH, EAST, WEST, UP, DOWN
+                NORTH, SOUTH, EAST, WEST, UP, DOWN, FACING
         };
         return new ExtendedBlockState(this, new IProperty[0], unlistedProperties);
     }
@@ -79,6 +81,7 @@ public class BlockMarker extends BlockContainerBG {
             boolean west = te.isFaceEnabled(EnumFacing.WEST);
             boolean up = te.isFaceEnabled(EnumFacing.UP);
             boolean down = te.isFaceEnabled(EnumFacing.DOWN);
+            EnumFacing f = te.getFacing();
 
             return extendedBlockState
                     .withProperty(NORTH, north)
@@ -86,7 +89,8 @@ public class BlockMarker extends BlockContainerBG {
                     .withProperty(EAST, east)
                     .withProperty(WEST, west)
                     .withProperty(UP, up)
-                    .withProperty(DOWN, down);
+                    .withProperty(DOWN, down)
+                    .withProperty(FACING, f.ordinal());
         }
 
         return state;
