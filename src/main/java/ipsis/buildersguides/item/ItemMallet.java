@@ -8,6 +8,7 @@ import ipsis.buildersguides.util.StringHelper;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -96,6 +97,8 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 
+        tooltip.add(String.format(StringHelper.localize(Names.TOOLTIP, BASENAME),
+                GameSettings.getKeyDisplayString(KeyBindingsBG.KEY_MODE.getKeyBinding().getKeyCode())));
         tooltip.add(getModeTranslation(stack));
 
         MalletMode m = getMode(stack);

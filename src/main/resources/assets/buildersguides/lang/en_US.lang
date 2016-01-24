@@ -46,6 +46,7 @@ tooltip.BuildersGuides:mallet.DECORATE.rclick=Change marker color
 tooltip.BuildersGuides:mallet.CONFIG.rclick=Change marker mode
 tooltip.BuildersGuides:mallet.HAMMER.rclick=Push target out or enable face
 tooltip.BuildersGuides:mallet.HAMMER.srclick=Pull target in or disable face
+tooltip.BuildersGuides:mallet=Press %s to change mode
 
 name.BuildersGuides:rclick=Right
 name.BuildersGuides:srclick=Shift Right
