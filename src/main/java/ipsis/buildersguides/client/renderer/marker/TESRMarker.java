@@ -16,6 +16,13 @@ import java.util.HashMap;
 
 public class TESRMarker extends TileEntitySpecialRenderer {
 
+    @Override
+    public boolean func_181055_a() {
+
+        // BGZ004 Force the render even when the chunk is out of view
+        return true;
+    }
+
     private static HashMap<MarkerType, RendererMarker> map = new HashMap<MarkerType, RendererMarker>() {
         {
             put(MarkerType.AXIS, new RendererMarkerAxis());
@@ -35,8 +42,6 @@ public class TESRMarker extends TileEntitySpecialRenderer {
 
         if (!(te instanceof TileEntityMarker))
             return;
-
-        // TODO The renderer will NOT be called when you move such that the chunk is no longer rendered - BIG PROBLEM
 
         if (map.containsKey(((TileEntityMarker) te).getType())) {
             doRenderMarkerType((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks);

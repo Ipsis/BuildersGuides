@@ -1,7 +1,18 @@
 Builder's Guides ChangeLog
 ==========================
 
-1.8.9-0.1.0
+1.8.9-0.2.0
+-----------
 
+Features:
+
+Fixes:
+* BGZ004 - Guide lines vanish when te chunk is out of view
+
+
+1.8.9-0.1.0
+-----------
+
+Features:
 * Minecraft 1.8 version
 
