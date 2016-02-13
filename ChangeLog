@@ -10,6 +10,9 @@ Features:
 Fixes:
 * BGZ004 - Guide lines vanish when te chunk is out of view
 
+Build Environment:
+* Forge - 11.15.1.1738
+* Waila - 1.6.0-B3_1.8.8
 
 1.8.9-0.1.0
 -----------
@@ -17,3 +20,6 @@ Fixes:
 Features:
 * Minecraft 1.8 version
 
+Build Environment:
+* Forge - 11.15.0.1715
+* Waila - 1.6.0-B3_1.8.8
