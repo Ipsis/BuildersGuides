@@ -5,6 +5,7 @@ Builder's Guides ChangeLog
 -----------
 
 Features:
+* Added visual indication of the front face of the block
 
 Fixes:
 * BGZ004 - Guide lines vanish when te chunk is out of view
