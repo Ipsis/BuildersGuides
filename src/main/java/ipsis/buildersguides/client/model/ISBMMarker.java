@@ -34,7 +34,8 @@ public class ISBMMarker implements ISmartBlockModel {
         boolean west = extendedBlockState.getValue(BlockMarker.WEST);
         boolean up = extendedBlockState.getValue(BlockMarker.UP);
         boolean down = extendedBlockState.getValue(BlockMarker.DOWN);
-        return new BakedModelMarker(north, south, east, west, up , down);
+        int f = extendedBlockState.getValue(BlockMarker.FACING);
+        return new BakedModelMarker(north, south, east, west, up , down, EnumFacing.getFront(f));
     }
 
     @Override
@@ -83,8 +84,9 @@ public class ISBMMarker implements ISmartBlockModel {
         private final boolean west;
         private final boolean up;
         private final boolean down;
+        private EnumFacing facing;
 
-        public BakedModelMarker(boolean north, boolean south, boolean east, boolean west, boolean up, boolean down) {
+        public BakedModelMarker(boolean north, boolean south, boolean east, boolean west, boolean up, boolean down, EnumFacing facing) {
             mainTexture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(Reference.MOD_ID_LOWER + ":blocks/" + BlockMarker.BASENAME);
             activeTexture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/gold_block");
             this.north = north;
@@ -93,6 +95,7 @@ public class ISBMMarker implements ISmartBlockModel {
             this.west = west;
             this.up = up;
             this.down = down;
+            this.facing = facing;
         }
 
         @Override
@@ -186,7 +189,10 @@ public class ISBMMarker implements ISmartBlockModel {
             // Main Frame
             for (EnumFacing f : EnumFacing.values()) {
                 for (int i = 0; i < 12; i++) {
-                    quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], mainTexture, f));
+                    if (f == facing && i >= 0 && i < 4)
+                        quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], activeTexture, f));
+                    else
+                        quads.add(createSidedBakedQuad(v[i][0], v[i][1], v[i][2], v[i][3], v[i][4], mainTexture, f));
                 }
             }
 
