@@ -2,9 +2,10 @@ package ipsis.buildersguides.manager.markers;
 
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
+import ipsis.buildersguides.util.BlockUtils;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -38,7 +39,7 @@ public class MarkerGhostStairs extends Marker {
         } else {
             te.setV(side, te.getV(side) + 1);
         }
-        worldIn.markBlockForUpdate(te.getPos());
+        BlockUtils.markBlockForUpdate(worldIn, te.getPos());
     }
 
     @Override

@@ -4,12 +4,13 @@ import io.netty.buffer.ByteBuf;
 import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
+import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.ColorBG;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -131,7 +132,7 @@ public class MessageTileEntityMarker implements IMessage {
                 }
 
                 MarkerManager.handleServerUpdate((TileEntityMarker)te);
-                worldClient.markBlockForUpdate(te.getPos());
+                BlockUtils.markBlockForUpdate(worldClient, te.getPos());
             }
         }
     }
