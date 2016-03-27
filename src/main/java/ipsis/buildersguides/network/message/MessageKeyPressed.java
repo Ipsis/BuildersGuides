@@ -5,6 +5,7 @@ import ipsis.buildersguides.client.keys.KeyBindingsBG;
 import ipsis.buildersguides.util.IKeyBound;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -57,7 +58,7 @@ public class MessageKeyPressed implements IMessage {
 
         private void processMessage(MessageKeyPressed message, EntityPlayerMP fromPlayer) {
 
-            ItemStack itemStack = fromPlayer.getCurrentEquippedItem();
+            ItemStack itemStack = fromPlayer.getHeldItemMainhand();
             if (itemStack != null && itemStack.getItem() instanceof IKeyBound) {
                 if (message.key == KeyBindingsBG.KEY_MODE.ordinal())
                     ((IKeyBound) itemStack.getItem()).doKeyBindingAction(fromPlayer, itemStack, KeyBindingsBG.KEY_MODE);

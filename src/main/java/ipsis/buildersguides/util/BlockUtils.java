@@ -1,13 +1,22 @@
 package ipsis.buildersguides.util;
 
-import net.minecraft.util.BlockPos;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlockUtils {
+
+    public static void markBlockForUpdate(World world, BlockPos pos) {
+
+        if (world != null && pos != null) {
+            IBlockState iBlockState = world.getBlockState(pos);
+            world.notifyBlockUpdate(pos, iBlockState, iBlockState, 4);
+        }
+    }
 
     /**
      * Return the block position of the n'th non-air block in the facing direction

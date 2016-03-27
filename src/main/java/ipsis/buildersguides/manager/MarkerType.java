@@ -3,7 +3,7 @@ package ipsis.buildersguides.manager;
 import ipsis.buildersguides.block.BlockMarker;
 import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.util.StringHelper;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public enum MarkerType {
 

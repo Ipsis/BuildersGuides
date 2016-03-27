@@ -1,29 +1,26 @@
 package ipsis.buildersguides.client.model;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.primitives.Ints;
 import ipsis.buildersguides.block.BlockMarker;
 import ipsis.buildersguides.reference.Reference;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.IBakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.Vec3;
-import net.minecraftforge.client.model.ISmartBlockModel;
-import net.minecraftforge.client.model.pipeline.LightUtil;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.property.IExtendedBlockState;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class ISBMMarker implements ISmartBlockModel {
+public class ISBMMarker implements IBakedModel {
 
     public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(Reference.MOD_ID + ":" + BlockMarker.BASENAME);
 
+    /*
     @Override
     public IBakedModel handleBlockState(IBlockState state) {
 
@@ -36,16 +33,18 @@ public class ISBMMarker implements ISmartBlockModel {
         boolean down = extendedBlockState.getValue(BlockMarker.DOWN);
         int f = extendedBlockState.getValue(BlockMarker.FACING);
         return new BakedModelMarker(north, south, east, west, up , down, EnumFacing.getFront(f));
-    }
+    } */
 
     @Override
-    public List<BakedQuad> getFaceQuads(EnumFacing enumFacing) {
+    public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<BakedQuad> getGeneralQuads() {
-        throw new UnsupportedOperationException();
+    public ItemOverrideList getOverrides() {
+
+        return ItemOverrideList.NONE;
     }
 
     @Override
@@ -99,8 +98,9 @@ public class ISBMMarker implements ISmartBlockModel {
         }
 
         @Override
-        public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_) {
-            return Collections.emptyList();
+        public ItemOverrideList getOverrides() {
+
+            return ItemOverrideList.NONE;
         }
 
         private int[] vertexToInts(double x, double y, double z, int color, TextureAtlasSprite texture, float u, float v) {
@@ -115,51 +115,44 @@ public class ISBMMarker implements ISmartBlockModel {
             };
         }
 
-        private BakedQuad createQuad(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4, TextureAtlasSprite texture) {
-            Vec3 normal = v1.subtract(v2).crossProduct(v3.subtract(v2));
-            EnumFacing side = LightUtil.toSide((float) normal.xCoord, (float) normal.yCoord, (float) normal.zCoord);
-
-            return new BakedQuad(Ints.concat(
-                    vertexToInts(v1.xCoord, v1.yCoord, v1.zCoord, -1, texture, 0, 0),
-                    vertexToInts(v2.xCoord, v2.yCoord, v2.zCoord, -1, texture, 0, 16),
-                    vertexToInts(v3.xCoord, v3.yCoord, v3.zCoord, -1, texture, 16, 16),
-                    vertexToInts(v4.xCoord, v4.yCoord, v4.zCoord, -1, texture, 16, 0)
-            ), -1, side);
-        }
-
         // From ModelBakeEventDebug MinecraftForge
         private BakedQuad createSidedBakedQuad(float x1, float x2, float z1, float z2, float y, TextureAtlasSprite texture, EnumFacing side) {
-            Vec3 v1 = rotate(new Vec3(x1 - .5, y - .5, z1 - .5), side).addVector(.5, .5, .5);
-            Vec3 v2 = rotate(new Vec3(x1 - .5, y - .5, z2 - .5), side).addVector(.5, .5, .5);
-            Vec3 v3 = rotate(new Vec3(x2 - .5, y - .5, z2 - .5), side).addVector(.5, .5, .5);
-            Vec3 v4 = rotate(new Vec3(x2 - .5, y - .5, z1 - .5), side).addVector(.5, .5, .5);
+            Vec3d v1 = rotate(new Vec3d(x1 - .5, y - .5, z1 - .5), side).addVector(.5, .5, .5);
+            Vec3d v2 = rotate(new Vec3d(x1 - .5, y - .5, z2 - .5), side).addVector(.5, .5, .5);
+            Vec3d v3 = rotate(new Vec3d(x2 - .5, y - .5, z2 - .5), side).addVector(.5, .5, .5);
+            Vec3d v4 = rotate(new Vec3d(x2 - .5, y - .5, z1 - .5), side).addVector(.5, .5, .5);
             return new BakedQuad(Ints.concat(
                     vertexToInts((float)v1.xCoord, (float)v1.yCoord, (float)v1.zCoord, -1, texture, 0, 0),
                     vertexToInts((float)v2.xCoord, (float)v2.yCoord, (float)v2.zCoord, -1, texture, 0, 16),
                     vertexToInts((float)v3.xCoord, (float)v3.yCoord, (float)v3.zCoord, -1, texture, 16, 16),
                     vertexToInts((float)v4.xCoord, (float)v4.yCoord, (float)v4.zCoord, -1, texture, 16, 0)
-            ), -1, side);
+            ), -1, side, texture, true, DefaultVertexFormats.BLOCK);
         }
 
 
 
         // From ModelBakeEventDebug MinecraftForge
-        private Vec3 rotate(Vec3 vec, EnumFacing side)
+        private Vec3d rotate(Vec3d vec, EnumFacing side)
         {
             switch(side)
             {
-                case DOWN:  return new Vec3( vec.xCoord, -vec.yCoord, -vec.zCoord);
-                case UP:    return new Vec3( vec.xCoord,  vec.yCoord,  vec.zCoord);
-                case NORTH: return new Vec3( vec.xCoord,  vec.zCoord, -vec.yCoord);
-                case SOUTH: return new Vec3( vec.xCoord, -vec.zCoord,  vec.yCoord);
-                case WEST:  return new Vec3(-vec.yCoord,  vec.xCoord,  vec.zCoord);
-                case EAST:  return new Vec3( vec.yCoord, -vec.xCoord,  vec.zCoord);
+                case DOWN:  return new Vec3d( vec.xCoord, -vec.yCoord, -vec.zCoord);
+                case UP:    return new Vec3d( vec.xCoord,  vec.yCoord,  vec.zCoord);
+                case NORTH: return new Vec3d( vec.xCoord,  vec.zCoord, -vec.yCoord);
+                case SOUTH: return new Vec3d( vec.xCoord, -vec.zCoord,  vec.yCoord);
+                case WEST:  return new Vec3d(-vec.yCoord,  vec.xCoord,  vec.zCoord);
+                case EAST:  return new Vec3d( vec.yCoord, -vec.xCoord,  vec.zCoord);
             }
             return null;
         }
 
         @Override
-        public List<BakedQuad> getGeneralQuads() {
+        public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+
+            if (side != null)
+                return ImmutableList.of();
+
+
             List<BakedQuad> quads = new ArrayList<BakedQuad>();
             double o = .4;
 

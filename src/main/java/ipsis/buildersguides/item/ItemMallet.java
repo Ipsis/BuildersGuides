@@ -6,13 +6,17 @@ import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.util.IKeyBound;
 import ipsis.buildersguides.util.StringHelper;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -82,14 +86,13 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     }
 
     @Override
-    public boolean doesSneakBypassUse(World world, BlockPos pos, EntityPlayer player) {
-
+    public boolean doesSneakBypassUse(ItemStack stack, IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
     }
 
     public static String getModeTranslation(ItemStack itemStack) {
 
-        return EnumChatFormatting.YELLOW + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.MODE),
+        return TextFormatting.YELLOW + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.MODE),
                 StringHelper.localize(Names.NAME, BASENAME + "." + getMode(itemStack).toString()));
     }
 
@@ -118,9 +121,9 @@ public class ItemMallet extends ItemBG implements IKeyBound {
         }
 
         if (right)
-            tooltip.add(EnumChatFormatting.RED + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.RCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.RCLICK)));
+            tooltip.add(TextFormatting.RED + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.RCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.RCLICK)));
         if (sright)
-            tooltip.add(EnumChatFormatting.GREEN + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.SRCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.SRCLICK)));
+            tooltip.add(TextFormatting.GREEN + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.SRCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.SRCLICK)));
 
     }
 
@@ -129,7 +132,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     public void doKeyBindingAction(EntityPlayer entityPlayer, ItemStack itemStack, KeyBindingsBG keyBinding) {
 
         cycleMode(itemStack);
-        entityPlayer.addChatComponentMessage(new ChatComponentText(getModeTranslation(itemStack)));
+        entityPlayer.addChatComponentMessage(new TextComponentString(getModeTranslation(itemStack)));
     }
 
     public enum MalletMode {

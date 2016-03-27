@@ -4,8 +4,8 @@ import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -40,7 +40,7 @@ public class MarkerRange extends Marker {
         }
 
         findTarget(worldIn, te, side);
-        worldIn.markBlockForUpdate(te.getPos());
+        BlockUtils.markBlockForUpdate(worldIn, te.getPos());
     }
 
     @Override

@@ -12,10 +12,10 @@ public class ModelBakeEventHandler {
     @SubscribeEvent
     public void onModelBakeEvent(ModelBakeEvent event) {
 
-        Object object = event.modelRegistry.getObject(ISBMMarker.modelResourceLocation);
+        Object object = event.getModelRegistry().getObject(ISBMMarker.modelResourceLocation);
         if (object != null) {
             ISBMMarker customModel = new ISBMMarker();
-            event.modelRegistry.putObject(ISBMMarker.modelResourceLocation, customModel);
+            event.getModelRegistry().putObject(ISBMMarker.modelResourceLocation, customModel);
         }
     }
 }

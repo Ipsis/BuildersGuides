@@ -3,6 +3,7 @@ package ipsis.buildersguides.manager.markers;
 import ipsis.buildersguides.item.ItemMarkerCard;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
+import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.ItemStackHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +26,7 @@ public abstract class Marker {
 
         if (entityPlayer.isSneaking()) {
             findTargets(worldIn, te);
-            worldIn.markBlockForUpdate(te.getPos());
+            BlockUtils.markBlockForUpdate(worldIn, te.getPos());
         }
     }
 
@@ -34,7 +35,7 @@ public abstract class Marker {
         if (entityPlayer.isSneaking()) {
         } else {
             te.setColor(te.getColor().getNext());
-            worldIn.markBlockForUpdate(te.getPos());
+            BlockUtils.markBlockForUpdate(worldIn, te.getPos());
         }
     }
 
@@ -45,13 +46,13 @@ public abstract class Marker {
             if (t != MarkerType.BLANK) {
                 te.setType(MarkerType.BLANK);
                 ItemStackHelper.spawnInWorld(worldIn, te.getPos(), ItemMarkerCard.getItemStack(t));
-                worldIn.markBlockForUpdate(te.getPos());
+                BlockUtils.markBlockForUpdate(worldIn, te.getPos());
             }
         } else {
             // rotate around side == axis
             te.rotateTile(side);
             findTargets(worldIn, te);
-            worldIn.markBlockForUpdate(te.getPos());
+            BlockUtils.markBlockForUpdate(worldIn, te.getPos());
         }
     }
 }

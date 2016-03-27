@@ -17,7 +17,7 @@ public class WorldHelper {
 
     public static void updateClient(World world, TileEntity te) {
 
-        world.markBlockForUpdate(te.getPos());
+        BlockUtils.markBlockForUpdate(world, te.getPos());
         te.markDirty();
     }
 }
