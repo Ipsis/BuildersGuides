@@ -4,11 +4,12 @@ import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+
 
 /**
  * Center Marker
@@ -42,7 +43,7 @@ public class MarkerCenter extends Marker {
         }
 
         findTarget(worldIn, te, side);
-        worldIn.markBlockForUpdate(te.getPos());
+        BlockUtils.markBlockForUpdate(worldIn, te.getPos());
     }
 
     @Override
@@ -59,7 +60,7 @@ public class MarkerCenter extends Marker {
             te.setV(f, 1);
 
         findTargets(te.getWorld(), te);
-        te.getWorld().markBlockForUpdate(te.getPos());
+        BlockUtils.markBlockForUpdate(te.getWorld(), te.getPos());
     }
 
     private void findTarget(World worldIn, TileEntityMarker te, EnumFacing side) {

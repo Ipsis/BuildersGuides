@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class TESRMarker extends TileEntitySpecialRenderer {
 
     @Override
-    public boolean func_181055_a() {
+    public boolean isGlobalRenderer(TileEntity te) {
 
         // BGZ004 Force the render even when the chunk is out of view
         return true;

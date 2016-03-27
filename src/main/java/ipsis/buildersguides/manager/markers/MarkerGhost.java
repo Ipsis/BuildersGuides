@@ -6,10 +6,10 @@ import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.StringHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class MarkerGhost extends Marker {
         } else {
             te.setV(side, te.getV(side) + 1);
         }
-        worldIn.markBlockForUpdate(te.getPos());
+        BlockUtils.markBlockForUpdate(worldIn, te.getPos());
     }
 
     @Override
@@ -53,8 +53,8 @@ public class MarkerGhost extends Marker {
             GhostMode m = GhostMode.getMode(te.getMode());
             m = m.getNext();
             te.setMode(m.ordinal());
-            entityPlayer.addChatComponentMessage(new ChatComponentText(m.getTranslatedMode()));
-            worldIn.markBlockForUpdate(te.getPos());
+            entityPlayer.addChatComponentMessage(new TextComponentString(m.getTranslatedMode()));
+            BlockUtils.markBlockForUpdate(worldIn, te.getPos());
         }
     }
 

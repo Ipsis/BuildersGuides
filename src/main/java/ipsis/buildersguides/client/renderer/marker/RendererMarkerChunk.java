@@ -4,9 +4,9 @@ import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.RenderUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
 import org.lwjgl.opengl.GL11;
 
@@ -25,7 +25,7 @@ public class RendererMarkerChunk extends RendererMarker {
         GlStateManager.pushMatrix();
         {
             Tessellator tessellator = Tessellator.getInstance();
-            WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+            VertexBuffer worldRenderer = tessellator.getBuffer();
 
             double dx = pos.getX() - te.getPos().getX();
             double dz = pos.getZ() - te.getPos().getZ();

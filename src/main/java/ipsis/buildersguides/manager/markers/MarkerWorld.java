@@ -3,8 +3,8 @@ package ipsis.buildersguides.manager.markers;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
