@@ -45,7 +45,7 @@ public class MessageKeyPressed implements IMessage {
             if (fromPlayer == null)
                 return null;
 
-            final WorldServer playerWorldServer = fromPlayer.getServerForPlayer();
+            final WorldServer playerWorldServer = fromPlayer.getServerWorld();
             playerWorldServer.addScheduledTask(new Runnable() {
                 public void run() {
                     processMessage(message, fromPlayer);
