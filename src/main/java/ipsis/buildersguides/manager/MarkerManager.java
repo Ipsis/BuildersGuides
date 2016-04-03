@@ -23,6 +23,7 @@ public class MarkerManager {
             add(new MarkerRange());
             add(new MarkerSpacing());
             add(new MarkerWorld());
+            add(new MarkerShape());
         }
     };
 

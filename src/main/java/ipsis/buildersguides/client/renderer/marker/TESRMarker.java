@@ -34,6 +34,7 @@ public class TESRMarker extends TileEntitySpecialRenderer {
             put(MarkerType.RANGE, new RendererMarkerRange());
             put(MarkerType.SPACING, new RendererMarkerSpacing());
             put(MarkerType.WORLD, new RendererMarkerWorld());
+            put(MarkerType.SHAPE, new RendererMarkerShape());
         }
     };
 

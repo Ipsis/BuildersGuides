@@ -16,7 +16,8 @@ public enum MarkerType {
     /* LASER, */
     RANGE,
     SPACING,
-    WORLD;
+    WORLD,
+    SHAPE;
 
     public static final int count = MarkerType.values().length;
 
