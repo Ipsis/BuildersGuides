@@ -62,6 +62,9 @@ name.BuildersGuides:ghostmode.FLOOR=Floor
 name.BuildersGuides:ghostmode.WALL=Wall
 name.BuildersGuides:ghostmode.CUBOID=Cuboid
 
+name.BuildersGuides:shapemode.CIRCLE=2D Circle
+name.BuildersGuides:shapemode.ELLIPSE=2D Ellipse
+
 itemGroup.BuildersGuides=Builder's Guides
 
 keys.BuildersGuides.category=Builder's Guides
