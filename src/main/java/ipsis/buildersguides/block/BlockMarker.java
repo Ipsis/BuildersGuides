@@ -8,6 +8,7 @@ import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.init.ModItems;
 import ipsis.buildersguides.item.ItemMarkerCard;
+import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.ItemStackHelper;
@@ -49,7 +50,9 @@ public class BlockMarker extends BlockContainerBG {
     public static final UnlistedPropertyEnumFacing FACING = new UnlistedPropertyEnumFacing("FACING");
 
     public BlockMarker() {
+
         super(Material.ground, BASENAME);
+        setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
     }
 
     @Override

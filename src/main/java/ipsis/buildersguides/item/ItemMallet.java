@@ -36,6 +36,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
         setUnlocalizedName(BASENAME);
         setHasSubtypes(true);
         setMaxStackSize(1);
+        setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
     }
 
     @Override

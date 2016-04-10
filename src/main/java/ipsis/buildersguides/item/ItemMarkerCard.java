@@ -36,6 +36,7 @@ public class ItemMarkerCard extends ItemBG {
         setMaxStackSize(16);
         setUnlocalizedName(BASENAME);
         setHasSubtypes(true);
+        setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
     }
 
     @Override
