@@ -1,6 +1,5 @@
 package ipsis.buildersguides.plugins.waila;
 
-/*
 import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.reference.Names;
@@ -64,4 +63,4 @@ public class WailaDataProviderBG implements IWailaDataProvider {
 
         registrar.registerBodyProvider(new WailaDataProviderBG(), TileEntityMarker.class);
     }
-} */
+}
