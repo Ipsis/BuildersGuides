@@ -30,8 +30,9 @@ public class MarkerShape extends Marker {
             handleRadius(te, entityPlayer.isSneaking(), entityPlayer, side);
         else if (m == ShapeMode.ELLIPSE)
             handleHammerEllipse(te, entityPlayer.isSneaking(), entityPlayer, side);
+        /*
         else if (m == ShapeMode.LINE)
-            handleHammerLine(te, entityPlayer.isSneaking(), entityPlayer, side);
+            handleHammerLine(te, entityPlayer.isSneaking(), entityPlayer, side); */
 
         worldIn.markBlockForUpdate(te.getPos());
     }
@@ -147,7 +148,7 @@ public class MarkerShape extends Marker {
 
                 calcEllipse(te, x0, z0, x1, z1, te.getPos().getY());
             }
-        } else if (shapeMode == ShapeMode.LINE) {
+        } /* else if (shapeMode == ShapeMode.LINE) {
 
             int xRadius = te.getV(EnumFacing.EAST);
             int zRadius = te.getV(EnumFacing.NORTH);
@@ -158,7 +159,7 @@ public class MarkerShape extends Marker {
             int z1 = te.getPos().getZ() + zRadius;
 
             calcLine(te, x0, z0, x1, z1, te.getPos().getY());
-        }
+        } */
     }
 
 
@@ -167,7 +168,6 @@ public class MarkerShape extends Marker {
         CIRCLE,
         ELLIPSE,
         SPHERE,
-        LINE,
         DOME;
 
         public static ShapeMode getMode(int id) {
