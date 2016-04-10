@@ -95,7 +95,7 @@ public class MarkerShape extends Marker {
             te.setV(f, currRadius);
 
         entityPlayer.addChatComponentMessage(new ChatComponentText(
-                String.format("%s: radius %d", te.getMode(), te.getV(EnumFacing.WEST))));
+                String.format("%s: radius %d", getMode(te), te.getV(EnumFacing.WEST))));
     }
 
     @Override
