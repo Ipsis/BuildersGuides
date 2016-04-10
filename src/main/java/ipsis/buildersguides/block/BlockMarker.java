@@ -56,13 +56,14 @@ public class BlockMarker extends BlockContainerBG {
     @SideOnly(Side.CLIENT)
     public void initModel() {
 
+        /*
         StateMapperBase ignoreState = new StateMapperBase() {
             @Override
             protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
                 return ISBMMarker.modelResourceLocation;
             }
         };
-        ModelLoader.setCustomStateMapper(this, ignoreState);
+        ModelLoader.setCustomStateMapper(this, ignoreState); */
     }
 
     @Override
