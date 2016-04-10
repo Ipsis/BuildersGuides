@@ -1,6 +1,15 @@
 Builder's Guides ChangeLog
 ==========================
 
+1.8.9-1.0.0
+-----------
+
+Features:
+* Added shape marker - currently supports circle, ellipse, dome, sphere
+
+Build Environment:
+* Forge - 11.15.1.1855
+
 1.8.9-0.2.0
 -----------
 
