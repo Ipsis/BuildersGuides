@@ -62,8 +62,11 @@ name.BuildersGuides:ghostmode.FLOOR=Floor
 name.BuildersGuides:ghostmode.WALL=Wall
 name.BuildersGuides:ghostmode.CUBOID=Cuboid
 
-name.BuildersGuides:shapemode.CIRCLE=2D Circle
-name.BuildersGuides:shapemode.ELLIPSE=2D Ellipse
+name.BuildersGuides:shapemode.CIRCLE=Circle
+name.BuildersGuides:shapemode.ELLIPSE=Ellipse
+name.BuildersGuides:shapemode.SPHERE=Sphere
+name.BuildersGuides:shapemode.LINE=Line
+name.BuildersGuides:shapemode.DOME=Dome
 
 itemGroup.BuildersGuides=Builder's Guides
 

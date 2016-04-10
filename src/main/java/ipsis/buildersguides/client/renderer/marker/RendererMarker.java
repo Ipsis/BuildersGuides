@@ -175,7 +175,8 @@ public abstract class RendererMarker {
                         (te.getPos().getX() - p.getX()) * -1.0F,
                         (te.getPos().getY() - p.getY()) * -1.0F,
                         (te.getPos().getZ() - p.getZ()) * -1.0F);
-                RenderUtils.drawBlockShaded(0.2F);
+//                RenderUtils.drawBlockShaded(0.2F);
+                RenderUtils.drawBlockShaded(0.4F);
                 GlStateManager.popMatrix();
             }
 
