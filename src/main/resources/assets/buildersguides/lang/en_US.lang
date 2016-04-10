@@ -10,6 +10,7 @@ item.BuildersGuides:markerCard.GHOSTSTAIRS.name=Ghost Stair Marker Card
 item.BuildersGuides:markerCard.RANGE.name=Range Marker Card
 item.BuildersGuides:markerCard.SPACING.name=Spacing Marker Card
 item.BuildersGuides:markerCard.WORLD.name=World Marker Card
+item.BuildersGuides:markerCard.SHAPE.name=Shape Marker Card
 
 tooltip.BuildersGuides.marker=Displays guide lines and blocks
 
@@ -26,6 +27,7 @@ tooltip.BuildersGuides:markerCard.RANGE.1=Displays the distance and center
 tooltip.BuildersGuides:markerCard.RANGE.2=blocks to the target blocks in each direction
 tooltip.BuildersGuides:markerCard.SPACING=Displays n'th block in each direction
 tooltip.BuildersGuides:markerCard.WORLD=Displays the blocks from bedrock to world height
+tooltip.BuildersGuides:markerCard.SHAPE=Displays outline for various shapes
 
 name.BuildersGuides:marker.AXIS=Axis Marker
 name.BuildersGuides:marker.CENTER=Center Marker
@@ -35,6 +37,7 @@ name.BuildersGuides:marker.GHOSTSTAIRS=Ghost Stair Marker
 name.BuildersGuides:marker.RANGE=Range Marker
 name.BuildersGuides:marker.SPACING=Spacing Marker
 name.BuildersGuides:marker.WORLD=World Marker
+name.BuildersGuides:marker.SHAPE=Shape Marker
 
 name.BuildersGuides:mallet.BCWRENCH=Wrench
 name.BuildersGuides:mallet.HAMMER=Hammer
@@ -58,6 +61,12 @@ name.BuildersGuides:ghostmode.SINGLE=Column/Row
 name.BuildersGuides:ghostmode.FLOOR=Floor
 name.BuildersGuides:ghostmode.WALL=Wall
 name.BuildersGuides:ghostmode.CUBOID=Cuboid
+
+name.BuildersGuides:shapemode.CIRCLE=Circle
+name.BuildersGuides:shapemode.ELLIPSE=Ellipse
+name.BuildersGuides:shapemode.SPHERE=Sphere
+name.BuildersGuides:shapemode.LINE=Line
+name.BuildersGuides:shapemode.DOME=Dome
 
 itemGroup.BuildersGuides=Builder's Guides
 
