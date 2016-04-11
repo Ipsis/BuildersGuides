@@ -15,10 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -76,26 +73,39 @@ public class ItemMarkerCard extends ItemBG {
     }
 
     @Override
-    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 
-        if (WorldHelper.isClient(world))
+        if (WorldHelper.isClient(worldIn))
+            return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+
+        if (playerIn.isSneaking()) {
+            MarkerType t = MarkerType.getMarkerType(itemStackIn.getItemDamage()).getNext();
+            setType(itemStackIn, t);
+            return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        }
+
+        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+    }
+
+    @Override
+    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+
+        if (WorldHelper.isClient(worldIn))
             return EnumActionResult.FAIL;
 
-        if (player.isSneaking()) {
-            MarkerType t = MarkerType.getMarkerType(stack.getItemDamage()).getNext();
-            setType(stack, t);
-        } else {
+        if (!playerIn.isSneaking()) {
+
             MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
             if (t == MarkerType.BLANK)
                 return EnumActionResult.FAIL;
 
-            TileEntity te = world.getTileEntity(pos);
+            TileEntity te = worldIn.getTileEntity(pos);
             if (te != null && te instanceof TileEntityMarker) {
 
                 if (((TileEntityMarker) te).getType() == MarkerType.BLANK) {
                     ((TileEntityMarker) te).resetToType(t);
-                    BlockUtils.markBlockForUpdate(world, pos);
-                    stack.stackSize = player.capabilities.isCreativeMode ? stack.stackSize : stack.stackSize - 1;
+                    BlockUtils.markBlockForUpdate(worldIn, pos);
+                    stack.stackSize = playerIn.capabilities.isCreativeMode ? stack.stackSize : stack.stackSize - 1;
                 }
             }
         }
