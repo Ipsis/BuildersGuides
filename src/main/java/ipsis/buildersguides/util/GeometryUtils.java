@@ -1,7 +1,7 @@
 package ipsis.buildersguides.util;
 
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -3,11 +3,12 @@ package ipsis.buildersguides.manager.markers;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
+import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.StringHelper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import static ipsis.buildersguides.util.GeometryUtils.*;
@@ -34,7 +35,7 @@ public class MarkerShape extends Marker {
         else if (m == ShapeMode.LINE)
             handleHammerLine(te, entityPlayer.isSneaking(), entityPlayer, side); */
 
-        worldIn.markBlockForUpdate(te.getPos());
+        BlockUtils.markBlockForUpdate(worldIn, te.getPos());
     }
 
     void handleHammerEllipse(TileEntityMarker te, boolean isSneaking,EntityPlayer entityPlayer, EnumFacing side) {
@@ -53,7 +54,7 @@ public class MarkerShape extends Marker {
         te.setV(side, currRadius);
         te.setV(side.getOpposite(), currRadius);
 
-        entityPlayer.addChatComponentMessage(new ChatComponentText(
+        entityPlayer.addChatComponentMessage(new TextComponentString(
                 String.format("%s: %d x %d",
                         getMode(te),
                         te.getV(EnumFacing.WEST), te.getV(EnumFacing.SOUTH))));
@@ -75,7 +76,7 @@ public class MarkerShape extends Marker {
         te.setV(side, currRadius);
         te.setV(side.getOpposite(), currRadius);
 
-        entityPlayer.addChatComponentMessage(new ChatComponentText(
+        entityPlayer.addChatComponentMessage(new TextComponentString(
                 String.format("%s: %d x %d",
                         getMode(te),
                         te.getV(EnumFacing.WEST), te.getV(EnumFacing.SOUTH))));
@@ -94,7 +95,7 @@ public class MarkerShape extends Marker {
         for (EnumFacing f : EnumFacing.VALUES)
             te.setV(f, currRadius);
 
-        entityPlayer.addChatComponentMessage(new ChatComponentText(
+        entityPlayer.addChatComponentMessage(new TextComponentString(
                 String.format("%s: radius %d", getMode(te), te.getV(EnumFacing.WEST))));
     }
 
@@ -107,13 +108,13 @@ public class MarkerShape extends Marker {
             ShapeMode m = ShapeMode.getMode(te.getMode());
             m = m.getNext();
             te.setMode(m.ordinal());
-            entityPlayer.addChatComponentMessage(new ChatComponentText(m.getTranslatedMode()));
+            entityPlayer.addChatComponentMessage(new TextComponentString(m.getTranslatedMode()));
 
             /* clear all the values when you change shape */
             for (EnumFacing f : EnumFacing.VALUES)
                 te.setV(f, 0);
 
-            worldIn.markBlockForUpdate(te.getPos());
+            BlockUtils.markBlockForUpdate(worldIn, te.getPos());
         }
     }
 
