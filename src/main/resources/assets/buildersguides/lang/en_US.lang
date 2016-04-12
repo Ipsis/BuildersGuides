@@ -67,6 +67,7 @@ name.BuildersGuides:shapemode.ELLIPSE=Ellipse
 name.BuildersGuides:shapemode.SPHERE=Sphere
 name.BuildersGuides:shapemode.LINE=Line
 name.BuildersGuides:shapemode.DOME=Dome
+name.BuildersGuides:shapemode.CYLINDER=Cylinder
 
 itemGroup.BuildersGuides=Builder's Guides
 

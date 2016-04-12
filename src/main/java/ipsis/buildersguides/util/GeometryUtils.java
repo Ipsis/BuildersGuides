@@ -51,6 +51,11 @@ public class GeometryUtils {
             }
         }
     }
+    public static void calcCylinder(TileEntityMarker te, int posX, int posY, int posZ, int radius, int height) {
+
+        for (int i = 0; i < height; i++)
+            calcCircle(te, posX, posY + i, posZ, radius);
+    }
 
     public static void calcSphere(TileEntityMarker te, int posX, int posY, int posZ, int radius) {
 
