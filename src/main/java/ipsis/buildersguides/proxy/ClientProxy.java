@@ -1,5 +1,6 @@
 package ipsis.buildersguides.proxy;
 
+import ipsis.buildersguides.client.DrawBlockHighlightEventHandler;
 import ipsis.buildersguides.client.KeyInputEventHandler;
 import ipsis.buildersguides.client.ModelBakeEventHandler;
 import ipsis.buildersguides.client.keys.KeyBindingsBG;
@@ -49,6 +50,7 @@ public class ClientProxy extends CommonProxy {
     protected void registerEventHandlers() {
         MinecraftForge.EVENT_BUS.register(new KeyInputEventHandler());
         MinecraftForge.EVENT_BUS.register(new ModelBakeEventHandler());
+        MinecraftForge.EVENT_BUS.register(new DrawBlockHighlightEventHandler());
     }
 
     @Override
