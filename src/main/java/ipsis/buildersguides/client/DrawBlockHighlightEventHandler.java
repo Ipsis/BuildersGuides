@@ -2,6 +2,8 @@ package ipsis.buildersguides.client;
 
 import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.util.BlockUtils;
+import ipsis.oss.LogHelper;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +31,12 @@ public class DrawBlockHighlightEventHandler {
         if (blockpos == null)
             return;
 
+        /**
+         * Dont highlight if we are actually targetting a non-air block
+         */
+        IBlockState state = world.getBlockState(event.getTarget().getBlockPos());
+        if (!state.getBlock().isAir(state, world, event.getTarget().getBlockPos()))
+            return;
 
         /**
          * Vanilla block outline code
