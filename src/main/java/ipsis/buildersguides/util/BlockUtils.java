@@ -1,8 +1,12 @@
 package ipsis.buildersguides.util;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -141,5 +145,34 @@ public class BlockUtils {
         }
 
         return 0;
+    }
+
+    public static BlockPos getSelectedBlock(EntityPlayer entityPlayer) {
+
+        Vec3d lookVec = entityPlayer.getLookVec();
+
+        Vec3d playerVec = new Vec3d(entityPlayer.posX, entityPlayer.posY + entityPlayer.getEyeHeight(), entityPlayer.posZ);
+        Vec3d targetVec = playerVec.addVector(lookVec.xCoord * 2, lookVec.yCoord * 2, lookVec.zCoord * 2);
+        return new BlockPos(MathHelper.floor_double(targetVec.xCoord), MathHelper.floor_double(targetVec.yCoord), MathHelper.floor_double(targetVec.zCoord));
+    }
+
+    public static void placeInAir(World world, ItemStack itemStack, EntityPlayer entityPlayer, EnumFacing side) {
+
+        if (world.isRemote)
+            return;
+
+        BlockPos pos = getSelectedBlock(entityPlayer);
+        IBlockState blockState = world.getBlockState(pos);
+        if (blockState != null && blockState.getBlock().isAir(blockState, world, pos)) {
+
+            int dmg = itemStack.getItemDamage();
+            int count = itemStack.stackSize;
+            itemStack.onItemUse(entityPlayer, world, pos, entityPlayer.getActiveHand(), side, 0.5F, 0.5F, 0.5F);
+
+            if (entityPlayer.isCreative()) {
+                itemStack.setItemDamage(dmg);
+                itemStack.stackSize = count;
+            }
+        }
     }
 }
