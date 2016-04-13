@@ -158,8 +158,9 @@ public class BlockUtils {
 
     public static void placeInAir(World world, ItemStack itemStack, EntityPlayer entityPlayer, EnumFacing side) {
 
+        /*
         if (world.isRemote)
-            return;
+            return; */
 
         BlockPos pos = getSelectedBlock(entityPlayer);
         IBlockState blockState = world.getBlockState(pos);
