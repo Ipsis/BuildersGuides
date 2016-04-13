@@ -21,8 +21,9 @@ public class ItemBlockMarker extends ItemBlock {
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 
+        /*
         if (worldIn.isRemote || itemStackIn == null)
-            return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+            return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand); */
 
         BlockUtils.placeInAir(worldIn, itemStackIn, playerIn, EnumFacing.DOWN);
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
