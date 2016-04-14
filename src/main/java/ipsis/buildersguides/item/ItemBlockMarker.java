@@ -7,7 +7,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
@@ -25,7 +24,7 @@ public class ItemBlockMarker extends ItemBlock {
         if (worldIn.isRemote || itemStackIn == null)
             return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand); */
 
-        BlockUtils.placeInAir(worldIn, itemStackIn, playerIn, EnumFacing.DOWN);
+        BlockUtils.placeInAir(worldIn, itemStackIn, playerIn);
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
 
     }
