@@ -1,5 +1,6 @@
 package ipsis.buildersguides.util;
 
+import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -156,19 +157,22 @@ public class BlockUtils {
         return new BlockPos(MathHelper.floor_double(targetVec.xCoord), MathHelper.floor_double(targetVec.yCoord), MathHelper.floor_double(targetVec.zCoord));
     }
 
-    public static void placeInAir(World world, ItemStack itemStack, EntityPlayer entityPlayer, EnumFacing side) {
+    public static void placeInAir(World world, ItemStack itemStack, EntityPlayer entityPlayer) {
 
         /*
         if (world.isRemote)
             return; */
 
+
         BlockPos pos = getSelectedBlock(entityPlayer);
+        EnumFacing facing = BlockPistonBase.getFacingFromEntity(pos, entityPlayer).getOpposite();
         IBlockState blockState = world.getBlockState(pos);
+
         if (blockState != null && blockState.getBlock().isAir(blockState, world, pos)) {
 
             int dmg = itemStack.getItemDamage();
             int count = itemStack.stackSize;
-            itemStack.onItemUse(entityPlayer, world, pos, entityPlayer.getActiveHand(), side, 0.5F, 0.5F, 0.5F);
+            itemStack.onItemUse(entityPlayer, world, pos, entityPlayer.getActiveHand(), facing, 0.5F, 0.5F, 0.5F);
 
             if (entityPlayer.isCreative()) {
                 itemStack.setItemDamage(dmg);
