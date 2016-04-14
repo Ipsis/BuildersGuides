@@ -3,6 +3,7 @@ package ipsis.buildersguides.block;
 import ipsis.buildersguides.client.model.ISBMMarker;
 import ipsis.buildersguides.common.UnlistedPropertyBoolean;
 import ipsis.buildersguides.common.UnlistedPropertyEnumFacing;
+import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.item.ItemMallet;
 import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
@@ -13,6 +14,7 @@ import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.ItemStackHelper;
 import ipsis.buildersguides.util.WorldHelper;
+import ipsis.oss.client.ModelHelper;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -58,6 +60,8 @@ public class BlockMarker extends BlockContainerBG {
     @Override
     @SideOnly(Side.CLIENT)
     public void initModel() {
+
+        ModelHelper.registerBlock(ModBlocks.blockMarker, BASENAME);
 
         /*
         StateMapperBase ignoreState = new StateMapperBase() {
