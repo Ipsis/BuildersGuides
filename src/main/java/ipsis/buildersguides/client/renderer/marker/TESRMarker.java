@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 import java.util.HashMap;
 
@@ -63,8 +64,27 @@ public class TESRMarker extends TileEntitySpecialRenderer {
         {
             RenderHelper.enableStandardItemLighting();
             GlStateManager.translate(relX + 0.5F, relY + 0.5F, relZ + 0.5F);
-            GlStateManager.rotate(-Minecraft.getMinecraft().getRenderManager().playerViewY, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(Minecraft.getMinecraft().getRenderManager().playerViewX, 1.0F, 0.0F, 0.0F);
+
+            EnumFacing f = te.getFacing();
+            if (f == EnumFacing.UP) {
+                GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+                GlStateManager.translate(0.0F, 0.0F, -0.126F);
+            } else if (f == EnumFacing.DOWN) {
+                GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
+                GlStateManager.translate(0.0F, 0.0F, 0.126F);
+            } else if (f == EnumFacing.SOUTH) {
+                GlStateManager.translate(0.0F, 0.0F, 0.126F);
+            } else if (f == EnumFacing.NORTH) {
+                GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+                GlStateManager.translate(0.0F, 0.0F, 0.126F);
+            } else if (f == EnumFacing.WEST) {
+                GlStateManager.rotate(270.0F, 0.0F, 1.0F, 0.0F);
+                GlStateManager.translate(0.0F, 0.0F, 0.126F);
+            } else if (f == EnumFacing.EAST) {
+                GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
+                GlStateManager.translate(0.0F, 0.0F, 0.126F);
+            }
+
             GlStateManager.scale(0.25F, 0.25F, 0.25F);
             Minecraft.getMinecraft().getRenderItem().renderItem(itemStack, ItemCameraTransforms.TransformType.NONE);
         }
