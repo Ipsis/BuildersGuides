@@ -1,7 +1,11 @@
 Builder's Guides ChangeLog
 ==========================
 
-1.8.9-0.1.0
+1.9-0.2.0-beta
+
+Fix the version numbering, as I ended up with duplicate MC versions.
+
+1.9-0.1.0-beta
 -----------
 
 Features:
