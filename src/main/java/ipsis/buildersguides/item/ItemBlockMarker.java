@@ -10,7 +10,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-public class ItemBlockMarker extends ItemBlock {
+public class ItemBlockMarker extends ItemBlockBG {
 
     public ItemBlockMarker(Block b) {
 
