@@ -13,7 +13,7 @@ public class ModBlocks {
     public static void init() {
 
         GameRegistry.register(blockMarker);
-        GameRegistry.register(new ItemBlockMarker(blockMarker).setRegistryName(Reference.MOD_ID_LOWER, BlockMarker.BASENAME));
+        GameRegistry.register(new ItemBlockMarker(blockMarker).setRegistryName(blockMarker.getRegistryName()));
     }
 
     public static void registerTileEntities() {
