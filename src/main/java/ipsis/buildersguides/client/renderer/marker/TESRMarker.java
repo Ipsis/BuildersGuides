@@ -58,7 +58,9 @@ public class TESRMarker extends TileEntitySpecialRenderer {
         EntityItem entityItem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemStack);
         entityItem.getEntityItem().stackSize = 1;
 
-        /** TODO Orient the card to the front */
+        /**
+         * TODO Not sure I understand this properly yet - revisit this
+         */
         GlStateManager.pushAttrib();
         GlStateManager.pushMatrix();
         {
