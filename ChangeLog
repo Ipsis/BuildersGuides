@@ -1,34 +1,12 @@
 Builder's Guides ChangeLog
 ==========================
 
-1.8.9-1.0.0
------------
-
-Features:
-* Added shape marker - currently supports circle, ellipse, dome, sphere
-
-Build Environment:
-* Forge - 11.15.1.1855
-
-1.8.9-0.2.0
------------
-
-Features:
-* Added visual indication of the front face of the block
-
-Fixes:
-* BGZ004 - Guide lines vanish when te chunk is out of view
-
-Build Environment:
-* Forge - 11.15.1.1738
-* Waila - 1.6.0-B3_1.8.8
-
 1.8.9-0.1.0
 -----------
 
 Features:
-* Minecraft 1.8 version
+* Minecraft 1.9 version
 
 Build Environment:
-* Forge - 11.15.0.1715
-* Waila - 1.6.0-B3_1.8.8
+* Forge - 1.9-12.16.0.1865
+* Waila - 1.7.0-B2_1.9
