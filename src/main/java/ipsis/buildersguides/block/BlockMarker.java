@@ -13,7 +13,7 @@ import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.ItemStackHelper;
 import ipsis.buildersguides.util.WorldHelper;
-import ipsis.oss.client.ModelHelper;
+import ipsis.buildersguides.oss.client.ModelHelper;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

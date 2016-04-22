@@ -8,7 +8,7 @@ import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.StringHelper;
 import ipsis.buildersguides.util.WorldHelper;
-import ipsis.oss.client.ModelHelper;
+import ipsis.buildersguides.oss.client.ModelHelper;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

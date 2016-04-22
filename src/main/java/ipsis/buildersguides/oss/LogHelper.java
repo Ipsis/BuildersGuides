@@ -1,4 +1,4 @@
-package ipsis.oss;
+package ipsis.buildersguides.oss;
 
 import ipsis.buildersguides.reference.Reference;
 import net.minecraftforge.fml.common.FMLLog;

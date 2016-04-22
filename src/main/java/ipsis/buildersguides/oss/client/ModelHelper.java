@@ -1,4 +1,4 @@
-package ipsis.oss.client;
+package ipsis.buildersguides.oss.client;
 
 import ipsis.buildersguides.reference.Reference;
 import net.minecraft.block.Block;

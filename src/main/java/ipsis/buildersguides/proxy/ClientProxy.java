@@ -8,7 +8,7 @@ import ipsis.buildersguides.block.BlockMarker;
 import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.init.ModItems;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import ipsis.oss.client.ModelHelper;
+import ipsis.buildersguides.oss.client.ModelHelper;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
