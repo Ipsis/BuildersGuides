@@ -10,10 +10,22 @@ public class ModRecipes {
     public static void init() {
 
         // Blocks
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.blockMarker), "sss", "sts", "srs", 's', Blocks.stone, 't', Blocks.torch, 'r', Items.redstone);
+        GameRegistry.addRecipe(new ItemStack(ModBlocks.blockMarker),
+                "sss",
+                "sts",
+                "srs",
+                's', Blocks.STONE, 't', Blocks.TORCH, 'r', Items.REDSTONE);
 
         // Items
-        GameRegistry.addRecipe(new ItemStack(ModItems.itemMarkerCard, 1, 0), "sss", "sts", "sss", 's', Items.stick, 't', Blocks.torch);
-        GameRegistry.addRecipe(new ItemStack(ModItems.itemMallet), "mmm", " s ", " s ", 'm', ModItems.itemMarkerCard, 's', Items.stick);
+        GameRegistry.addRecipe(new ItemStack(ModItems.itemMarkerCard, 1, 0),
+                "sss",
+                "sts",
+                "sss",
+                's', Items.STICK, 't', Blocks.TORCH);
+        GameRegistry.addRecipe(new ItemStack(ModItems.itemMallet),
+                "mmm",
+                " s ",
+                " s ",
+                'm', ModItems.itemMarkerCard, 's', Items.STICK);
     }
 }

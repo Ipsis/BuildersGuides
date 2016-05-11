@@ -49,7 +49,7 @@ public class BlockMarker extends BlockContainerBG {
 
     public BlockMarker() {
 
-        super(Material.ground, BASENAME);
+        super(Material.GROUND, BASENAME);
         setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
     }
 
