@@ -3,6 +3,7 @@ package ipsis.buildersguides.item;
 import ipsis.buildersguides.client.keys.KeyBindingsBG;
 import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.reference.Reference;
+import ipsis.buildersguides.util.EnumKeys;
 import ipsis.buildersguides.util.IKeyBound;
 import ipsis.buildersguides.util.StringHelper;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -130,7 +131,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
 
     /* IKeyBound */
     @Override
-    public void doKeyBindingAction(EntityPlayer entityPlayer, ItemStack itemStack, KeyBindingsBG keyBinding) {
+    public void doKeyBindingAction(EntityPlayer entityPlayer, ItemStack itemStack, EnumKeys key) {
 
         cycleMode(itemStack);
         entityPlayer.addChatComponentMessage(new TextComponentString(getModeTranslation(itemStack)));

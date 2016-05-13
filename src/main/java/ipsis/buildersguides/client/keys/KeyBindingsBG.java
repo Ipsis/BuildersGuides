@@ -1,6 +1,7 @@
 package ipsis.buildersguides.client.keys;
 
 import ipsis.buildersguides.reference.Reference;
+import ipsis.buildersguides.util.EnumKeys;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 
@@ -10,19 +11,18 @@ import org.lwjgl.input.Keyboard;
  */
 public enum KeyBindingsBG {
 
-    KEY_MODE(Keys.MODE, Keyboard.KEY_EQUALS);
+    KEY_MODE(EnumKeys.KEY_MODE, Keyboard.KEY_EQUALS);
 
-    public class Keys {
-
-        public static final String CATEGORY = "keys." + Reference.MOD_ID + ".category";
-        public static final String MODE = "keys." + Reference.MOD_ID + ".mode";
-    }
-
+    public static final String CATEGORY = "keys." + Reference.MOD_ID + ".category";
     private final KeyBinding keyBinding;
-    KeyBindingsBG(String name, int defaultKeyCode) {
-        keyBinding = new KeyBinding(name, defaultKeyCode, Keys.CATEGORY);
+    private final EnumKeys key;
+
+    KeyBindingsBG(EnumKeys key, int defaultKeyCode) {
+        this.key = key;
+        keyBinding = new KeyBinding(key.name(), defaultKeyCode, CATEGORY);
     }
 
     public KeyBinding getKeyBinding() { return keyBinding; }
     public boolean isPressed() { return keyBinding.isPressed(); }
+    public EnumKeys getKey() { return key; }
 }

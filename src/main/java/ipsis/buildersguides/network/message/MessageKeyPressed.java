@@ -1,11 +1,10 @@
 package ipsis.buildersguides.network.message;
 
 import io.netty.buffer.ByteBuf;
-import ipsis.buildersguides.client.keys.KeyBindingsBG;
+import ipsis.buildersguides.util.EnumKeys;
 import ipsis.buildersguides.util.IKeyBound;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -17,10 +16,9 @@ public class MessageKeyPressed implements IMessage {
     public MessageKeyPressed() { }
 
     private byte key;
-    public MessageKeyPressed(KeyBindingsBG key) {
+    public MessageKeyPressed(EnumKeys key) {
 
-        if (key == KeyBindingsBG.KEY_MODE)
-            this.key = (byte)key.ordinal();
+        this.key = (byte)key.ordinal();
     }
 
     @Override
@@ -60,8 +58,8 @@ public class MessageKeyPressed implements IMessage {
 
             ItemStack itemStack = fromPlayer.getHeldItemMainhand();
             if (itemStack != null && itemStack.getItem() instanceof IKeyBound) {
-                if (message.key == KeyBindingsBG.KEY_MODE.ordinal())
-                    ((IKeyBound) itemStack.getItem()).doKeyBindingAction(fromPlayer, itemStack, KeyBindingsBG.KEY_MODE);
+                if (message.key == EnumKeys.KEY_MODE.ordinal())
+                    ((IKeyBound) itemStack.getItem()).doKeyBindingAction(fromPlayer, itemStack, EnumKeys.KEY_MODE);
             }
         }
     }
