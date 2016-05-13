@@ -3,9 +3,7 @@ package ipsis.buildersguides.init;
 import ipsis.buildersguides.block.BlockContainerBG;
 import ipsis.buildersguides.block.BlockMarker;
 import ipsis.buildersguides.item.ItemBlockMarker;
-import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModBlocks {

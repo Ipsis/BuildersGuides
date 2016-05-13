@@ -3,6 +3,7 @@ package ipsis.buildersguides.client;
 import ipsis.buildersguides.client.keys.KeyBindingsBG;
 import ipsis.buildersguides.network.PacketHandlerBG;
 import ipsis.buildersguides.network.message.MessageKeyPressed;
+import ipsis.buildersguides.util.EnumKeys;
 import ipsis.buildersguides.util.IKeyBound;
 import ipsis.buildersguides.util.WorldHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,11 +19,11 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
  */
 public class KeyInputEventHandler {
 
-    private KeyBindingsBG getPressedKey() {
+    private EnumKeys getPressedKey() {
 
         for (KeyBindingsBG key : KeyBindingsBG.values()) {
             if (key.isPressed())
-                return key;
+                return key.getKey();
         }
 
         return null;
@@ -32,7 +33,7 @@ public class KeyInputEventHandler {
     public void handleKeyInputEvent(InputEvent.KeyInputEvent event) {
 
         /* You get the pressed and release event */
-        KeyBindingsBG key = getPressedKey();
+        EnumKeys key = getPressedKey();
 
         if (key != null && FMLClientHandler.instance().getClient().inGameHasFocus && FMLClientHandler.instance().getClientPlayerEntity() != null) {
             EntityPlayer entityPlayer = FMLClientHandler.instance().getClientPlayerEntity();
