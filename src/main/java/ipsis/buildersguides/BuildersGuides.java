@@ -37,7 +37,6 @@ public class BuildersGuides {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
-        PacketHandlerBG.init();
         ModBlocks.init();
         ModItems.init();
         proxy.preInit();
