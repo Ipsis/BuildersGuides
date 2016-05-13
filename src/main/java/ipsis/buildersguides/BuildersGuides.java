@@ -3,7 +3,6 @@ package ipsis.buildersguides;
 import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.init.ModItems;
 import ipsis.buildersguides.init.ModRecipes;
-import ipsis.buildersguides.network.PacketHandlerBG;
 import ipsis.buildersguides.proxy.CommonProxy;
 import ipsis.buildersguides.reference.Reference;
 import net.minecraft.creativetab.CreativeTabs;
