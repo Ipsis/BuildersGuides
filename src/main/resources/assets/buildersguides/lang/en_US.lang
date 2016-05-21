@@ -15,7 +15,7 @@ item.BuildersGuides:markerCard.SHAPE.name=Shape Marker Card
 tooltip.BuildersGuides.marker=Displays guide lines and blocks
 
 tooltip.BuildersGuides:markerCard.AXIS=Displays the world axes in all directions
-tooltip.BuildersGuides:markerCard.BLANK=Shift click on ground to cycle card type
+tooltip.BuildersGuides:markerCard.BLANK=Shift click to cycle card type
 tooltip.BuildersGuides:markerCard.CENTER.1=Displays the distance and center blocks
 tooltip.BuildersGuides:markerCard.CENTER.2=between the targets in each axis
 tooltip.BuildersGuides:markerCard.CENTER=Displays the distance and center blocks/between the targets in each axis
@@ -67,6 +67,7 @@ name.BuildersGuides:shapemode.ELLIPSE=Ellipse
 name.BuildersGuides:shapemode.SPHERE=Sphere
 name.BuildersGuides:shapemode.LINE=Line
 name.BuildersGuides:shapemode.DOME=Dome
+name.BuildersGuides:shapemode.CYLINDER=Cylinder
 
 itemGroup.BuildersGuides=Builder's Guides
 

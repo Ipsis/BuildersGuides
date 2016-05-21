@@ -1,8 +1,8 @@
-package ipsis.oss.client;
+package ipsis.buildersguides.oss.client;
 
 import ipsis.buildersguides.reference.Reference;
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;

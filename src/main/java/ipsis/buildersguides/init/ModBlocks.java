@@ -2,6 +2,7 @@ package ipsis.buildersguides.init;
 
 import ipsis.buildersguides.block.BlockContainerBG;
 import ipsis.buildersguides.block.BlockMarker;
+import ipsis.buildersguides.item.ItemBlockMarker;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -9,7 +10,8 @@ public class ModBlocks {
 
     public static void init() {
 
-        GameRegistry.registerBlock(blockMarker, BlockMarker.BASENAME);
+        GameRegistry.register(blockMarker);
+        GameRegistry.register(new ItemBlockMarker(blockMarker).setRegistryName(blockMarker.getRegistryName()));
     }
 
     public static void registerTileEntities() {

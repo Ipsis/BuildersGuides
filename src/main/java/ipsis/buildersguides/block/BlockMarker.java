@@ -1,32 +1,34 @@
 package ipsis.buildersguides.block;
 
-import ipsis.buildersguides.client.model.ISBMMarker;
 import ipsis.buildersguides.common.UnlistedPropertyBoolean;
 import ipsis.buildersguides.common.UnlistedPropertyEnumFacing;
+import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.item.ItemMallet;
 import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.init.ModItems;
 import ipsis.buildersguides.item.ItemMarkerCard;
+import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
+import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.ItemStackHelper;
 import ipsis.buildersguides.util.WorldHelper;
+import ipsis.buildersguides.oss.client.ModelHelper;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
@@ -46,24 +48,20 @@ public class BlockMarker extends BlockContainerBG {
     public static final UnlistedPropertyEnumFacing FACING = new UnlistedPropertyEnumFacing("FACING");
 
     public BlockMarker() {
-        super(Material.ground, BASENAME);
+
+        super(Material.GROUND, BASENAME);
+        setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void initModel() {
 
-        StateMapperBase ignoreState = new StateMapperBase() {
-            @Override
-            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-                return ISBMMarker.modelResourceLocation;
-            }
-        };
-        ModelLoader.setCustomStateMapper(this, ignoreState);
+        ModelHelper.registerBlock(ModBlocks.blockMarker, BASENAME);
     }
 
     @Override
-    protected BlockState createBlockState() {
+    protected BlockStateContainer createBlockState() {
         IUnlistedProperty[] unlistedProperties = new IUnlistedProperty[]{
                 NORTH, SOUTH, EAST, WEST, UP, DOWN, FACING
         };
@@ -97,7 +95,10 @@ public class BlockMarker extends BlockContainerBG {
     }
 
     @Override
-    public int getRenderType() { return 3; }
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+
+        return EnumBlockRenderType.MODEL;
+    }
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
@@ -106,13 +107,13 @@ public class BlockMarker extends BlockContainerBG {
     }
 
     @Override
-    public boolean isOpaqueCube() {
+    public boolean isOpaqueCube(IBlockState state) {
 
         return false;
     }
 
     @Override
-    public boolean isBlockNormalCube() {
+    public boolean isBlockNormalCube(IBlockState state) {
 
         return false;
     }
@@ -134,19 +135,18 @@ public class BlockMarker extends BlockContainerBG {
 
         TileEntity te = worldIn.getTileEntity(pos);
         if (te != null && te instanceof TileEntityMarker) {
-            ((TileEntityMarker) te).setFacing(BlockPistonBase.getFacingFromEntity(worldIn, pos, placer));
-            worldIn.markBlockForUpdate(pos);
+            ((TileEntityMarker) te).setFacing(BlockPistonBase.getFacingFromEntity(pos, placer));
+            BlockUtils.markBlockForUpdate(worldIn, pos);
         }
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 
         TileEntity te = worldIn.getTileEntity(pos);
         if (te == null || !(te instanceof TileEntityMarker))
             return false;
 
-        ItemStack heldItem = playerIn.getCurrentEquippedItem();
         if (heldItem == null || heldItem.getItem() != ModItems.itemMallet)
             return false;
 

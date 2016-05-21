@@ -9,8 +9,8 @@ public class ModItems {
 
     public static void init() {
 
-        GameRegistry.registerItem(itemMarkerCard, ItemMarkerCard.BASENAME);
-        GameRegistry.registerItem(itemMallet, ItemMallet.BASENAME);
+        GameRegistry.register(itemMallet);
+        GameRegistry.register(itemMarkerCard);
     }
 
     public static ItemBG itemMarkerCard = new ItemMarkerCard();

@@ -1,7 +1,7 @@
 package ipsis.buildersguides.util;
 
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -50,6 +50,11 @@ public class GeometryUtils {
                 d = d + (2 * x) - (2 * y) + 2;
             }
         }
+    }
+    public static void calcCylinder(TileEntityMarker te, int posX, int posY, int posZ, int radius, int height) {
+
+        for (int i = 0; i < height; i++)
+            calcCircle(te, posX, posY + i, posZ, radius);
     }
 
     public static void calcSphere(TileEntityMarker te, int posX, int posY, int posZ, int radius) {

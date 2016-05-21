@@ -1,7 +1,7 @@
 package ipsis.buildersguides.network.message;
 
 import io.netty.buffer.ByteBuf;
-import ipsis.buildersguides.client.keys.KeyBindingsBG;
+import ipsis.buildersguides.util.EnumKeys;
 import ipsis.buildersguides.util.IKeyBound;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -16,10 +16,9 @@ public class MessageKeyPressed implements IMessage {
     public MessageKeyPressed() { }
 
     private byte key;
-    public MessageKeyPressed(KeyBindingsBG key) {
+    public MessageKeyPressed(EnumKeys key) {
 
-        if (key == KeyBindingsBG.KEY_MODE)
-            this.key = (byte)key.ordinal();
+        this.key = (byte)key.ordinal();
     }
 
     @Override
@@ -44,7 +43,7 @@ public class MessageKeyPressed implements IMessage {
             if (fromPlayer == null)
                 return null;
 
-            final WorldServer playerWorldServer = fromPlayer.getServerForPlayer();
+            final WorldServer playerWorldServer = fromPlayer.getServerWorld();
             playerWorldServer.addScheduledTask(new Runnable() {
                 public void run() {
                     processMessage(message, fromPlayer);
@@ -57,10 +56,10 @@ public class MessageKeyPressed implements IMessage {
 
         private void processMessage(MessageKeyPressed message, EntityPlayerMP fromPlayer) {
 
-            ItemStack itemStack = fromPlayer.getCurrentEquippedItem();
+            ItemStack itemStack = fromPlayer.getHeldItemMainhand();
             if (itemStack != null && itemStack.getItem() instanceof IKeyBound) {
-                if (message.key == KeyBindingsBG.KEY_MODE.ordinal())
-                    ((IKeyBound) itemStack.getItem()).doKeyBindingAction(fromPlayer, itemStack, KeyBindingsBG.KEY_MODE);
+                if (message.key == EnumKeys.KEY_MODE.ordinal())
+                    ((IKeyBound) itemStack.getItem()).doKeyBindingAction(fromPlayer, itemStack, EnumKeys.KEY_MODE);
             }
         }
     }

@@ -1,21 +1,33 @@
 package ipsis.buildersguides.proxy;
 
+import ipsis.buildersguides.client.DrawBlockHighlightEventHandler;
 import ipsis.buildersguides.client.KeyInputEventHandler;
-import ipsis.buildersguides.client.ModelBakeEventHandler;
 import ipsis.buildersguides.client.keys.KeyBindingsBG;
 import ipsis.buildersguides.client.renderer.marker.TESRMarker;
 import ipsis.buildersguides.block.BlockMarker;
 import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.init.ModItems;
+import ipsis.buildersguides.network.PacketHandlerBG;
+import ipsis.buildersguides.network.message.MessageTileEntityMarker;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
-import ipsis.oss.client.ModelHelper;
+import ipsis.buildersguides.oss.client.ModelHelper;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+
+import static ipsis.buildersguides.network.PacketHandlerBG.MARKER_TE_MSG_ID;
 
 public class ClientProxy extends CommonProxy {
+
+    @Override
+    public void preInit() {
+
+        super.preInit();
+        PacketHandlerBG.INSTANCE.registerMessage(MessageTileEntityMarker.Handler.class, MessageTileEntityMarker.class, MARKER_TE_MSG_ID, Side.CLIENT);
+    }
 
     @Override
     protected void registerBlockItemModels() {
@@ -48,7 +60,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     protected void registerEventHandlers() {
         MinecraftForge.EVENT_BUS.register(new KeyInputEventHandler());
-        MinecraftForge.EVENT_BUS.register(new ModelBakeEventHandler());
+        MinecraftForge.EVENT_BUS.register(new DrawBlockHighlightEventHandler());
     }
 
     @Override

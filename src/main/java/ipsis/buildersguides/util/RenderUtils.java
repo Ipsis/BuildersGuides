@@ -2,7 +2,7 @@ package ipsis.buildersguides.util;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 
@@ -15,7 +15,7 @@ public class RenderUtils {
     private static void shadedCube(float size) {
 
         Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+        VertexBuffer worldRenderer = tessellator.getBuffer();
 
         // Front - anticlockwise vertices
         // Back - clockwise vertices
@@ -63,7 +63,7 @@ public class RenderUtils {
     private static void outlineCube(float size) {
 
         Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+        VertexBuffer worldRenderer = tessellator.getBuffer();
 
         worldRenderer.begin(GL11.GL_LINE_LOOP, DefaultVertexFormats.POSITION);
         worldRenderer.pos(-size, size, -size).endVertex();
@@ -145,7 +145,7 @@ public class RenderUtils {
 
         // TODO this is supposed to be a "fancy" line
         Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+        VertexBuffer worldRenderer = tessellator.getBuffer();
         GL11.glLineWidth(3.5F);
         worldRenderer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
         worldRenderer.pos(x1, y1, z1).endVertex();
