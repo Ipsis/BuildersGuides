@@ -8,6 +8,7 @@ import ipsis.buildersguides.util.ColorBG;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -16,6 +17,7 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class TileEntityMarker extends TileEntity {
@@ -122,8 +124,9 @@ public class TileEntityMarker extends TileEntity {
         facing = facing.rotateAround(side.getAxis());
     }
 
+    @Nullable
     @Override
-    public Packet getDescriptionPacket() {
+    public SPacketUpdateTileEntity getUpdatePacket() {
 
         return PacketHandlerBG.INSTANCE.getPacketFrom(new MessageTileEntityMarker(this));
     }
@@ -175,7 +178,7 @@ public class TileEntityMarker extends TileEntity {
     public static final String NBT_TARGET_LIST = "TargetList";
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
         compound.setByte(NBT_TYPE, (byte)type.ordinal());
@@ -204,6 +207,8 @@ public class TileEntityMarker extends TileEntity {
             }
         }
         compound.setTag(NBT_TARGET_LIST, tagList);
+
+        return compound;
     }
 
     @Override
