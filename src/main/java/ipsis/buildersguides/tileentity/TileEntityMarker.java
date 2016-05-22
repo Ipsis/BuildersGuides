@@ -2,12 +2,11 @@ package ipsis.buildersguides.tileentity;
 
 import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
-import ipsis.buildersguides.network.PacketHandlerBG;
-import ipsis.buildersguides.network.message.MessageTileEntityMarker;
+import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.ColorBG;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.Packet;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -128,7 +127,23 @@ public class TileEntityMarker extends TileEntity {
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
 
-        return PacketHandlerBG.INSTANCE.getPacketFrom(new MessageTileEntityMarker(this));
+        return new SPacketUpdateTileEntity(this.pos, getBlockMetadata(), getUpdateTag());
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+
+        NBTTagCompound compound = new NBTTagCompound();
+        compound = writeToNBT(compound);
+        return compound;
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+
+        readFromNBT(pkt.getNbtCompound());
+        MarkerManager.handleServerUpdate(this);
+        BlockUtils.markBlockForUpdate(this.getWorld(), getPos());
     }
 
     private static final int MAX_DISTANCE = 128;
