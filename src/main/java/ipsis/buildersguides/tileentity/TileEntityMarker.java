@@ -4,6 +4,7 @@ import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.ColorBG;
+import ipsis.buildersguides.util.WorldHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -33,7 +34,11 @@ public class TileEntityMarker extends TileEntity {
     }
 
     public void setType(MarkerType type) {
-        this.type = type;
+
+        if (this.type != type) {
+            markDirty();
+            this.type = type;
+        }
     }
 
     public EnumFacing getFacing() {
@@ -41,7 +46,11 @@ public class TileEntityMarker extends TileEntity {
     }
 
     public void setFacing(EnumFacing facing) {
-        this.facing = facing;
+
+        if (this.facing != facing) {
+            this.facing = facing;
+            markDirty();
+        }
     }
 
     public ColorBG getColor() {
@@ -49,7 +58,11 @@ public class TileEntityMarker extends TileEntity {
     }
 
     public void setColor(ColorBG color) {
-        this.color = color;
+
+        if (this.color != color) {
+            this.color = color;
+            markDirty();
+        }
     }
 
     public int getV(EnumFacing f) {
@@ -57,7 +70,11 @@ public class TileEntityMarker extends TileEntity {
     }
 
     public void setV(EnumFacing f, int val) {
-        v[f.ordinal()] = val;
+
+        if (v[f.ordinal()] != val) {
+            v[f.ordinal()] = val;
+            markDirty();
+        }
     }
 
     public boolean hasValidV(EnumFacing f) {
@@ -65,7 +82,13 @@ public class TileEntityMarker extends TileEntity {
     }
 
     public int getMode() { return mode; }
-    public void setMode(int mode) { this.mode = mode; }
+    public void setMode(int mode) {
+
+        if (this.mode != mode) {
+            this.mode = mode;
+            markDirty();
+        }
+    }
 
     public BlockPos getTarget(EnumFacing f) {
         if (target[f.ordinal()] == null)
@@ -73,7 +96,12 @@ public class TileEntityMarker extends TileEntity {
         else
             return target[f.ordinal()];
     }
-    public void setTarget(EnumFacing f, BlockPos p) { target[f.ordinal()] = new BlockPos(p); }
+    public void setTarget(EnumFacing f, BlockPos p) {
+
+        target[f.ordinal()] = new BlockPos(p);
+        markDirty();
+    }
+
     public boolean hasTarget(EnumFacing f) { return target[f.ordinal()] != null && !getPos().equals(target[f.ordinal()]); }
     public void clearTarget(EnumFacing f) { target[f.ordinal()] = null; }
 
@@ -93,8 +121,8 @@ public class TileEntityMarker extends TileEntity {
 
     public void resetToType(MarkerType type) {
 
-        this.type = type;
-        mode = 0;
+        setType(type);
+        setMode(0);
 
         v = new int[6];
         for (int i = 0; i < 6; i++)
@@ -104,6 +132,7 @@ public class TileEntityMarker extends TileEntity {
         clientData.reset();
 
         MarkerManager.initServerMarker(this);
+        markDirty();
     }
 
     /**
@@ -117,10 +146,10 @@ public class TileEntityMarker extends TileEntity {
         for (EnumFacing f : EnumFacing.VALUES) {
 
             EnumFacing newF = f.rotateAround(side.getAxis());
-            v[f.ordinal()] = oldV[newF.ordinal()];
-            target[f.ordinal()] = oldTarget[newF.ordinal()];
+            setV(f, oldV[newF.ordinal()]);
+            setTarget(f, oldTarget[newF.ordinal()]);
         }
-        facing = facing.rotateAround(side.getAxis());
+        setFacing(facing.rotateAround(side.getAxis()));
     }
 
     @Nullable
@@ -142,8 +171,6 @@ public class TileEntityMarker extends TileEntity {
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 
         readFromNBT(pkt.getNbtCompound());
-        MarkerManager.handleServerUpdate(this);
-        BlockUtils.markBlockForUpdate(this.getWorld(), getPos());
     }
 
     private static final int MAX_DISTANCE = 128;
@@ -254,6 +281,11 @@ public class TileEntityMarker extends TileEntity {
             int z = tagCompound.getInteger("Z");
             BlockPos p = new BlockPos(x, y, z);
             setTarget(f, p);
+        }
+
+        if (WorldHelper.isClient(worldObj)) {
+            MarkerManager.handleServerUpdate(this);
+            BlockUtils.markBlockForUpdate(this.getWorld(), getPos());
         }
     }
 
