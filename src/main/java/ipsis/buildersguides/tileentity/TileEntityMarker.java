@@ -127,9 +127,15 @@ public class TileEntityMarker extends TileEntity {
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
 
+        return new SPacketUpdateTileEntity(this.pos, getBlockMetadata(), getUpdateTag());
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+
         NBTTagCompound compound = new NBTTagCompound();
         compound = writeToNBT(compound);
-        return new SPacketUpdateTileEntity(this.pos, getBlockMetadata(), compound);
+        return compound;
     }
 
     @Override
