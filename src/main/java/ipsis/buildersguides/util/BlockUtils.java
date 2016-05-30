@@ -15,6 +15,8 @@ import java.util.List;
 
 public class BlockUtils {
 
+    static final int N_TH_BLOCK_MAX_DISTANCE = 12 * 16;
+
     public static void markBlockForUpdate(World world, BlockPos pos) {
 
         if (world != null && pos != null) {
@@ -28,7 +30,7 @@ public class BlockUtils {
      * Return the currPos value if no block found within maxDistance blcoks away
      */
     public static BlockPos getNthBlock(World world, BlockPos currPos, EnumFacing facing, int step) {
-        return getNthBlock(world, currPos, facing, step, 64);
+        return getNthBlock(world, currPos, facing, step, N_TH_BLOCK_MAX_DISTANCE);
     }
 
     public static BlockPos getNthBlock(World world, BlockPos currPos, EnumFacing facing, int step, int maxDistance) {
@@ -37,7 +39,7 @@ public class BlockUtils {
         BlockPos found = new BlockPos(currPos);
         for (int i = 1; i <= maxDistance; i++) {
             BlockPos c = currPos.offset(facing, i);
-            if (!world.isAirBlock(c)) {
+            if (world.isBlockLoaded(c) && !world.isAirBlock(c)) {
                 count ++;
                 if (count == step) {
                     found = new BlockPos(c);
