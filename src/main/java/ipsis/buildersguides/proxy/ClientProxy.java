@@ -7,8 +7,6 @@ import ipsis.buildersguides.client.renderer.marker.TESRMarker;
 import ipsis.buildersguides.block.BlockMarker;
 import ipsis.buildersguides.init.ModBlocks;
 import ipsis.buildersguides.init.ModItems;
-import ipsis.buildersguides.network.PacketHandlerBG;
-import ipsis.buildersguides.network.message.MessageTileEntityMarker;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.oss.client.ModelHelper;
 import net.minecraft.item.Item;
@@ -16,9 +14,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-
-import static ipsis.buildersguides.network.PacketHandlerBG.MARKER_TE_MSG_ID;
 
 public class ClientProxy extends CommonProxy {
 
@@ -26,7 +21,6 @@ public class ClientProxy extends CommonProxy {
     public void preInit() {
 
         super.preInit();
-        PacketHandlerBG.INSTANCE.registerMessage(MessageTileEntityMarker.Handler.class, MessageTileEntityMarker.class, MARKER_TE_MSG_ID, Side.CLIENT);
     }
 
     @Override

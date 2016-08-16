@@ -2,12 +2,13 @@ package ipsis.buildersguides.tileentity;
 
 import ipsis.buildersguides.manager.MarkerManager;
 import ipsis.buildersguides.manager.MarkerType;
-import ipsis.buildersguides.network.PacketHandlerBG;
-import ipsis.buildersguides.network.message.MessageTileEntityMarker;
+import ipsis.buildersguides.util.BlockUtils;
 import ipsis.buildersguides.util.ColorBG;
+import ipsis.buildersguides.util.WorldHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.Packet;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -16,6 +17,7 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class TileEntityMarker extends TileEntity {
@@ -122,10 +124,64 @@ public class TileEntityMarker extends TileEntity {
         facing = facing.rotateAround(side.getAxis());
     }
 
+    @Nullable
     @Override
-    public Packet getDescriptionPacket() {
+    public SPacketUpdateTileEntity getUpdatePacket() {
 
-        return PacketHandlerBG.INSTANCE.getPacketFrom(new MessageTileEntityMarker(this));
+        NBTTagCompound nbtTagCompound = getUpdateTag();
+        return new SPacketUpdateTileEntity(this.pos, getBlockMetadata(), nbtTagCompound);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+
+        handleUpdateTag(pkt.getNbtCompound());
+        WorldHelper.updateClient(getWorld(), this);
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        super.writeToNBT(nbtTagCompound);
+        nbtTagCompound.setByte("facing", (byte)facing.ordinal());
+        nbtTagCompound.setByte("type", (byte)type.ordinal());
+        nbtTagCompound.setByte("color", (byte)color.ordinal());
+        nbtTagCompound.setByte("mode", (byte)mode);
+
+        for (EnumFacing f : EnumFacing.values())
+            nbtTagCompound.setInteger("v_" + f.ordinal(), getV(f));
+
+        for (EnumFacing f : EnumFacing.values()) {
+            BlockPos targetPos = getTarget(f);
+            nbtTagCompound.setInteger("target" + f.ordinal() + "_x", targetPos.getX());
+            nbtTagCompound.setInteger("target" + f.ordinal() + "_y", targetPos.getY());
+            nbtTagCompound.setInteger("target" + f.ordinal() + "_z", targetPos.getZ());
+        }
+        return nbtTagCompound;
+    }
+
+    @Override
+    public void handleUpdateTag(NBTTagCompound tag) {
+
+        super.handleUpdateTag(tag);
+
+        setFacing(EnumFacing.getFront(tag.getByte("facing")));
+        setType(MarkerType.getMarkerType(tag.getByte("type")));
+        setColor(ColorBG.getColor(tag.getByte("color")));
+        setMode((tag.getByte("mode")));
+
+        for (EnumFacing f : EnumFacing.values()) {
+            setV(f, tag.getByte("v_" + f.ordinal()));
+            BlockPos targetPos = new BlockPos(
+                    tag.getInteger("target" + f.ordinal() + "_x"),
+                    tag.getInteger("target" + f.ordinal() + "_y"),
+                    tag.getInteger("target" + f.ordinal() + "_z"));
+            setTarget(f, targetPos);
+        }
+
+        MarkerManager.handleServerUpdate(this);
+        BlockUtils.markBlockForUpdate(worldObj, this.getPos());
     }
 
     private static final int MAX_DISTANCE = 128;
@@ -175,7 +231,7 @@ public class TileEntityMarker extends TileEntity {
     public static final String NBT_TARGET_LIST = "TargetList";
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
         compound.setByte(NBT_TYPE, (byte)type.ordinal());
@@ -204,6 +260,7 @@ public class TileEntityMarker extends TileEntity {
             }
         }
         compound.setTag(NBT_TARGET_LIST, tagList);
+        return compound;
     }
 
     @Override
