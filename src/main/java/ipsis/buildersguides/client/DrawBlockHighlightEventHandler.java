@@ -1,6 +1,7 @@
 package ipsis.buildersguides.client;
 
 import ipsis.buildersguides.init.ModBlocks;
+import ipsis.buildersguides.oss.LogHelper;
 import ipsis.buildersguides.util.BlockUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
@@ -24,7 +25,7 @@ public class DrawBlockHighlightEventHandler {
         if (held == null || Item.getItemFromBlock(ModBlocks.blockMarker) != held.getItem())
             return;
 
-        if (event.getTarget().typeOfHit != RayTraceResult.Type.BLOCK)
+        if (event.getTarget().getBlockPos() == null)
             return;
 
         EntityPlayer entityPlayer = event.getPlayer();
