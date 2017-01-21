@@ -183,7 +183,7 @@ public class MarkerGhost extends Marker {
         }
 
         public String getTranslatedMode() {
-            return StringHelper.localize(Names.NAME, "ghostmode." + this.toString());
+            return StringHelper.localize(Names.NAME, "ghostmode." + this.toString().toLowerCase());
         }
     }
 }

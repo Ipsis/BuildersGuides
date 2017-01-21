@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "buildersguides:items/mallet.CONFIG"
+    "layer0": "buildersguides:items/mallet.hammer"
   }
 }

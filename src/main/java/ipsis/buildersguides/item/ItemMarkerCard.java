@@ -25,7 +25,7 @@ import java.util.List;
 
 public class ItemMarkerCard extends ItemBG {
 
-    public static final String BASENAME = "markerCard";
+    public static final String BASENAME = "markercard";
 
     public ItemMarkerCard() {
 
@@ -33,7 +33,7 @@ public class ItemMarkerCard extends ItemBG {
         setMaxStackSize(16);
         setUnlocalizedName(BASENAME);
         setHasSubtypes(true);
-        setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
+        setRegistryName(Reference.MOD_ID, BASENAME);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ItemMarkerCard extends ItemBG {
     public void initModel() {
 
         for (MarkerType t : MarkerType.values()) {
-            ModelHelper.registerItem(ModItems.itemMarkerCard, t.ordinal(), BASENAME + "." + t);
+            ModelHelper.registerItem(ModItems.itemMarkerCard, t.ordinal(), BASENAME + "." + t.toString().toLowerCase());
             ModelBakery.registerItemVariants(ModItems.itemMarkerCard, new ResourceLocation(Reference.MOD_ID + ":" + BASENAME + "." + t));
         }
     }
@@ -58,7 +58,7 @@ public class ItemMarkerCard extends ItemBG {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName() + "." + MarkerType.getMarkerType(stack.getItemDamage());
+        return super.getUnlocalizedName() + "." + MarkerType.getMarkerType(stack.getItemDamage()).toString().toLowerCase();
     }
 
     public static ItemStack getItemStack(MarkerType t) {
@@ -123,10 +123,10 @@ public class ItemMarkerCard extends ItemBG {
         MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
 
         if (t == MarkerType.CENTER || t == MarkerType.GHOSTSTAIRS || t == MarkerType.RANGE) {
-            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString() + ".1"));
-            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString() + ".2"));
+            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString().toLowerCase() + ".1"));
+            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString().toLowerCase() + ".2"));
         } else {
-            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString()));
+            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString().toLowerCase()));
         }
     }
 }

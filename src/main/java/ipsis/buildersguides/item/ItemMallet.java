@@ -36,17 +36,17 @@ public class ItemMallet extends ItemBG implements IKeyBound {
         setUnlocalizedName(BASENAME);
         setHasSubtypes(true);
         setMaxStackSize(1);
-        setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
+        setRegistryName(Reference.MOD_ID, BASENAME);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void initModel() {
 
-        final ModelResourceLocation hammerModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".HAMMER", "inventory");
-        final ModelResourceLocation wrenchModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".BCWRENCH", "inventory");
-        final ModelResourceLocation paintModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".DECORATE", "inventory");
-        final ModelResourceLocation configModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".CONFIG", "inventory");
+        final ModelResourceLocation hammerModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".hammer", "inventory");
+        final ModelResourceLocation wrenchModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".bcwrench", "inventory");
+        final ModelResourceLocation paintModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".decorate", "inventory");
+        final ModelResourceLocation configModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".config", "inventory");
 
         ModelBakery.registerItemVariants(this, hammerModel, wrenchModel, paintModel, configModel);
 
@@ -94,7 +94,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     public static String getModeTranslation(ItemStack itemStack) {
 
         return TextFormatting.YELLOW + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.MODE),
-                StringHelper.localize(Names.NAME, BASENAME + "." + getMode(itemStack).toString()));
+                StringHelper.localize(Names.NAME, BASENAME + "." + getMode(itemStack).toString().toLowerCase()));
     }
 
     @Override
@@ -122,9 +122,9 @@ public class ItemMallet extends ItemBG implements IKeyBound {
         }
 
         if (right)
-            tooltip.add(TextFormatting.RED + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.RCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.RCLICK)));
+            tooltip.add(TextFormatting.RED + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.RCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString().toLowerCase() + "." + Names.RCLICK)));
         if (sright)
-            tooltip.add(TextFormatting.GREEN + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.SRCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.SRCLICK)));
+            tooltip.add(TextFormatting.GREEN + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.SRCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString().toLowerCase() + "." + Names.SRCLICK)));
 
     }
 
