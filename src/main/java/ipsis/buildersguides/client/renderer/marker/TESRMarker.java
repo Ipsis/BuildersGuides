@@ -56,7 +56,7 @@ public class TESRMarker extends TileEntitySpecialRenderer {
         ItemStack itemStack = ItemMarkerCard.getItemStack(te.getType());
 
         EntityItem entityItem = new EntityItem(te.getWorld(), 0.0D, 0.0D, 0.0D, itemStack);
-        entityItem.getEntityItem().stackSize = 1;
+        entityItem.getEntityItem().setCount(1);
 
         /**
          * TODO Not sure I understand this properly yet - revisit this

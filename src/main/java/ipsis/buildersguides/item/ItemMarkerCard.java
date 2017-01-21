@@ -49,7 +49,7 @@ public class ItemMarkerCard extends ItemBG {
     @Override
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
-    public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
+    public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
 
         for (MarkerType t : MarkerType.values()) {
             subItems.add(new ItemStack(itemIn, 1, t.ordinal()));
@@ -73,27 +73,31 @@ public class ItemMarkerCard extends ItemBG {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
 
         if (WorldHelper.isClient(worldIn))
-            return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+            return super.onItemRightClick(worldIn, playerIn, hand);
 
-        if (playerIn.isSneaking()) {
-            MarkerType t = MarkerType.getMarkerType(itemStackIn.getItemDamage()).getNext();
-            setType(itemStackIn, t);
-            return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        ItemStack stack = playerIn.getHeldItem(hand);
+
+        if (!stack.isEmpty() && playerIn.isSneaking()) {
+            MarkerType t = MarkerType.getMarkerType(stack.getItemDamage()).getNext();
+            setType(stack, t);
+            return new ActionResult(EnumActionResult.SUCCESS, stack);
         }
 
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return super.onItemRightClick(worldIn, playerIn, hand);
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
         if (WorldHelper.isClient(worldIn))
             return EnumActionResult.FAIL;
 
-        if (!playerIn.isSneaking()) {
+        ItemStack stack = playerIn.getHeldItem(hand);
+
+        if (!stack.isEmpty() && !playerIn.isSneaking()) {
 
             MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
             if (t == MarkerType.BLANK)
@@ -105,7 +109,7 @@ public class ItemMarkerCard extends ItemBG {
                 if (((TileEntityMarker) te).getType() == MarkerType.BLANK) {
                     ((TileEntityMarker) te).resetToType(t);
                     BlockUtils.markBlockForUpdate(worldIn, pos);
-                    stack.stackSize = playerIn.capabilities.isCreativeMode ? stack.stackSize : stack.stackSize - 1;
+                    stack.setCount(playerIn.capabilities.isCreativeMode ? stack.getCount() : stack.getCount() - 1);
                 }
             }
         }

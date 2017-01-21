@@ -53,7 +53,7 @@ public class MarkerGhost extends Marker {
             GhostMode m = GhostMode.getMode(te.getMode());
             m = m.getNext();
             te.setMode(m.ordinal());
-            entityPlayer.addChatComponentMessage(new TextComponentString(m.getTranslatedMode()));
+            entityPlayer.sendMessage(new TextComponentString(m.getTranslatedMode()));
             BlockUtils.markBlockForUpdate(worldIn, te.getPos());
         }
     }
@@ -174,7 +174,7 @@ public class MarkerGhost extends Marker {
         CUBOID;
 
         public static GhostMode getMode(int id) {
-            return values()[MathHelper.clamp_int(id, 0, values().length - 1)];
+            return values()[MathHelper.clamp(id, 0, values().length - 1)];
         }
 
         public GhostMode getNext() {

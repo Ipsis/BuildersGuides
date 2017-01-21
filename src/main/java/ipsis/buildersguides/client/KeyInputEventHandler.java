@@ -38,7 +38,7 @@ public class KeyInputEventHandler {
         if (key != null && FMLClientHandler.instance().getClient().inGameHasFocus && FMLClientHandler.instance().getClientPlayerEntity() != null) {
             EntityPlayer entityPlayer = FMLClientHandler.instance().getClientPlayerEntity();
             if (entityPlayer.getHeldItemMainhand() != null && entityPlayer.getHeldItemMainhand().getItem() instanceof IKeyBound) {
-                if (WorldHelper.isClient(entityPlayer.worldObj)) {
+                if (WorldHelper.isClient(entityPlayer.getEntityWorld())) {
                     PacketHandlerBG.INSTANCE.sendToServer(new MessageKeyPressed(key));
                 }
             }

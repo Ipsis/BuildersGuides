@@ -135,19 +135,21 @@ public class BlockMarker extends BlockContainerBG {
 
         TileEntity te = worldIn.getTileEntity(pos);
         if (te != null && te instanceof TileEntityMarker) {
-            ((TileEntityMarker) te).setFacing(BlockPistonBase.getFacingFromEntity(pos, placer));
+            ((TileEntityMarker) te).setFacing(EnumFacing.getDirectionFromEntityLiving(pos, placer));
             BlockUtils.markBlockForUpdate(worldIn, pos);
         }
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+
+        ItemStack heldItem = playerIn.getHeldItem(hand);
 
         TileEntity te = worldIn.getTileEntity(pos);
         if (te == null || !(te instanceof TileEntityMarker))
             return false;
 
-        if (heldItem == null || heldItem.getItem() != ModItems.itemMallet)
+        if (heldItem.isEmpty() || heldItem.getItem() != ModItems.itemMallet)
             return false;
 
         if (WorldHelper.isServer(worldIn)) {

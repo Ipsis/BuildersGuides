@@ -21,7 +21,8 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 repositories {
     maven { // The repo from which to get waila
         name "Mobius Repo"
-        url "http://mobiusstrip.eu/maven"
+        //url "http://mobiusstrip.eu/maven"
+        url "http://tehnut.info/maven"
     }
     maven { // JEI
         url "http://dvs1.progwml6.com/files/maven"
@@ -60,8 +61,8 @@ minecraft {
 }
 
 dependencies {
-    deobfCompile "mcp.mobius.waila:Waila:1.7.0-B3_1.9.4"
-    deobfCompile "mezz.jei:jei_1.9.4:3.4.0.202"
+    deobfCompile "mcp.mobius.waila:Hwyla:1.8.3-B15_1.11"
+    deobfCompile "mezz.jei:jei_1.11:4.0.2.194"
 }
 
 processResources

@@ -7,6 +7,7 @@ import ipsis.buildersguides.proxy.CommonProxy;
 import ipsis.buildersguides.reference.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -28,8 +29,8 @@ public class BuildersGuides {
     public static CreativeTabs tabBG = new CreativeTabs(Reference.MOD_ID) {
         @Override
         @SideOnly(Side.CLIENT)
-        public Item getTabIconItem() {
-            return Item.getItemFromBlock(ModBlocks.blockMarker);
+        public ItemStack getTabIconItem() {
+            return new ItemStack(ModBlocks.blockMarker);
         }
     };
 

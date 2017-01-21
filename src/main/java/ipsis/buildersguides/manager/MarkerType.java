@@ -23,7 +23,7 @@ public enum MarkerType {
 
     public static MarkerType getMarkerType(int ordinal) {
 
-        ordinal = MathHelper.clamp_int(ordinal, 0, MarkerType.count - 1);
+        ordinal = MathHelper.clamp(ordinal, 0, MarkerType.count - 1);
         return MarkerType.values()[ordinal];
     }
 

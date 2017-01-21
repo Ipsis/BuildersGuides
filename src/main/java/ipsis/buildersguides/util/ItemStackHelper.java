@@ -19,13 +19,13 @@ public class ItemStackHelper {
         float f1 = RANDOM.nextFloat() * 0.8F + 0.1F;
         float f2 = RANDOM.nextFloat() * 0.8F + 0.1F;
 
-        while (itemStack.stackSize > 0) {
+        while (itemStack.getCount()> 0) {
             int i = RANDOM.nextInt(21) + 10;
 
-            if (i > itemStack.stackSize)
-                i = itemStack.stackSize;
+            if (i > itemStack.getCount())
+                i = itemStack.getCount();
 
-            itemStack.stackSize -= i;
+            itemStack.shrink(i);
             EntityItem entityitem = new EntityItem(world, pos.getX() + (double)f, pos.getY() + (double)f1, pos.getZ() + (double)f2,
                     new ItemStack(itemStack.getItem(), i, itemStack.getMetadata()));
 
@@ -36,7 +36,7 @@ public class ItemStackHelper {
             entityitem.motionX = RANDOM.nextGaussian() * (double) f3;
             entityitem.motionY = RANDOM.nextGaussian() * (double) f3 + 0.20000000298023224D;
             entityitem.motionZ = RANDOM.nextGaussian() * (double) f3;
-            world.spawnEntityInWorld(entityitem);
+            world.spawnEntity(entityitem);
         }
     }
 }
