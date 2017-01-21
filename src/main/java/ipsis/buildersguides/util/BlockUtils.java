@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -157,11 +158,15 @@ public class BlockUtils {
         return new BlockPos(MathHelper.lfloor(targetVec.xCoord), MathHelper.lfloor(targetVec.yCoord), MathHelper.lfloor(targetVec.zCoord));
     }
 
-    public static void placeInAir(World world, ItemStack itemStack, EntityPlayer entityPlayer) {
+    public static void placeInAir(World world, EntityPlayer entityPlayer, EnumHand hand) {
 
         /*
         if (world.isRemote)
             return; */
+
+        ItemStack itemStack = entityPlayer.getHeldItem(hand);
+        if (itemStack.isEmpty())
+            return;
 
 
         BlockPos pos = getSelectedBlock(entityPlayer);
@@ -172,7 +177,7 @@ public class BlockUtils {
 
             int dmg = itemStack.getItemDamage();
             int count = itemStack.getCount();
-            itemStack.onItemUse(entityPlayer, world, pos, entityPlayer.getActiveHand(), facing, 0.5F, 0.5F, 0.5F);
+            itemStack.onItemUse(entityPlayer, world, pos, hand, facing, 0.5F, 0.5F, 0.5F);
 
             if (entityPlayer.isCreative()) {
                 itemStack.setItemDamage(dmg);

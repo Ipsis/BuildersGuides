@@ -23,12 +23,8 @@ public class ItemBlockMarker extends ItemBlockBG {
         if (worldIn.isRemote || itemStackIn == null)
             return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand); */
 
-        ItemStack itemStackIn = playerIn.getHeldItem(hand);
-
-        if (!itemStackIn.isEmpty())
-            BlockUtils.placeInAir(worldIn, itemStackIn, playerIn);
-
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+        BlockUtils.placeInAir(worldIn, playerIn, hand);
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
 
     }
 }
