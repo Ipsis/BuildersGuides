@@ -39,7 +39,7 @@ public class MessageKeyPressed implements IMessage {
             if (ctx.side != Side.SERVER)
                 return null;
 
-            final EntityPlayerMP fromPlayer = ctx.getServerHandler().playerEntity;
+            final EntityPlayerMP fromPlayer = ctx.getServerHandler().player;
             if (fromPlayer == null)
                 return null;
 
