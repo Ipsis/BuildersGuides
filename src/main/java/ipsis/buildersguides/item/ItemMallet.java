@@ -143,7 +143,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
         DECORATE;
 
         public static MalletMode getMode(int id) {
-            return values()[MathHelper.clamp_int(id, 0, values().length - 1)];
+            return values()[MathHelper.clamp(id, 0, values().length - 1)];
         }
 
         public MalletMode getNext() {

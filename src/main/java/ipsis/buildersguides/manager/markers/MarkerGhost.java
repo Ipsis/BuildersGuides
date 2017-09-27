@@ -174,7 +174,7 @@ public class MarkerGhost extends Marker {
         CUBOID;
 
         public static GhostMode getMode(int id) {
-            return values()[MathHelper.clamp_int(id, 0, values().length - 1)];
+            return values()[MathHelper.clamp(id, 0, values().length - 1)];
         }
 
         public GhostMode getNext() {

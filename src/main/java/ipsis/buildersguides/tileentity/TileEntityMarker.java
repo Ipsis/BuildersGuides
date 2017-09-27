@@ -181,7 +181,7 @@ public class TileEntityMarker extends TileEntity {
         }
 
         MarkerManager.handleServerUpdate(this);
-        BlockUtils.markBlockForUpdate(worldObj, this.getPos());
+        BlockUtils.markBlockForUpdate(world, this.getPos());
     }
 
     private static final int MAX_DISTANCE = 128;

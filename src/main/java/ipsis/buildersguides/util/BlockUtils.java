@@ -153,8 +153,8 @@ public class BlockUtils {
         Vec3d lookVec = entityPlayer.getLookVec();
 
         Vec3d playerVec = new Vec3d(entityPlayer.posX, entityPlayer.posY + entityPlayer.getEyeHeight(), entityPlayer.posZ);
-        Vec3d targetVec = playerVec.addVector(lookVec.xCoord * 2, lookVec.yCoord * 2, lookVec.zCoord * 2);
-        return new BlockPos(MathHelper.floor_double(targetVec.xCoord), MathHelper.floor_double(targetVec.yCoord), MathHelper.floor_double(targetVec.zCoord));
+        Vec3d targetVec = playerVec.addVector(lookVec.x * 2, lookVec.y * 2, lookVec.z * 2);
+        return new BlockPos(MathHelper.floor(targetVec.x), MathHelper.floor(targetVec.y), MathHelper.floor(targetVec.z));
     }
 
     public static void placeInAir(World world, ItemStack itemStack, EntityPlayer entityPlayer) {
@@ -171,12 +171,12 @@ public class BlockUtils {
         if (blockState != null && blockState.getBlock().isAir(blockState, world, pos)) {
 
             int dmg = itemStack.getItemDamage();
-            int count = itemStack.stackSize;
+            int count = itemStack.getCount();
             itemStack.onItemUse(entityPlayer, world, pos, entityPlayer.getActiveHand(), facing, 0.5F, 0.5F, 0.5F);
 
             if (entityPlayer.isCreative()) {
                 itemStack.setItemDamage(dmg);
-                itemStack.stackSize = count;
+                itemStack.setCount(count);
             }
         }
     }
