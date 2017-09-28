@@ -26,7 +26,7 @@ public class ItemBlockMarker extends ItemBlockBG {
         ItemStack itemStack = playerIn.getHeldItem(handIn);
 
         if (!itemStack.isEmpty())
-            BlockUtils.placeInAir(worldIn, itemStack, playerIn);
+            BlockUtils.placeInAir(worldIn, itemStack, playerIn, handIn);
 
         return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStack);
 
