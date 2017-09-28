@@ -56,10 +56,10 @@ public class MarkerShape extends Marker {
         te.setV(side, currRadius);
         te.setV(side.getOpposite(), currRadius);
 
-        entityPlayer.addChatComponentMessage(new TextComponentString(
+        entityPlayer.sendStatusMessage(new TextComponentString(
                 String.format("%s: %d x %d",
                         getMode(te),
-                        te.getV(EnumFacing.WEST), te.getV(EnumFacing.SOUTH))));
+                        te.getV(EnumFacing.WEST), te.getV(EnumFacing.SOUTH))), false);
     }
 
     void handleHammerLine(TileEntityMarker te, boolean isSneaking,EntityPlayer entityPlayer, EnumFacing side) {
@@ -78,10 +78,10 @@ public class MarkerShape extends Marker {
         te.setV(side, currRadius);
         te.setV(side.getOpposite(), currRadius);
 
-        entityPlayer.addChatComponentMessage(new TextComponentString(
+        entityPlayer.sendStatusMessage(new TextComponentString(
                 String.format("%s: %d x %d",
                         getMode(te),
-                        te.getV(EnumFacing.WEST), te.getV(EnumFacing.SOUTH))));
+                        te.getV(EnumFacing.WEST), te.getV(EnumFacing.SOUTH))), false);
     }
 
     void handleHammerCylinder(TileEntityMarker te, boolean isSneaking, EntityPlayer entityPlayer, EnumFacing side) {
@@ -112,8 +112,8 @@ public class MarkerShape extends Marker {
             }
         }
 
-        entityPlayer.addChatComponentMessage(new TextComponentString(
-                String.format("%s: radius %d height %d", getMode(te), te.getV(EnumFacing.WEST), te.getV(EnumFacing.UP))));
+        entityPlayer.sendStatusMessage(new TextComponentString(
+                String.format("%s: radius %d height %d", getMode(te), te.getV(EnumFacing.WEST), te.getV(EnumFacing.UP))), false);
     }
 
     void handleRadius(TileEntityMarker te, boolean isSneaking, EntityPlayer entityPlayer, EnumFacing side) {
@@ -129,8 +129,8 @@ public class MarkerShape extends Marker {
         for (EnumFacing f : EnumFacing.VALUES)
             te.setV(f, currRadius);
 
-        entityPlayer.addChatComponentMessage(new TextComponentString(
-                String.format("%s: radius %d", getMode(te), te.getV(EnumFacing.WEST))));
+        entityPlayer.sendStatusMessage(new TextComponentString(
+                String.format("%s: radius %d", getMode(te), te.getV(EnumFacing.WEST))), false);
     }
 
     @Override
@@ -142,7 +142,7 @@ public class MarkerShape extends Marker {
             ShapeMode m = ShapeMode.getMode(te.getMode());
             m = m.getNext();
             te.setMode(m.ordinal());
-            entityPlayer.addChatComponentMessage(new TextComponentString(m.getTranslatedMode()));
+            entityPlayer.sendStatusMessage(new TextComponentString(m.getTranslatedMode()), false);
 
             /* clear all the values when you change shape */
             for (EnumFacing f : EnumFacing.VALUES)
@@ -209,7 +209,7 @@ public class MarkerShape extends Marker {
         CYLINDER;
 
         public static ShapeMode getMode(int id) {
-            return values()[MathHelper.clamp_int(id, 0, values().length - 1)];
+            return values()[MathHelper.clamp(id, 0, values().length - 1)];
         }
 
         public ShapeMode getNext() {

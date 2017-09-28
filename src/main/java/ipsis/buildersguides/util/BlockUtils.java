@@ -165,7 +165,7 @@ public class BlockUtils {
 
 
         BlockPos pos = getSelectedBlock(entityPlayer);
-        EnumFacing facing = BlockPistonBase.getFacingFromEntity(pos, entityPlayer).getOpposite();
+        EnumFacing facing = EnumFacing.getDirectionFromEntityLiving(pos, entityPlayer).getOpposite();
         IBlockState blockState = world.getBlockState(pos);
 
         if (blockState != null && blockState.getBlock().isAir(blockState, world, pos)) {

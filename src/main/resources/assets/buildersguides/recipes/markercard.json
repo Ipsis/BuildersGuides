@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "buildersguides:markercard",
+    "data": 0
+  },
+  "pattern": [
+    "SSS",
+    "STS",
+    "SSS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "T": {
+      "item": "minecraft:torch"
+    }
+  }
+}

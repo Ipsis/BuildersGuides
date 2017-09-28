@@ -1,6 +1,7 @@
 package ipsis.buildersguides.item;
 
 import ipsis.buildersguides.BuildersGuides;
+import ipsis.buildersguides.oss.client.ModelHelper;
 import ipsis.buildersguides.util.UnlocalizedName;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,17 +16,13 @@ public class ItemBG extends Item {
     }
 
     @SideOnly(Side.CLIENT)
+    public void initModel(Item item, String name) {
+
+        ModelHelper.registerItem(item, name);
+    }
+
+    @SideOnly(Side.CLIENT)
     public void initModel() {
 
-    }
-
-    @Override
-    public String getUnlocalizedName() {
-        return UnlocalizedName.getUnlocalizedNameItem(super.getUnlocalizedName());
-    }
-
-    @Override
-    public String getUnlocalizedName(ItemStack itemStack) {
-        return this.getUnlocalizedName();
     }
 }

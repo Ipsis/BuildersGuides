@@ -17,14 +17,18 @@ public class ItemBlockMarker extends ItemBlockBG {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
         /*
         if (worldIn.isRemote || itemStackIn == null)
             return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand); */
 
-        BlockUtils.placeInAir(worldIn, itemStackIn, playerIn);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+        ItemStack itemStack = playerIn.getHeldItem(handIn);
+
+        if (!itemStack.isEmpty())
+            BlockUtils.placeInAir(worldIn, itemStack, playerIn);
+
+        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStack);
 
     }
 }

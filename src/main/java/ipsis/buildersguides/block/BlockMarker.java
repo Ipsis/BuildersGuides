@@ -50,7 +50,6 @@ public class BlockMarker extends BlockContainerBG {
     public BlockMarker() {
 
         super(Material.GROUND, BASENAME);
-        setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
     }
 
     @Override
@@ -135,27 +134,28 @@ public class BlockMarker extends BlockContainerBG {
 
         TileEntity te = worldIn.getTileEntity(pos);
         if (te != null && te instanceof TileEntityMarker) {
-            ((TileEntityMarker) te).setFacing(BlockPistonBase.getFacingFromEntity(pos, placer));
+            ((TileEntityMarker) te).setFacing(EnumFacing.getDirectionFromEntityLiving(pos, placer));
             BlockUtils.markBlockForUpdate(worldIn, pos);
         }
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
         TileEntity te = worldIn.getTileEntity(pos);
         if (te == null || !(te instanceof TileEntityMarker))
             return false;
 
-        if (heldItem == null || heldItem.getItem() != ModItems.itemMallet)
+        ItemStack itemStack = playerIn.getHeldItem(hand);
+        if (itemStack.isEmpty() || itemStack.getItem() != ModItems.itemMallet)
             return false;
 
         if (WorldHelper.isServer(worldIn)) {
             // side is the side of the block hit, but we want to act on the opposite side
             // ie. hitting the front face, pushes blocks out the back
-            ItemMallet.MalletMode currMode = ItemMallet.getMode(heldItem);
+            ItemMallet.MalletMode currMode = ItemMallet.getMode(itemStack);
             MarkerType t = ((TileEntityMarker) te).getType();
-            MarkerManager.handleMalletMode(worldIn, (TileEntityMarker) te, playerIn, side.getOpposite(), currMode);
+            MarkerManager.handleMalletMode(worldIn, (TileEntityMarker) te, playerIn, facing.getOpposite(), currMode);
         }
 
         return true;

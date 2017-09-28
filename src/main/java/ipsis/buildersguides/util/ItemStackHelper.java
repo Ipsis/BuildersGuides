@@ -19,7 +19,7 @@ public class ItemStackHelper {
         float f1 = RANDOM.nextFloat() * 0.8F + 0.1F;
         float f2 = RANDOM.nextFloat() * 0.8F + 0.1F;
 
-        while (itemStack.stackSize > 0) {
+        while (itemStack.getCount() > 0) {
             int i = RANDOM.nextInt(21) + 10;
 
             if (i > itemStack.getCount())

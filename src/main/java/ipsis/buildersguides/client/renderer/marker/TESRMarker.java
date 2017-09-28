@@ -4,6 +4,7 @@ import ipsis.buildersguides.item.ItemMarkerCard;
 import ipsis.buildersguides.manager.MarkerType;
 import ipsis.buildersguides.tileentity.TileEntityMarker;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -15,10 +16,10 @@ import net.minecraft.util.EnumFacing;
 
 import java.util.HashMap;
 
-public class TESRMarker extends TileEntitySpecialRenderer {
+public class TESRMarker extends TileEntitySpecialRenderer<TileEntityMarker> {
 
     @Override
-    public boolean isGlobalRenderer(TileEntity te) {
+    public boolean isGlobalRenderer(TileEntityMarker te) {
 
         // BGZ004 Force the render even when the chunk is out of view
         return true;
@@ -40,14 +41,11 @@ public class TESRMarker extends TileEntitySpecialRenderer {
     };
 
     @Override
-    public void renderTileEntityAt(TileEntity te, double relativeX, double relativeY, double relativeZ, float partialTicks, int blockDamageProgress) {
+    public void render(TileEntityMarker te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
-        if (!(te instanceof TileEntityMarker))
-            return;
-
-        if (map.containsKey(((TileEntityMarker) te).getType())) {
-            doRenderMarkerType((TileEntityMarker)te, relativeX, relativeY, relativeZ, partialTicks);
-            map.get(((TileEntityMarker) te).getType()).doRenderMarkerType(this, (TileEntityMarker) te, relativeX, relativeY, relativeZ, partialTicks);
+        if (map.containsKey(te.getType())) {
+            doRenderMarkerType(te, x, y, z, partialTicks);
+            map.get(te.getType()).doRenderMarkerType(this, te, x, y, z, partialTicks);
         }
     }
 

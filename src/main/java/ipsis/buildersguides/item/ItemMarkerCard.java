@@ -10,6 +10,7 @@ import ipsis.buildersguides.util.StringHelper;
 import ipsis.buildersguides.util.WorldHelper;
 import ipsis.buildersguides.oss.client.ModelHelper;
 import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -21,19 +22,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemMarkerCard extends ItemBG {
 
-    public static final String BASENAME = "markerCard";
+    public static final String BASENAME = "markercard";
 
     public ItemMarkerCard() {
 
         super();
         setMaxStackSize(16);
-        setUnlocalizedName(BASENAME);
         setHasSubtypes(true);
-        setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ItemMarkerCard extends ItemBG {
     public void initModel() {
 
         for (MarkerType t : MarkerType.values()) {
-            ModelHelper.registerItem(ModItems.itemMarkerCard, t.ordinal(), BASENAME + "." + t);
+            ModelHelper.registerItem(ModItems.itemMarkerCard, t.ordinal(), BASENAME + "." + t.toString().toLowerCase());
             ModelBakery.registerItemVariants(ModItems.itemMarkerCard, new ResourceLocation(Reference.MOD_ID + ":" + BASENAME + "." + t));
         }
     }
@@ -49,16 +49,11 @@ public class ItemMarkerCard extends ItemBG {
     @Override
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
-    public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 
         for (MarkerType t : MarkerType.values()) {
-            subItems.add(new ItemStack(itemIn, 1, t.ordinal()));
+            items.add(new ItemStack(this, 1, t.ordinal()));
         }
-    }
-
-    @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName() + "." + MarkerType.getMarkerType(stack.getItemDamage());
     }
 
     public static ItemStack getItemStack(MarkerType t) {
@@ -73,29 +68,32 @@ public class ItemMarkerCard extends ItemBG {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
         if (WorldHelper.isClient(worldIn))
-            return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+            return super.onItemRightClick(worldIn, playerIn, handIn);
 
-        if (playerIn.isSneaking()) {
-            MarkerType t = MarkerType.getMarkerType(itemStackIn.getItemDamage()).getNext();
-            setType(itemStackIn, t);
-            return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        ItemStack itemStack = playerIn.getHeldItem(handIn);
+        if (playerIn.isSneaking() && !itemStack.isEmpty()) {
+            MarkerType t = MarkerType.getMarkerType(itemStack.getItemDamage()).getNext();
+            setType(itemStack, t);
+            return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
         }
 
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
         if (WorldHelper.isClient(worldIn))
             return EnumActionResult.FAIL;
 
-        if (!playerIn.isSneaking()) {
+        ItemStack itemStack = player.getHeldItem(hand);
 
-            MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
+        if (!player.isSneaking() && !itemStack.isEmpty()) {
+
+            MarkerType t = MarkerType.getMarkerType(itemStack.getItemDamage());
             if (t == MarkerType.BLANK)
                 return EnumActionResult.FAIL;
 
@@ -105,7 +103,7 @@ public class ItemMarkerCard extends ItemBG {
                 if (((TileEntityMarker) te).getType() == MarkerType.BLANK) {
                     ((TileEntityMarker) te).resetToType(t);
                     BlockUtils.markBlockForUpdate(worldIn, pos);
-                    stack.setCount(playerIn.capabilities.isCreativeMode ? stack.getCount() : stack.getCount() - 1);
+                    itemStack.setCount(player.capabilities.isCreativeMode ? itemStack.getCount() : itemStack.getCount() - 1);
                 }
             }
         }
@@ -114,7 +112,7 @@ public class ItemMarkerCard extends ItemBG {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
         MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
 

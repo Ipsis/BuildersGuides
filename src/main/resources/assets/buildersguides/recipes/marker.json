@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "buildersguides:marker"
+  },
+  "pattern": [
+    "SSS",
+    "STS",
+    "SRS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "T": {
+      "item": "minecraft:torch"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  }
+}

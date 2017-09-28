@@ -57,7 +57,7 @@ public class DrawBlockHighlightEventHandler {
             double d0 = entityPlayer.lastTickPosX + (entityPlayer.posX - entityPlayer.lastTickPosX) * (double)event.getPartialTicks();
             double d1 = entityPlayer.lastTickPosY + (entityPlayer.posY - entityPlayer.lastTickPosY) * (double)event.getPartialTicks();
             double d2 = entityPlayer.lastTickPosZ + (entityPlayer.posZ - entityPlayer.lastTickPosZ) * (double)event.getPartialTicks();
-            drawSelectionBoundingBox(iblockstate.getSelectedBoundingBox(world, blockpos).expandXyz(0.0020000000949949026D).offset(-d0, -d1, -d2), 0.0F, 0.0F, 0.0F, 0.4F);
+            drawSelectionBoundingBox(iblockstate.getSelectedBoundingBox(world, blockpos).grow(0.0020000000949949026D).offset(-d0, -d1, -d2), 0.0F, 0.0F, 0.0F, 0.4F);
         }
 
         GlStateManager.depthMask(true);

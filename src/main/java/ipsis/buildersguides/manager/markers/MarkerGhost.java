@@ -53,7 +53,7 @@ public class MarkerGhost extends Marker {
             GhostMode m = GhostMode.getMode(te.getMode());
             m = m.getNext();
             te.setMode(m.ordinal());
-            entityPlayer.addChatComponentMessage(new TextComponentString(m.getTranslatedMode()));
+            entityPlayer.sendStatusMessage(new TextComponentString(m.getTranslatedMode()), false);
             BlockUtils.markBlockForUpdate(worldIn, te.getPos());
         }
     }

@@ -1,6 +1,8 @@
 package ipsis.buildersguides.item;
 
 import ipsis.buildersguides.client.keys.KeyBindingsBG;
+import ipsis.buildersguides.init.ModItems;
+import ipsis.buildersguides.oss.client.ModelHelper;
 import ipsis.buildersguides.reference.Names;
 import ipsis.buildersguides.reference.Reference;
 import ipsis.buildersguides.util.EnumKeys;
@@ -10,18 +12,22 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemMallet extends ItemBG implements IKeyBound {
@@ -33,38 +39,21 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     public ItemMallet() {
 
         super();
-        setUnlocalizedName(BASENAME);
         setHasSubtypes(true);
         setMaxStackSize(1);
-        setRegistryName(Reference.MOD_ID_LOWER, BASENAME);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void initModel() {
 
-        final ModelResourceLocation hammerModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".HAMMER", "inventory");
-        final ModelResourceLocation wrenchModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".BCWRENCH", "inventory");
-        final ModelResourceLocation paintModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".DECORATE", "inventory");
-        final ModelResourceLocation configModel = new ModelResourceLocation(Reference.MOD_ID + ":" + BASENAME + ".CONFIG", "inventory");
+        for (int i = 0; i < MalletMode.values().length; i++) {
+            ModelHelper.registerItem(ModItems.itemMallet, i, BASENAME + "." + MalletMode.getMode(i).toString().toLowerCase());
+            ModelBakery.registerItemVariants(ModItems.itemMallet,
+                    new ResourceLocation(Reference.MOD_ID + ":" + BASENAME + "." +
+                    MalletMode.getMode(i).toString().toLowerCase()));
 
-        ModelBakery.registerItemVariants(this, hammerModel, wrenchModel, paintModel, configModel);
-
-        ModelLoader.setCustomMeshDefinition(this, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                MalletMode m = getMode(stack);
-                if (m == MalletMode.HAMMER)
-                    return hammerModel;
-                else if (m == MalletMode.BCWRENCH)
-                    return wrenchModel;
-                else if (m == MalletMode.CONFIG)
-                    return configModel;
-                else
-                    return paintModel;
-            }
-        });
-
+        }
     }
 
     public static MalletMode getMode(ItemStack itemStack) {
@@ -98,8 +87,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
         tooltip.add(String.format(StringHelper.localize(Names.TOOLTIP, BASENAME),
                 GameSettings.getKeyDisplayString(KeyBindingsBG.KEY_MODE.getKeyBinding().getKeyCode())));
@@ -133,7 +121,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     public void doKeyBindingAction(EntityPlayer entityPlayer, ItemStack itemStack, EnumKeys key) {
 
         cycleMode(itemStack);
-        entityPlayer.addChatComponentMessage(new TextComponentString(getModeTranslation(itemStack)));
+        entityPlayer.sendStatusMessage(new TextComponentString(getModeTranslation(itemStack)), false);
     }
 
     public enum MalletMode {

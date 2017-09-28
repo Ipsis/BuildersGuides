@@ -11,9 +11,11 @@ import ipsis.buildersguides.tileentity.TileEntityMarker;
 import ipsis.buildersguides.oss.client.ModelHelper;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ClientProxy extends CommonProxy {
 
@@ -21,41 +23,37 @@ public class ClientProxy extends CommonProxy {
     public void preInit() {
 
         super.preInit();
-    }
 
-    @Override
-    protected void registerBlockItemModels() {
+        MinecraftForge.EVENT_BUS.register(this);
 
-        ModBlocks.blockMarker.initModel();
-    }
-
-    @Override
-    protected void registerItemRenderers() {
-
-        ModelHelper.registerItem(Item.getItemFromBlock(ModBlocks.blockMarker), 0, BlockMarker.BASENAME);
-        ModItems.itemMallet.initModel();
-        ModItems.itemMarkerCard.initModel();
-    }
-
-    @Override
-    protected void registerTESRs() {
+        MinecraftForge.EVENT_BUS.register(new KeyInputEventHandler());
+        MinecraftForge.EVENT_BUS.register(new DrawBlockHighlightEventHandler());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMarker.class, new TESRMarker());
-    }
-
-    @Override
-    public void registerKeyBindings() {
 
         for (KeyBindingsBG k : KeyBindingsBG.values()) {
             ClientRegistry.registerKeyBinding(k.getKeyBinding());
         }
     }
 
-    @Override
-    protected void registerEventHandlers() {
-        MinecraftForge.EVENT_BUS.register(new KeyInputEventHandler());
-        MinecraftForge.EVENT_BUS.register(new DrawBlockHighlightEventHandler());
+    public void init() {
+
+        super.init();
+
     }
+
+    public void postInit() {
+
+        super.postInit();
+    }
+
+    @SubscribeEvent
+    public void registerModels(ModelRegistryEvent event) {
+
+        ModItems.initClient();
+        ModBlocks.initClient();
+    }
+
 
     @Override
     public World getClientWorld() {
