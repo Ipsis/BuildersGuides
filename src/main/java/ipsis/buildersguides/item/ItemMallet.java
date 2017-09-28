@@ -83,7 +83,7 @@ public class ItemMallet extends ItemBG implements IKeyBound {
     public static String getModeTranslation(ItemStack itemStack) {
 
         return TextFormatting.YELLOW + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.MODE),
-                StringHelper.localize(Names.NAME, BASENAME + "." + getMode(itemStack).toString()));
+                StringHelper.localize(Names.NAME, BASENAME + "." + getMode(itemStack).toString().toLowerCase()));
     }
 
     @Override
@@ -110,9 +110,9 @@ public class ItemMallet extends ItemBG implements IKeyBound {
         }
 
         if (right)
-            tooltip.add(TextFormatting.RED + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.RCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.RCLICK)));
+            tooltip.add(TextFormatting.RED + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.RCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString().toLowerCase() + "." + Names.RCLICK)));
         if (sright)
-            tooltip.add(TextFormatting.GREEN + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.SRCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString() + "." + Names.SRCLICK)));
+            tooltip.add(TextFormatting.GREEN + String.format("%s: %s", StringHelper.localize(Names.NAME, Names.SRCLICK), StringHelper.localize(Names.TOOLTIP, BASENAME + "." + m.toString().toLowerCase() + "." + Names.SRCLICK)));
 
     }
 

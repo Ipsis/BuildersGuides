@@ -21,9 +21,4 @@ public class BlockBG extends Block {
     public void initModel() {
 
     }
-
-    @Override
-    public String getUnlocalizedName() {
-        return UnlocalizedName.getUnlocalizedNameBlock(super.getUnlocalizedName());
-    }
 }

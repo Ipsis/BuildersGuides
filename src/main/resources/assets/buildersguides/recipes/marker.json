@@ -10,7 +10,8 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "S": {
-      "item": "minecraft:stone"
+      "item": "minecraft:stone",
+      "data": 0
     },
     "T": {
       "item": "minecraft:torch"

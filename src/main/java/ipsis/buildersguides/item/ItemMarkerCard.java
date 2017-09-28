@@ -47,6 +47,13 @@ public class ItemMarkerCard extends ItemBG {
     }
 
     @Override
+    public String getUnlocalizedName(ItemStack stack) {
+
+        int idx = stack.getItemDamage() % MarkerType.values().length;
+        return super.getUnlocalizedName() + "." + MarkerType.getMarkerType(idx).toString().toLowerCase();
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
@@ -117,10 +124,10 @@ public class ItemMarkerCard extends ItemBG {
         MarkerType t = MarkerType.getMarkerType(stack.getItemDamage());
 
         if (t == MarkerType.CENTER || t == MarkerType.GHOSTSTAIRS || t == MarkerType.RANGE) {
-            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString() + ".1"));
-            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString() + ".2"));
+            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString().toLowerCase() + ".1"));
+            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString().toLowerCase() + ".2"));
         } else {
-            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString()));
+            tooltip.add(StringHelper.localize(Names.TOOLTIP, BASENAME + "." + t.toString().toLowerCase()));
         }
     }
 }

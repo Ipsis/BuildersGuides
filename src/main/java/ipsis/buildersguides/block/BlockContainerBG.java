@@ -20,9 +20,4 @@ public abstract class BlockContainerBG extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public void initModel() {
     }
-
-    @Override
-    public String getUnlocalizedName() {
-        return UnlocalizedName.getUnlocalizedNameBlock(super.getUnlocalizedName());
-    }
 }
