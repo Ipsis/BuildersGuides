@@ -58,8 +58,10 @@ public class ItemMarkerCard extends ItemBG {
     @SuppressWarnings("unchecked")
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 
-        for (MarkerType t : MarkerType.values()) {
-            items.add(new ItemStack(this, 1, t.ordinal()));
+        if (isInCreativeTab(tab)) {
+            for (MarkerType t : MarkerType.values()) {
+                items.add(new ItemStack(this, 1, t.ordinal()));
+            }
         }
     }
 
